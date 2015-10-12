@@ -118,6 +118,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AES.h" />
+    <ClInclude Include="BitConvert.h" />
+    <ClInclude Include="BukHash.h" />
+    <ClInclude Include="ConHash.h" />
+    <ClInclude Include="Digest.h" />
+    <ClInclude Include="PRF.h" />
+    <ClInclude Include="RSABlindSign.h" />
+    <ClInclude Include="SemCtl.h" />
+    <ClInclude Include="ShmCtl.h" />
+    <ClInclude Include="TimeDiff.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AES.cpp" />
+    <ClCompile Include="BitConvert.cpp" />
+    <ClCompile Include="Digest.cpp" />
+    <ClCompile Include="PRF.cpp" />
+    <ClCompile Include="RSABlindSign.cpp" />
+    <ClCompile Include="SemCtl.cpp" />
+    <ClCompile Include="ShmCtl.cpp" />
+    <ClCompile Include="TimeDiff.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
