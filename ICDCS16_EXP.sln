@@ -11,6 +11,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Proxy", "src\Proxy\Proxy.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "src\Test\Test.vcxproj", "{E789E9BB-19F8-40B7-926C-1E869C13426A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionDIR", "SolutionDIR", "{EF19B960-EC23-4B20-A405-B0FB95363065}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{418BBB68-DBFF-43BD-AF89-F768649AA430}"
+	ProjectSection(SolutionItems) = preProject
+		doc\Experiment.md = doc\Experiment.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -54,5 +64,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{418BBB68-DBFF-43BD-AF89-F768649AA430} = {EF19B960-EC23-4B20-A405-B0FB95363065}
 	EndGlobalSection
 EndGlobal
