@@ -1,12 +1,12 @@
 CC=g++
-BIN=CityUScore TestSystem TestScale TestSql
+BIN=testMakefile_1 testMakefile_2
 #TestAll
 FLAGS=-Wall -g -fpermissive -std=c++0x -O3
 RM=-rm -f
 SRC=$(wildcard *.cpp)
 #OBJ=$(SRC:*.cpp=*.o)
 OBj=$(patsubst %.cpp, %.o, $(SRC))
-COMMON_OBJ=$(filter-out CityUScore.cpp TestSystem.cpp TestAll.cpp TestScale.cpp TestSql.cpp,$(OBJ))
+COMMON_OBJ=$(filter-out testMakefile_1.cpp testMakefile_2.cpp,$(OBJ))
 
 #thrift
 THRIFT_LINK=-lthrift
@@ -41,20 +41,25 @@ all: $(BIN)
 %.o: %.cpp %.d
 	$(CC) -c $(FLAGS) $(INC) $< -o $@
 
-CityUScore:$(COMMON_OBJ)
+testMakefile_1:$(COMMON_OBJ)
 	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
 
-TestSystem:$(COMMON_OBJ)
+testMakefile_2:$(COMMON_OBJ)
 	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
+# CityUScore:$(COMMON_OBJ)
+	# $(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
+
+# TestSystem:$(COMMON_OBJ)
+# 	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
 
 #TestAll:$(COMMON_OBJ)
 #	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB) $(PAILLIER_LINK) $(PAILLIER_LIB) $(GMP_LINK)
 
-TestScale:$(COMMON_OBJ)
-	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
+# TestScale:$(COMMON_OBJ)
+# 	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
 
-TestSql:$(COMMON_OBJ)
-	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
+# TestSql:$(COMMON_OBJ)
+# 	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
 
 
 clean:
