@@ -4,7 +4,8 @@ BIN=CityUScore TestSystem TestScale TestSql
 FLAGS=-Wall -g -fpermissive -std=c++0x -O3
 RM=-rm -f
 SRC=$(wildcard *.cpp)
-OBJ=$(SRC:*.cpp=*.o)
+#OBJ=$(SRC:*.cpp=*.o)
+OBj=$(patsubst %.cpp, %.o, $(SRC))
 COMMON_OBJ=$(filter-out CityUScore.cpp TestSystem.cpp TestAll.cpp TestScale.cpp TestSql.cpp,$(OBJ))
 
 #thrift

@@ -23,5 +23,8 @@
     <ClCompile Include="testMakefile_1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="testMakefile_2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
