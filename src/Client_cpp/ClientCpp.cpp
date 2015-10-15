@@ -103,10 +103,43 @@ void ClientCpp::Put(string stTable, string stKey, string stCol, char *pVal, uint
 		
 		//Generate the Index Trapdoor
 		stTmp = stTable + stCol;
-		char szIndexTd[SHA256_DIGEST_LENGTH];
+		const uint32_t kIndexValSize = SHA256_DIGEST_LENGTH + sizeof(uint32_t);
+		char szIndexTd[kIndexValSize];
+		PRF::Sha256(m_szPk3, SHA256_DIGEST_LENGTH, (char*)stTmp.c_str(), stTmp.length(), szIndexTd, SHA256_DIGEST_LENGTH);
+		stTmp.assign(szIndexTd, SHA256_DIGEST_LENGTH);
+
+		PRF::Sha256((char*)&m_uiCounter, sizeof(m_uiCounter), (char*)stTmp.c_str(), stTmp.length(), szIndexTd, SHA256_DIGEST_LENGTH);
+		string stIndexTrapdoor;
+		stIndexTrapdoor.assign(szIndexTd, SHA256_DIGEST_LENGTH);
 
 
+		//Generate 
+		PRF::Sha256(m_szPk4, SHA256_DIGEST_LENGTH, (char*)stTmp.c_str(), stTmp.length(), szIndexTd, SHA256_DIGEST_LENGTH);
+		stTmp.assign(szIndexTd, SHA256_DIGEST_LENGTH);
 
+		PRF::Sha256((char*)&m_uiCounter, sizeof(m_uiCounter), (char*)stTmp.c_str(), stTmp.length(), szIndexTd, SHA256_DIGEST_LENGTH);
+		//padding the last 4 bytes
+		*(uint32_t*)(szIndexTd + SHA256_DIGEST_LENGTH) = 0;
+		
+		//for the first 4 bytes flag
+		*(uint32_t*)szIndexTd ^= INDEX_STOP_FLAG;
+		//for the last 32 bytes
+		const char *pTrapdoor = strTrapdoor.c_str();
+		char *pMask = szIndexTd + sizeof(uint32_t);
+		for (uint32_t uiCur = 0; uiCur < SHA256_DIGEST_LENGTH; uiCur++)
+		{
+			pMask[uiCur] ^= pTrapdoor[uiCur];
+		}
+
+		string stIndexVal;
+		stIndexVal.assign(szIndexTd, kIndexValSize);
+
+		//Counter Add 1
+		m_uiCounter++;
+
+		//Send the request
+
+		
 
 	}
 	

@@ -15,6 +15,7 @@
 #include "DemoConfig.h"
 
 #define SHA256_DIGEST_LENGTH 32
+#define INDEX_STOP_FLAG 1234567890
 
 using namespace proxyserver;
 using namespace caravel;

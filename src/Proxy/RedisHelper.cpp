@@ -7,7 +7,10 @@
 #include <stdint.h>
 
 using namespace redis3m;
+using namespace std;
+
 connection::ptr_t c;
+
 RedisHelper::RedisHelper()
 {
 }
