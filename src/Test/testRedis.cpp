@@ -41,6 +41,7 @@ void Put(char *pKey, uint32_t uiKeyLen, char *pVal, uint32_t uiValLen)
 	sVal.append(pVal);
         //std::cout << sKey << " " << sVal;
 	c->run(command("SET") << sKey << sVal);
+	std::cout << uiKeyLen << " " << uiValLen << std::endl;
 	return;
 }
 
@@ -50,12 +51,11 @@ int main(int argc, char **argv)
 	//connection::ptr_t conn = connection::create();
 	//conn->run(command("SET") << "foo" << "bar" );
 	Open();
-	std::string tkey = "Hello";
-	std::string tvalue = "world";
-	Put(tkey.c_str(), (unsigned) tkey.size(), tvalue.c_str(), (unsigned) tvalue.size());
+	char* tkey = "Hello";
+	char* tvalue = "world";
+	Put(tkey, (unsigned) sizeof(*tkey), tvalue, (unsigned) sizeof(tvalue));
 	char* rvalue;
 	uint32_t uiOutLen = 1000;
-	// Get(tkey, )
 	// reply r = c->run(command("GET") << "Hello" );
 	// std::cout << "Hello is: " << r.str() << std::endl;
 
