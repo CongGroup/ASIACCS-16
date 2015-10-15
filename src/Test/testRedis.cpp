@@ -16,18 +16,22 @@ void Close()
 
 uint32_t Get(char *pKey, uint32_t uiKeyLen, char *pOut, uint32_t uiOutLen)
 {
+	uint32_t len = 0;
 	std::string sKey,sVal;
 	sKey.append(pKey);
 	reply r = c->run(command("GET") << sKey);
 	sVal = r.str();
-	uint32_t len = (unsigned) strlen(sVal);
+	std::cout << sVal.size() << std::endl;
+
+//	int zzz = strlen(sVal);
+	//uint32_t len = (unsigned) strlen(sVal);
 	if (len > uiOutLen)
 	{
 		return 0;
 	}
 	else 
 	{
-//		*pOut = sVal.c_str();	
+		//*pOut = sVal.c_str();	
 		return len;
 	}
 }
