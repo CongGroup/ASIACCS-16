@@ -127,6 +127,7 @@
     <ClInclude Include="RSABlindSign.h" />
     <ClInclude Include="SemCtl.h" />
     <ClInclude Include="ShmCtl.h" />
+    <ClInclude Include="ThriftAdapt.h" />
     <ClInclude Include="TimeDiff.h" />
   </ItemGroup>
   <ItemGroup>

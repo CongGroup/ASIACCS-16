@@ -5,17 +5,17 @@
 #include <time.h>
 #include <sys/time.h>
 
-namespace caravel{
+namespace caravel {
 
-class TimeDiff
-{
-public:
+	class TimeDiff
+	{
+	public:
 
-    static uint32_t DiffTimeInMicroSecond();
+		static uint32_t DiffTimeInMicroSecond();
 
-    static uint32_t DiffTimeInSecond();
+		static uint32_t DiffTimeInSecond();
 
-};
+	};
 
 }
 

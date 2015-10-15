@@ -8,25 +8,25 @@
 
 using namespace std;
 
-namespace caravel{
+namespace caravel {
 
-class AES
-{
-public:
-    AES(void);
-    ~AES(void);
+	class AES
+	{
+	public:
+		AES(void);
+		~AES(void);
 
-    static size_t CbcMaxsize(uint32_t uiSize);
+		static size_t CbcMaxsize(uint32_t uiSize);
 
-    static size_t CbcEncrypt256(const char *pIn, int iInLen, char *pOut, char *pKey, char *pIv);
+		static size_t CbcEncrypt256(const char *pIn, int iInLen, char *pOut, char *pKey, char *pIv);
 
-    static size_t CbcDecrypt256(const char *pIn, int iInLen, char *pOut, char *pKey, char *pIv);
+		static size_t CbcDecrypt256(const char *pIn, int iInLen, char *pOut, char *pKey, char *pIv);
 
-    static size_t CbcEncrypt256(const char *pIn, int iInLen, char *pOut, char *pKey);
+		static size_t CbcEncrypt256(const char *pIn, int iInLen, char *pOut, char *pKey);
 
-    static size_t CbcDecrypt256(const char *pIn, int iInLen, char *pOut, char *pKey);
+		static size_t CbcDecrypt256(const char *pIn, int iInLen, char *pOut, char *pKey);
 
-};
+	};
 
 }
 

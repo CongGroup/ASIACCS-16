@@ -8,15 +8,15 @@
 using namespace std;
 
 
-namespace caravel{
+namespace caravel {
 
-class PRF
-{
-public:
+	class PRF
+	{
+	public:
 
-    static void Sha256(char *pKey, uint32_t uiKeyLen, char *pData, uint32_t uiDataLen, char *pOut, uint32_t uiOutLen);
+		static void Sha256(char *pKey, uint32_t uiKeyLen, char *pData, uint32_t uiDataLen, char *pOut, uint32_t uiOutLen);
 
-};
+	};
 
 }
 

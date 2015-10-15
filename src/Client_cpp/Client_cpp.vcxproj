@@ -118,6 +118,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ClientCpp.h" />
+    <ClInclude Include="SimConHash.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ClientCpp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

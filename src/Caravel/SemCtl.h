@@ -3,32 +3,36 @@
 
 #include <sys/sem.h>
 
-class SemCtl
-{
-public:
-    SemCtl(void);
-    ~SemCtl(void);
-    
-    int Init(key_t key, int iSemLen);
+namespace caravel {
 
-    int SetSem(int iSem, int iVal);
+	class SemCtl
+	{
+	public:
+		SemCtl(void);
+		~SemCtl(void);
 
-    int GetSem(int iSem);
+		int Init(key_t key, int iSemLen);
 
-    int ModSem(int iSem, int iMod);
+		int SetSem(int iSem, int iVal);
 
-private:
+		int GetSem(int iSem);
 
-    union semun {
-       int val;                    /* value for SETVAL */
-       struct semid_ds *buf;       /* buffer for IPC_STAT, IPC_SET */
-       unsigned short int *array;  /* array for GETALL, SETALL */
-       struct seminfo *__buf;      /* buffer for IPC_INFO */
-    };
+		int ModSem(int iSem, int iMod);
 
-    int m_iSemID;
-    int m_iSemLen;
+	private:
 
-};
+		union semun {
+			int val;                    /* value for SETVAL */
+			struct semid_ds *buf;       /* buffer for IPC_STAT, IPC_SET */
+			unsigned short int *array;  /* array for GETALL, SETALL */
+			struct seminfo *__buf;      /* buffer for IPC_INFO */
+		};
+
+		int m_iSemID;
+		int m_iSemLen;
+
+	};
+
+}
 
 #endif

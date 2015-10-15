@@ -2,15 +2,15 @@
 #define __SHMCTL_H__
 #include <sys/shm.h>
 
-namespace caravel{
+namespace caravel {
 
-class ShmCtl
-{
-public:
+	class ShmCtl
+	{
+	public:
 
-    static bool GetShm(void **pShm, key_t kKey, size_t siLen);
+		static bool GetShm(void **pShm, key_t kKey, size_t siLen);
 
-};
+	};
 
 }
 
