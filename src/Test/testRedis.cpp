@@ -29,7 +29,7 @@ uint32_t Get(char *pKey, uint32_t uiKeyLen, char *pOut, uint32_t uiOutLen)
 	}
 	else 
 	{
-		*pOut = sVal.c_str();
+		strcpy(pOut, sVal.c_str());
 		return len;
 	}
 }
