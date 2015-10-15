@@ -31,4 +31,8 @@ int main(int argc, char **argv)
 	reply r = conn->run(command("GET") << "foo" );
 	std::cout << "FOO is: " << r.str() << std::endl;
 
+	char* tkey = "Hello";
+	char* tvalue = "world";
+	Put(tkey, (unsigned) strlen(*tkey), tvalue, (unsigned) strlen(tvalue));
+
 }
