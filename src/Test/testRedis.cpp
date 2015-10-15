@@ -21,17 +21,15 @@ uint32_t Get(char *pKey, uint32_t uiKeyLen, char *pOut, uint32_t uiOutLen)
 	sKey.append(pKey);
 	reply r = c->run(command("GET") << sKey);
 	sVal = r.str();
-	std::cout << sVal.size() << std::endl;
 
-//	int zzz = strlen(sVal);
-	//uint32_t len = (unsigned) strlen(sVal);
+	len = (unsigned) sVal.size();
 	if (len > uiOutLen)
 	{
 		return 0;
 	}
 	else 
 	{
-		//*pOut = sVal.c_str();	
+		*pOut = sVal.c_str();
 		return len;
 	}
 }
@@ -52,10 +50,12 @@ int main(int argc, char **argv)
 	//connection::ptr_t conn = connection::create();
 	//conn->run(command("SET") << "foo" << "bar" );
 	Open();
-	char* tkey = "Hello";
-	char* tvalue = "world";
-	Put(tkey, (unsigned) sizeof(*tkey), tvalue, (unsigned) sizeof(tvalue));
-	
+	std::string tkey = "Hello";
+	std::string tvalue = "world";
+	Put(tkey.c_str(), (unsigned) tkey.size(), tvalue.c_str(), (unsigned) tvalue.size());
+	char* rvalue;
+	uint32_t uiOutLen = 1000;
+	// Get(tkey, )
 	// reply r = c->run(command("GET") << "Hello" );
 	// std::cout << "Hello is: " << r.str() << std::endl;
 
