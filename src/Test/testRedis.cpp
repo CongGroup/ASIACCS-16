@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 	Put(tkey, (unsigned) 2, tvalue, (unsigned) 5);
 	char* rvalue;
 	uint32_t uiOutLen = 1000;
-	std::cout << Get("Hi", 2, rvalue, uiOutLen); << std::endl;
+	std::cout << Get("Hi", 2, rvalue, uiOutLen) << std::endl;
 	std::cout << *rvalue << std::endl;
 	// reply r = c->run(command("GET") << "Hello" );
 	// std::cout << "Hello is: " << r.str() << std::endl;
