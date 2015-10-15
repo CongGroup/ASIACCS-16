@@ -48,7 +48,7 @@ class TProxyServiceIf {
    * @param IndexMask
    * @param GetNum
    */
-  virtual void ProxyGetColumn(std::vector<std::string> & _return, const std::vector<std::string> & IndexTrapdoor, const std::vector<std::string> & IndexMask, const int32_t GetNum) = 0;
+  virtual void ProxyGetColumn(std::vector<std::string> & _return, const std::string& IndexTrapdoor, const std::string& IndexMask, const int32_t GetNum) = 0;
 };
 
 class TProxyServiceIfFactory {
@@ -84,7 +84,7 @@ class TProxyServiceNull : virtual public TProxyServiceIf {
   void ProxyPut(const std::string& /* Trapdoor */, const std::string& /* Val */, const std::string& /* IndexTrapdoor */, const std::string& /* IndexVal */) {
     return;
   }
-  void ProxyGetColumn(std::vector<std::string> & /* _return */, const std::vector<std::string> & /* IndexTrapdoor */, const std::vector<std::string> & /* IndexMask */, const int32_t /* GetNum */) {
+  void ProxyGetColumn(std::vector<std::string> & /* _return */, const std::string& /* IndexTrapdoor */, const std::string& /* IndexMask */, const int32_t /* GetNum */) {
     return;
   }
 };
@@ -291,17 +291,17 @@ class TProxyService_ProxyGetColumn_args {
 
   TProxyService_ProxyGetColumn_args(const TProxyService_ProxyGetColumn_args&);
   TProxyService_ProxyGetColumn_args& operator=(const TProxyService_ProxyGetColumn_args&);
-  TProxyService_ProxyGetColumn_args() : GetNum(0) {
+  TProxyService_ProxyGetColumn_args() : IndexTrapdoor(), IndexMask(), GetNum(0) {
   }
 
   virtual ~TProxyService_ProxyGetColumn_args() throw();
-  std::vector<std::string>  IndexTrapdoor;
-  std::vector<std::string>  IndexMask;
+  std::string IndexTrapdoor;
+  std::string IndexMask;
   int32_t GetNum;
 
-  void __set_IndexTrapdoor(const std::vector<std::string> & val);
+  void __set_IndexTrapdoor(const std::string& val);
 
-  void __set_IndexMask(const std::vector<std::string> & val);
+  void __set_IndexMask(const std::string& val);
 
   void __set_GetNum(const int32_t val);
 
@@ -332,8 +332,8 @@ class TProxyService_ProxyGetColumn_pargs {
 
 
   virtual ~TProxyService_ProxyGetColumn_pargs() throw();
-  const std::vector<std::string> * IndexTrapdoor;
-  const std::vector<std::string> * IndexMask;
+  const std::string* IndexTrapdoor;
+  const std::string* IndexMask;
   const int32_t* GetNum;
 
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
@@ -426,8 +426,8 @@ class TProxyServiceClient : virtual public TProxyServiceIf {
   void ProxyPut(const std::string& Trapdoor, const std::string& Val, const std::string& IndexTrapdoor, const std::string& IndexVal);
   void send_ProxyPut(const std::string& Trapdoor, const std::string& Val, const std::string& IndexTrapdoor, const std::string& IndexVal);
   void recv_ProxyPut();
-  void ProxyGetColumn(std::vector<std::string> & _return, const std::vector<std::string> & IndexTrapdoor, const std::vector<std::string> & IndexMask, const int32_t GetNum);
-  void send_ProxyGetColumn(const std::vector<std::string> & IndexTrapdoor, const std::vector<std::string> & IndexMask, const int32_t GetNum);
+  void ProxyGetColumn(std::vector<std::string> & _return, const std::string& IndexTrapdoor, const std::string& IndexMask, const int32_t GetNum);
+  void send_ProxyGetColumn(const std::string& IndexTrapdoor, const std::string& IndexMask, const int32_t GetNum);
   void recv_ProxyGetColumn(std::vector<std::string> & _return);
  protected:
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;
@@ -500,7 +500,7 @@ class TProxyServiceMultiface : virtual public TProxyServiceIf {
     ifaces_[i]->ProxyPut(Trapdoor, Val, IndexTrapdoor, IndexVal);
   }
 
-  void ProxyGetColumn(std::vector<std::string> & _return, const std::vector<std::string> & IndexTrapdoor, const std::vector<std::string> & IndexMask, const int32_t GetNum) {
+  void ProxyGetColumn(std::vector<std::string> & _return, const std::string& IndexTrapdoor, const std::string& IndexMask, const int32_t GetNum) {
     size_t sz = ifaces_.size();
     size_t i = 0;
     for (; i < (sz - 1); ++i) {
@@ -546,8 +546,8 @@ class TProxyServiceConcurrentClient : virtual public TProxyServiceIf {
   void ProxyPut(const std::string& Trapdoor, const std::string& Val, const std::string& IndexTrapdoor, const std::string& IndexVal);
   int32_t send_ProxyPut(const std::string& Trapdoor, const std::string& Val, const std::string& IndexTrapdoor, const std::string& IndexVal);
   void recv_ProxyPut(const int32_t seqid);
-  void ProxyGetColumn(std::vector<std::string> & _return, const std::vector<std::string> & IndexTrapdoor, const std::vector<std::string> & IndexMask, const int32_t GetNum);
-  int32_t send_ProxyGetColumn(const std::vector<std::string> & IndexTrapdoor, const std::vector<std::string> & IndexMask, const int32_t GetNum);
+  void ProxyGetColumn(std::vector<std::string> & _return, const std::string& IndexTrapdoor, const std::string& IndexMask, const int32_t GetNum);
+  int32_t send_ProxyGetColumn(const std::string& IndexTrapdoor, const std::string& IndexMask, const int32_t GetNum);
   void recv_ProxyGetColumn(std::vector<std::string> & _return, const int32_t seqid);
  protected:
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;

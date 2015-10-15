@@ -54,7 +54,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
    * @param IndexMask
    * @param GetNum
    */
-  void ProxyGetColumn(std::vector<std::string> & _return, const std::vector<std::string> & IndexTrapdoor, const std::vector<std::string> & IndexMask, const int32_t GetNum) {
+  void ProxyGetColumn(std::vector<std::string> & _return, const std::string& IndexTrapdoor, const std::string& IndexMask, const int32_t GetNum) {
     // Your implementation goes here
     printf("ProxyGetColumn\n");
   }

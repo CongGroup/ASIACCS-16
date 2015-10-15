@@ -444,40 +444,16 @@ uint32_t TProxyService_ProxyGetColumn_args::read(::apache::thrift::protocol::TPr
     switch (fid)
     {
       case 1:
-        if (ftype == ::apache::thrift::protocol::T_LIST) {
-          {
-            this->IndexTrapdoor.clear();
-            uint32_t _size0;
-            ::apache::thrift::protocol::TType _etype3;
-            xfer += iprot->readListBegin(_etype3, _size0);
-            this->IndexTrapdoor.resize(_size0);
-            uint32_t _i4;
-            for (_i4 = 0; _i4 < _size0; ++_i4)
-            {
-              xfer += iprot->readBinary(this->IndexTrapdoor[_i4]);
-            }
-            xfer += iprot->readListEnd();
-          }
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readBinary(this->IndexTrapdoor);
           isset_IndexTrapdoor = true;
         } else {
           xfer += iprot->skip(ftype);
         }
         break;
       case 2:
-        if (ftype == ::apache::thrift::protocol::T_LIST) {
-          {
-            this->IndexMask.clear();
-            uint32_t _size5;
-            ::apache::thrift::protocol::TType _etype8;
-            xfer += iprot->readListBegin(_etype8, _size5);
-            this->IndexMask.resize(_size5);
-            uint32_t _i9;
-            for (_i9 = 0; _i9 < _size5; ++_i9)
-            {
-              xfer += iprot->readBinary(this->IndexMask[_i9]);
-            }
-            xfer += iprot->readListEnd();
-          }
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readBinary(this->IndexMask);
           isset_IndexMask = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -514,28 +490,12 @@ uint32_t TProxyService_ProxyGetColumn_args::write(::apache::thrift::protocol::TP
   apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
   xfer += oprot->writeStructBegin("TProxyService_ProxyGetColumn_args");
 
-  xfer += oprot->writeFieldBegin("IndexTrapdoor", ::apache::thrift::protocol::T_LIST, 1);
-  {
-    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->IndexTrapdoor.size()));
-    std::vector<std::string> ::const_iterator _iter10;
-    for (_iter10 = this->IndexTrapdoor.begin(); _iter10 != this->IndexTrapdoor.end(); ++_iter10)
-    {
-      xfer += oprot->writeBinary((*_iter10));
-    }
-    xfer += oprot->writeListEnd();
-  }
+  xfer += oprot->writeFieldBegin("IndexTrapdoor", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeBinary(this->IndexTrapdoor);
   xfer += oprot->writeFieldEnd();
 
-  xfer += oprot->writeFieldBegin("IndexMask", ::apache::thrift::protocol::T_LIST, 2);
-  {
-    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->IndexMask.size()));
-    std::vector<std::string> ::const_iterator _iter11;
-    for (_iter11 = this->IndexMask.begin(); _iter11 != this->IndexMask.end(); ++_iter11)
-    {
-      xfer += oprot->writeBinary((*_iter11));
-    }
-    xfer += oprot->writeListEnd();
-  }
+  xfer += oprot->writeFieldBegin("IndexMask", ::apache::thrift::protocol::T_STRING, 2);
+  xfer += oprot->writeBinary(this->IndexMask);
   xfer += oprot->writeFieldEnd();
 
   xfer += oprot->writeFieldBegin("GetNum", ::apache::thrift::protocol::T_I32, 3);
@@ -557,28 +517,12 @@ uint32_t TProxyService_ProxyGetColumn_pargs::write(::apache::thrift::protocol::T
   apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
   xfer += oprot->writeStructBegin("TProxyService_ProxyGetColumn_pargs");
 
-  xfer += oprot->writeFieldBegin("IndexTrapdoor", ::apache::thrift::protocol::T_LIST, 1);
-  {
-    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>((*(this->IndexTrapdoor)).size()));
-    std::vector<std::string> ::const_iterator _iter12;
-    for (_iter12 = (*(this->IndexTrapdoor)).begin(); _iter12 != (*(this->IndexTrapdoor)).end(); ++_iter12)
-    {
-      xfer += oprot->writeBinary((*_iter12));
-    }
-    xfer += oprot->writeListEnd();
-  }
+  xfer += oprot->writeFieldBegin("IndexTrapdoor", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeBinary((*(this->IndexTrapdoor)));
   xfer += oprot->writeFieldEnd();
 
-  xfer += oprot->writeFieldBegin("IndexMask", ::apache::thrift::protocol::T_LIST, 2);
-  {
-    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>((*(this->IndexMask)).size()));
-    std::vector<std::string> ::const_iterator _iter13;
-    for (_iter13 = (*(this->IndexMask)).begin(); _iter13 != (*(this->IndexMask)).end(); ++_iter13)
-    {
-      xfer += oprot->writeBinary((*_iter13));
-    }
-    xfer += oprot->writeListEnd();
-  }
+  xfer += oprot->writeFieldBegin("IndexMask", ::apache::thrift::protocol::T_STRING, 2);
+  xfer += oprot->writeBinary((*(this->IndexMask)));
   xfer += oprot->writeFieldEnd();
 
   xfer += oprot->writeFieldBegin("GetNum", ::apache::thrift::protocol::T_I32, 3);
@@ -620,14 +564,14 @@ uint32_t TProxyService_ProxyGetColumn_result::read(::apache::thrift::protocol::T
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size14;
-            ::apache::thrift::protocol::TType _etype17;
-            xfer += iprot->readListBegin(_etype17, _size14);
-            this->success.resize(_size14);
-            uint32_t _i18;
-            for (_i18 = 0; _i18 < _size14; ++_i18)
+            uint32_t _size0;
+            ::apache::thrift::protocol::TType _etype3;
+            xfer += iprot->readListBegin(_etype3, _size0);
+            this->success.resize(_size0);
+            uint32_t _i4;
+            for (_i4 = 0; _i4 < _size0; ++_i4)
             {
-              xfer += iprot->readBinary(this->success[_i18]);
+              xfer += iprot->readBinary(this->success[_i4]);
             }
             xfer += iprot->readListEnd();
           }
@@ -658,10 +602,10 @@ uint32_t TProxyService_ProxyGetColumn_result::write(::apache::thrift::protocol::
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->success.size()));
-      std::vector<std::string> ::const_iterator _iter19;
-      for (_iter19 = this->success.begin(); _iter19 != this->success.end(); ++_iter19)
+      std::vector<std::string> ::const_iterator _iter5;
+      for (_iter5 = this->success.begin(); _iter5 != this->success.end(); ++_iter5)
       {
-        xfer += oprot->writeBinary((*_iter19));
+        xfer += oprot->writeBinary((*_iter5));
       }
       xfer += oprot->writeListEnd();
     }
@@ -702,14 +646,14 @@ uint32_t TProxyService_ProxyGetColumn_presult::read(::apache::thrift::protocol::
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size20;
-            ::apache::thrift::protocol::TType _etype23;
-            xfer += iprot->readListBegin(_etype23, _size20);
-            (*(this->success)).resize(_size20);
-            uint32_t _i24;
-            for (_i24 = 0; _i24 < _size20; ++_i24)
+            uint32_t _size6;
+            ::apache::thrift::protocol::TType _etype9;
+            xfer += iprot->readListBegin(_etype9, _size6);
+            (*(this->success)).resize(_size6);
+            uint32_t _i10;
+            for (_i10 = 0; _i10 < _size6; ++_i10)
             {
-              xfer += iprot->readBinary((*(this->success))[_i24]);
+              xfer += iprot->readBinary((*(this->success))[_i10]);
             }
             xfer += iprot->readListEnd();
           }
@@ -844,13 +788,13 @@ void TProxyServiceClient::recv_ProxyPut()
   return;
 }
 
-void TProxyServiceClient::ProxyGetColumn(std::vector<std::string> & _return, const std::vector<std::string> & IndexTrapdoor, const std::vector<std::string> & IndexMask, const int32_t GetNum)
+void TProxyServiceClient::ProxyGetColumn(std::vector<std::string> & _return, const std::string& IndexTrapdoor, const std::string& IndexMask, const int32_t GetNum)
 {
   send_ProxyGetColumn(IndexTrapdoor, IndexMask, GetNum);
   recv_ProxyGetColumn(_return);
 }
 
-void TProxyServiceClient::send_ProxyGetColumn(const std::vector<std::string> & IndexTrapdoor, const std::vector<std::string> & IndexMask, const int32_t GetNum)
+void TProxyServiceClient::send_ProxyGetColumn(const std::string& IndexTrapdoor, const std::string& IndexMask, const int32_t GetNum)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("ProxyGetColumn", ::apache::thrift::protocol::T_CALL, cseqid);
@@ -1256,13 +1200,13 @@ void TProxyServiceConcurrentClient::recv_ProxyPut(const int32_t seqid)
   } // end while(true)
 }
 
-void TProxyServiceConcurrentClient::ProxyGetColumn(std::vector<std::string> & _return, const std::vector<std::string> & IndexTrapdoor, const std::vector<std::string> & IndexMask, const int32_t GetNum)
+void TProxyServiceConcurrentClient::ProxyGetColumn(std::vector<std::string> & _return, const std::string& IndexTrapdoor, const std::string& IndexMask, const int32_t GetNum)
 {
   int32_t seqid = send_ProxyGetColumn(IndexTrapdoor, IndexMask, GetNum);
   recv_ProxyGetColumn(_return, seqid);
 }
 
-int32_t TProxyServiceConcurrentClient::send_ProxyGetColumn(const std::vector<std::string> & IndexTrapdoor, const std::vector<std::string> & IndexMask, const int32_t GetNum)
+int32_t TProxyServiceConcurrentClient::send_ProxyGetColumn(const std::string& IndexTrapdoor, const std::string& IndexMask, const int32_t GetNum)
 {
   int32_t cseqid = this->sync_.generateSeqId();
   ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
