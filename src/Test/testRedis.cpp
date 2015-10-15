@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 	char* tvalue = "world";
 	Put(tkey, (unsigned) sizeof(*tkey), tvalue, (unsigned) sizeof(tvalue));
 	
-	reply r = c->run(command("GET") << "Hello" );
-	std::cout << "Hello is: " << r.str() << std::endl;
+	// reply r = c->run(command("GET") << "Hello" );
+	// std::cout << "Hello is: " << r.str() << std::endl;
 
 }
