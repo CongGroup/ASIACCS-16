@@ -35,14 +35,18 @@ public:
 
 	void Get(string &_retVal, string stTable, string stKey, string stCol);
 
-	void Put(string stTable, string stKey, string stCol, char *pVal, uint32_t uiLen);
+	void Put(string stTable, string stKey, string stCol, char *pVal, uint32_t uiLen, bool bIndex);
 
 	void GetCol(vector<string> &_retVal, string stTable, string stCol, uint32_t uiNum);
 
 
 private:
 
-	void m_Decrypt(string &)
+	void m_Decrypt(string &strCiphertext, string &strPlaintext);
+	void m_Encrypt(string &strCiphertext, char *pPlaintext, uint32_t uiPlaintextLen);
+
+	//For counter
+	uint32_t m_uiCounter;
 
 	//For trapdoor to Key
 	//<Table + Column + Key> || PK1 => Trapdoor

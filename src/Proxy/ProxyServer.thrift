@@ -36,8 +36,8 @@ service TProxyService {
    * @return a binary list of Column value
    */
   list<binary> ProxyGetColumn(
-    1: required list<binary> IndexTrapdoor,
-    2: required list<binary> IndexMask,
+    1: required binary IndexTrapdoor,
+    2: required binary IndexMask,
 	3: required i32 GetNum
   );
 

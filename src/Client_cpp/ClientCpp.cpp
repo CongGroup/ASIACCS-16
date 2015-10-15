@@ -57,8 +57,8 @@ void ClientCpp::Get(string &_retVal, string stTable, string stKey, string stCol)
 	PRF::Sha256(m_szPk1, SHA256_DIGEST_LENGTH, (char*)stTmp.c_str(), stTmp.length(), szTd, SHA256_DIGEST_LENGTH);
 
 	//Set Trapdoor to String
-	string stSendKey;
-	stSendKey.assign(szTd, SHA256_DIGEST_LENGTH);
+	string strTrapdoor;
+	strTrapdoor.assign(szTd, SHA256_DIGEST_LENGTH);
 
 	//Check the Router to choose a server to send request.
 	uint32_t uiKey = *(uint32_t*)szTd;
@@ -68,20 +68,49 @@ void ClientCpp::Get(string &_retVal, string stTable, string stKey, string stCol)
 
 	//Send the request to remote server
 	string strRet;
-	pClient->ProxyGet(strRet, stSendKey);
+	pClient->ProxyGet(strRet, strTrapdoor);
 
 	//we assume strRet.length == 0 means the key do not exist.
 	if (strRet.length != 0)
 	{
-		//Decrypt the AES
-		
+		//Decrypt the data
+		m_Decrypt(strRet, _retVal);
 	}
 
 
 }
 
-void ClientCpp::Put(string stTable, string stKey, string stCol, char *pVal, uint32_t uiLen)
+void ClientCpp::Put(string stTable, string stKey, string stCol, char *pVal, uint32_t uiLen, bool bIndex)
 {
+	//Generate the SendKey
+	string stTmp = stTable + stKey + stCol;
+	char szTd[SHA256_DIGEST_LENGTH];
+	PRF::Sha256(m_szPk1, SHA256_DIGEST_LENGTH, (char*)stTmp.c_str(), stTmp.length(), szTd, SHA256_DIGEST_LENGTH);
+	string strTrapdoor;
+	strTrapdoor.assign(szTd, SHA256_DIGEST_LENGTH);
+
+	//AES the data
+	string strSendVal;
+	m_Encrypt(strSendVal, pVal, uiLen);
+
+	//Check the Router to choose a server to send request.
+	uint32_t uiKey = *(uint32_t*)szTd;
+	ThriftAdapt<TProxyServiceClient> *pThriftAdapt = *(m_SimConHash.Query(uiKey));
+	TProxyServiceClient* pClient = pThriftAdapt->GetClient();
+
+	if(bIndex)
+	{
+		
+		//Generate the Index Trapdoor
+		stTmp = stTable + stCol;
+		char szIndexTd[SHA256_DIGEST_LENGTH];
+
+
+
+
+	}
+	
+
 
 }
 
@@ -127,3 +156,36 @@ void ClientCpp::InitExample()
 	}
 
 }
+
+
+void ClientCpp::m_Decrypt(string &strCiphertext, string &strPlaintext)
+{
+	//Decrypt the AES
+	char *pDec = new char[strCiphertext.length];
+
+	memset(pDec, 0, strCiphertext.length);
+
+	uint32_t uiSize = AES::CbcDecrypt256(strCiphertext.c_str(), strCiphertext.length(), pDec, m_szPk5);
+
+	strPlaintext.assign(pDec, uiSize);
+
+	delete[] pDec;
+
+}
+
+
+
+void ClientCpp::m_Encrypt(string &strCiphertext, char *pPlaintext, uint32_t uiPlaintextLen)
+{
+
+	char *pEnc = new char[AES::CbcMaxsize(uiPlaintextLen)];
+	
+	memset(pEnc, 0, AES::CbcMaxsize(uiPlaintextLen));
+	
+	uint32_t uiEncLen = AES::CbcEncrypt256(pPlaintext, uiPlaintextLen, pEnc, m_szPk5);
+
+	strCiphertext.assign(pEnc, uiEncLen);
+
+	delete[] pEnc;
+}
+
