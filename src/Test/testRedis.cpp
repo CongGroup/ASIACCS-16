@@ -2,7 +2,7 @@
 #include <iostream>
 
 using namespace redis3m;
-
+connection::ptr_t c;
 void Open()
 {
 
@@ -21,6 +21,7 @@ uint32_t Get(char *pKey, uint32_t uiKeyLen, char *pOut, uint32_t uiOutLen)
 
 void Put(char *pKey, uint32_t uiKeyLen, char *pVal, uint32_t uiValLen)
 {
+	
 }
 
 
@@ -33,6 +34,6 @@ int main(int argc, char **argv)
 
 	char* tkey = "Hello";
 	char* tvalue = "world";
-	Put(tkey, (unsigned) strlen(*tkey), tvalue, (unsigned) strlen(tvalue));
+	Put(tkey, (unsigned) sizeof(*tkey), tvalue, (unsigned) sizeof(tvalue));
 
 }

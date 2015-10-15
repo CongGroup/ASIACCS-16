@@ -1,0 +1,2 @@
+aaa:
+	g++ testRedis.cpp -std=c++0x `pkg-config --cflags --libs redis3m`
