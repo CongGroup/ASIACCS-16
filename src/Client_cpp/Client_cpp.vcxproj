@@ -119,10 +119,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ClientCpp.h" />
+    <ClInclude Include="ProxyServer_constants.h" />
+    <ClInclude Include="ProxyServer_types.h" />
     <ClInclude Include="SimConHash.h" />
+    <ClInclude Include="TProxyService.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientCpp.cpp" />
+    <ClCompile Include="ProxyServer_constants.cpp" />
+    <ClCompile Include="ProxyServer_types.cpp" />
+    <ClCompile Include="TProxyService.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
