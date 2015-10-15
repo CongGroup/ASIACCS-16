@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ClientCpp.h" />
+    <ClInclude Include="DemoConfig.h" />
     <ClInclude Include="ProxyServer_constants.h" />
     <ClInclude Include="ProxyServer_types.h" />
     <ClInclude Include="SimConHash.h" />

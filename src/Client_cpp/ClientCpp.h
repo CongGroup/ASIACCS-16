@@ -7,8 +7,17 @@
 #include <stdint.h>
 #include <vector>
 
+#include "../Caravel/ThriftAdapt.h"
+
+#include "SimConHash.h"
+#include "TProxyService.h"
+
+#include "DemoConfig.h"
+
 #define SHA256_DIGEST_LENGTH 32
 
+using namespace proxyserver;
+using namespace caravel;
 using namespace std;
 
 class ClientCpp
@@ -19,6 +28,11 @@ public:
 
 	void InitKey(string stKey);
 
+	void Open();
+	void Close();
+
+	void InitExample();
+
 	void Get(string &_retVal, string stTable, string stKey, string stCol);
 
 	void Put(string stTable, string stKey, string stCol, char *pVal, uint32_t uiLen);
@@ -28,6 +42,7 @@ public:
 
 private:
 
+	void m_Decrypt(string &)
 
 	//For trapdoor to Key
 	//<Table + Column + Key> || PK1 => Trapdoor
@@ -46,6 +61,8 @@ private:
 
 	//For protect data by AES CBC 256
 	char m_szPk5[SHA256_DIGEST_LENGTH];
+
+	SimConHash<ThriftAdapt<TProxyServiceClient>* > m_SimConHash;
 
 };
 

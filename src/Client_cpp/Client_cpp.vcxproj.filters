@@ -30,6 +30,9 @@
     <ClInclude Include="TProxyService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DemoConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientCpp.cpp">

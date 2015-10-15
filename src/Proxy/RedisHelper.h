@@ -16,9 +16,6 @@ public:
 	RedisHelper();
 	~RedisHelper();
 
-
-private:
-
 	//For open a connection to Redis server.
 	void Open();
 
@@ -30,6 +27,9 @@ private:
 
 	//Put function
 	void Put(char *pKey, uint32_t uiKeyLen, char *pVal, uint32_t uiValLen);
+
+private:
+
 
 };
 
