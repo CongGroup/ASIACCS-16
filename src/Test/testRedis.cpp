@@ -29,7 +29,11 @@ uint32_t Get(char *pKey, uint32_t uiKeyLen, char *pOut, uint32_t uiOutLen)
 	}
 	else 
 	{
-		strcpy(pOut, sVal.c_str());
+		std::copy(sVal.begin(), sVal.end(), pOut);
+		pOut[sVal.size()] = '\0';
+	//	*pOut = const_cast<char*> (sVal.c_str());
+	//	std::cout << sVal.c_str() << std::endl;
+		std::cout << pOut << std::endl;
 		return len;
 	}
 }
@@ -54,10 +58,10 @@ int main(int argc, char **argv)
 	char* tkey = "Hi";
 	char* tvalue = "Redis";
 	Put(tkey, (unsigned) 2, tvalue, (unsigned) 5);
-	char* rvalue;
-	uint32_t uiOutLen = 1000;
-	std::cout << Get("Hi", 2, rvalue, uiOutLen) << std::endl;
-	std::cout << *rvalue << std::endl;
+	char* rvalue = new char[10];
+	uint32_t uiOutLen = 10;
+	std::cout << Get(tkey, 2, rvalue, uiOutLen) << std::endl;
+	//std::cout << *rvalue << std::endl;
 	// reply r = c->run(command("GET") << "Hello" );
 	// std::cout << "Hello is: " << r.str() << std::endl;
 
