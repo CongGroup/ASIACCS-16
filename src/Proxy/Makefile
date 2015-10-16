@@ -1,12 +1,12 @@
 CC=g++
-BIN=CityUScore TestSystem TestScale TestSql
+BIN=ProxyServer_types ProxyServer_constants RedisHelper TProxyService
 #TestAll
 FLAGS=-Wall -g -fpermissive -std=c++0x -O3
 RM=-rm -f
 SRC=$(wildcard *.cpp)
 #OBJ=$(SRC:*.cpp=*.o)
 OBj=$(patsubst %.cpp, %.o, $(SRC))
-COMMON_OBJ=$(filter-out CityUScore.o TestSystem.o TestAll.o TestScale.o TestSql.o,$(OBJ))
+COMMON_OBJ=$(filter-out ProxyServer_types.o ProxyServer_constants.o RedisHelper.o TProxyService.o,$(OBJ))
 
 #thrift
 THRIFT_LINK=-lthrift
@@ -41,19 +41,19 @@ all: $(BIN)
 %.o: %.cpp %.d
 	$(CC) -c $(FLAGS) $(INC) $< -o $@
 
-CityUScore:$(COMMON_OBJ)
+ProxyServer_types:$(COMMON_OBJ)
 	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
 
-TestSystem:$(COMMON_OBJ)
+ProxyServer_constants:$(COMMON_OBJ)
 	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
 
 #TestAll:$(COMMON_OBJ)
 #	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB) $(PAILLIER_LINK) $(PAILLIER_LIB) $(GMP_LINK)
 
-TestScale:$(COMMON_OBJ)
-	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
+RedisHelper:$(COMMON_OBJ)
+	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB) `pkg-config --cflags --libs redis3m`
 
-TestSql:$(COMMON_OBJ)
+TProxyService:$(COMMON_OBJ)
 	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
 
 
