@@ -98,26 +98,34 @@ void ClientCpp::Put(string stTable, string stKey, string stCol, char *pVal, uint
 	ThriftAdapt<TProxyServiceClient> *pThriftAdapt = *(m_SimConHash.Query(uiKey));
 	TProxyServiceClient* pClient = pThriftAdapt->GetClient();
 
+
+	//If also insert the Index
+	string strIndexVal;
+	string strIndexTrapdoor;
+
 	if(bIndex)
 	{
 		
 		//Generate the Index Trapdoor
 		stTmp = stTable + stCol;
+		
 		const uint32_t kIndexValSize = SHA256_DIGEST_LENGTH + sizeof(uint32_t);
 		char szIndexTd[kIndexValSize];
 		PRF::Sha256(m_szPk3, SHA256_DIGEST_LENGTH, (char*)stTmp.c_str(), stTmp.length(), szIndexTd, SHA256_DIGEST_LENGTH);
-		stTmp.assign(szIndexTd, SHA256_DIGEST_LENGTH);
+		strIndexTrapdoor.assign(szIndexTd, SHA256_DIGEST_LENGTH);
 
-		PRF::Sha256((char*)&m_uiCounter, sizeof(m_uiCounter), (char*)stTmp.c_str(), stTmp.length(), szIndexTd, SHA256_DIGEST_LENGTH);
-		string stIndexTrapdoor;
-		stIndexTrapdoor.assign(szIndexTd, SHA256_DIGEST_LENGTH);
-
+		//Get the Counter
+		uint32_t uiCounter = m_mapCounter[stTmp];
+		m_mapCounter[stTmp] = uiCounter + 1;
+		
+		PRF::Sha256((char*)&uiCounter, sizeof(uiCounter), (char*)strIndexTrapdoor.c_str(), strIndexTrapdoor.length(), szIndexTd, SHA256_DIGEST_LENGTH);
+		strIndexTrapdoor.assign(szIndexTd, SHA256_DIGEST_LENGTH);
 
 		//Generate 
 		PRF::Sha256(m_szPk4, SHA256_DIGEST_LENGTH, (char*)stTmp.c_str(), stTmp.length(), szIndexTd, SHA256_DIGEST_LENGTH);
-		stTmp.assign(szIndexTd, SHA256_DIGEST_LENGTH);
+		strIndexVal.assign(szIndexTd, SHA256_DIGEST_LENGTH);
 
-		PRF::Sha256((char*)&m_uiCounter, sizeof(m_uiCounter), (char*)stTmp.c_str(), stTmp.length(), szIndexTd, SHA256_DIGEST_LENGTH);
+		PRF::Sha256((char*)&uiCounter, sizeof(uiCounter), (char*)strIndexVal.c_str(), strIndexVal.length(), szIndexTd, SHA256_DIGEST_LENGTH);
 		//padding the last 4 bytes
 		*(uint32_t*)(szIndexTd + SHA256_DIGEST_LENGTH) = 0;
 		
@@ -131,24 +139,33 @@ void ClientCpp::Put(string stTable, string stKey, string stCol, char *pVal, uint
 			pMask[uiCur] ^= pTrapdoor[uiCur];
 		}
 
-		string stIndexVal;
-		stIndexVal.assign(szIndexTd, kIndexValSize);
-
-		//Counter Add 1
-		m_uiCounter++;
-
-		//Send the request
-
-		
+		strIndexVal.assign(szIndexTd, kIndexValSize);
 
 	}
-	
+
+	//Send the request to server
+	pClient->ProxyPut(strTrapdoor, strSendVal, strIndexTrapdoor, strIndexVal);
 
 
 }
 
 void ClientCpp::GetCol(vector<string> &_retVal, string stTable, string stCol, uint32_t uiNum)
 {
+
+	string stTmp = stTable + stCol;
+
+	char szIndexTd[SHA256_DIGEST_LENGTH];
+	PRF::Sha256(m_szPk3, SHA256_DIGEST_LENGTH, (char*)stTmp.c_str(), stTmp.length(), szIndexTd, SHA256_DIGEST_LENGTH);
+
+	//Generate Index Trapdoor
+	string strIndexTrapdoor;
+	strIndexTrapdoor.assign(szIndexTd, SHA256_DIGEST_LENGTH);
+
+	//Generate 
+	PRF::Sha256(m_szPk4, SHA256_DIGEST_LENGTH, (char*)stTmp.c_str(), stTmp.length(), szIndexTd, SHA256_DIGEST_LENGTH);
+	string strIndexVal;
+	strIndexVal.assign(szIndexTd, SHA256_DIGEST_LENGTH);
+
 
 }
 

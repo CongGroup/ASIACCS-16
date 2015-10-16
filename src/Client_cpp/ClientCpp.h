@@ -6,6 +6,7 @@
 #include <string>
 #include <stdint.h>
 #include <vector>
+#include <map>
 
 #include "../Caravel/ThriftAdapt.h"
 
@@ -47,7 +48,7 @@ private:
 	void m_Encrypt(string &strCiphertext, char *pPlaintext, uint32_t uiPlaintextLen);
 
 	//For counter
-	uint32_t m_uiCounter;
+	map<string, uint32_t> m_mapCounter;
 
 	//For trapdoor to Key
 	//<Table + Column + Key> || PK1 => Trapdoor
