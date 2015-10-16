@@ -27,9 +27,12 @@ public:
 
 	//Get function
 	uint32_t Get(char *pKey, uint32_t uiKeyLen, char *pOut, uint32_t uiOutLen);
+	uint32_t Get(char *pKey, uint32_t uiKeyLen, string &strVal);
+	uint32_t Get(const string &strKey, string &strVal);
 
 	//Put function
 	void Put(char *pKey, uint32_t uiKeyLen, char *pVal, uint32_t uiValLen);
+	void Put(const string &strKey, const string &strVal);
 
 private:
 

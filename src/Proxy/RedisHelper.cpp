@@ -30,6 +30,27 @@ void RedisHelper::Close()
 
 }
 
+uint32_t RedisHelper::Get(const string &strKey, string &strVal)
+{
+
+	reply oReply = m_ptrConnection->run(command("GET") << strKey);
+	strVal = oReply.str();
+
+	return strVal.length();
+}
+
+uint32_t RedisHelper::Get(char *pKey, uint32_t uiKeyLen, string &strVal)
+{
+	string strKey;
+	strKey.assign(pKey, uiKeyLen);
+
+	reply oReply = m_ptrConnection->run(command("GET") << strKey);
+	strVal = oReply.str();
+
+	return strVal.length();
+
+}
+
 uint32_t RedisHelper::Get(char *pKey, uint32_t uiKeyLen, char *pOut, uint32_t uiOutLen)
 {
 	string strKey;
@@ -43,7 +64,7 @@ uint32_t RedisHelper::Get(char *pKey, uint32_t uiKeyLen, char *pOut, uint32_t ui
 	{
 		return 0;
 	}
-	else 
+	else
 	{
 		memcpy(pOut, strVal.c_str(), uiLen);
 
@@ -56,6 +77,20 @@ uint32_t RedisHelper::Get(char *pKey, uint32_t uiKeyLen, char *pOut, uint32_t ui
 		return uiLen;
 	}
 
+}
+
+void RedisHelper::Put(const string &strKey, const string &strVal)
+{
+
+	m_ptrConnection->run(command("SET") << strKey << strVal);
+
+#ifdef DEBUG_REDIS_HELPER
+
+	std::cout << strKey << " " << strVal << std::endl;
+
+#endif
+
+	return;
 }
 
 void RedisHelper::Put(char *pKey, uint32_t uiKeyLen, char *pVal, uint32_t uiValLen)
