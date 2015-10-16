@@ -6,7 +6,7 @@ RM=-rm -f
 SRC=$(wildcard *.cpp)
 #OBJ=$(SRC:*.cpp=*.o)
 OBj=$(patsubst %.cpp, %.o, $(SRC))
-COMMON_OBJ=$(filter-out CityUScore.cpp TestSystem.cpp TestAll.cpp TestScale.cpp TestSql.cpp,$(OBJ))
+COMMON_OBJ=$(filter-out CityUScore.o TestSystem.o TestAll.o TestScale.o TestSql.o,$(OBJ))
 
 #thrift
 THRIFT_LINK=-lthrift
