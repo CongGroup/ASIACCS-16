@@ -8,6 +8,8 @@
 
 using namespace std;
 
+#define MaxNodeNum 100
+
 template<class T>
 class SimConHash
 {
@@ -58,10 +60,8 @@ public:
 
 private:
 
-	const uint32_t kMaxNodeNum = 100;
-
-	T m_arRing[kMaxNodeNum];
-	uint32_t m_arCondition[kMaxNodeNum];
+	T m_arRing[MaxNodeNum];
+	uint32_t m_arCondition[MaxNodeNum];
 
 	uint32_t m_uiNodeNum;
 
