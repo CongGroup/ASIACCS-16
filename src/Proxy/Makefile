@@ -1,16 +1,17 @@
 CC=g++
-BIN=ProxyServer_types ProxyServer_constants RedisHelper TProxyService
+BIN=TProxy
 #TestAll
-FLAGS=-Wall -g -fpermissive -std=c++0x -O3
+FLAGS=-Wall -g -fpermissive -std=c++0x
 RM=-rm -f
 SRC=$(wildcard *.cpp)
 #OBJ=$(SRC:*.cpp=*.o)
-OBj=$(patsubst %.cpp, %.o, $(SRC))
-COMMON_OBJ=$(filter-out ProxyServer_types.o ProxyServer_constants.o RedisHelper.o TProxyService.o,$(OBJ))
+OBJ=$(patsubst %.cpp, %.o, $(SRC))
+COMMON_OBJ=$(filter-out TProxy.o,$(OBJ))
 
 #thrift
 THRIFT_LINK=-lthrift
 THRIFT_LIB=-L/usr/local/lib
+THRIFT_INC=-I/usr/local/inc
 
 #openssl
 OPENSSL_LINK=-lcrypto
@@ -20,17 +21,15 @@ CARAVEL_LINK=-lcaravel
 CARAVEL_LIB=-L../Caravel
 CARAVEL_INC=-I../Caravel
 
-#GMP
-GMP_LINK=-lgmp
+#redis3m
+REDIS3M_LINK=-lredis3m 
+REDIS3M_LIB=-L/usr/local
+REDIS3M_INC=-I/usr/local/include
 
-#paillier
-PAILLIER_LINK=-lpaillier
-PAILLIER_INC=-I/usr/local/include
-PAILLIER_LIB=-L/usr/local/lib
 
 #combine the inc & lib
-INC=$(OPENSSL_INC) $(THRIFT_INC) $(CARAVEL_INC) $(PAILLIER_INC)
-LIB=$(CARAVEL_LINK) $(CARAVEL_LIB) $(THRIFT_LINK) $(THRIFT_LIB) $(OPENSSL_LINK) 
+INC=$(OPENSSL_INC) $(THRIFT_INC) $(CARAVEL_INC) $(PAILLIER_INC) $(REDIS3M_INC)
+LIB=$(CARAVEL_LINK) $(CARAVEL_LIB) $(THRIFT_LINK) $(THRIFT_LIB) $(OPENSSL_LINK) $(REDIS3M_LINK)
 
 
 all: $(BIN)
@@ -41,20 +40,8 @@ all: $(BIN)
 %.o: %.cpp %.d
 	$(CC) -c $(FLAGS) $(INC) $< -o $@
 
-ProxyServer_types:$(COMMON_OBJ)
-	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
-
-ProxyServer_constants:$(COMMON_OBJ)
-	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
-
-#TestAll:$(COMMON_OBJ)
-#	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB) $(PAILLIER_LINK) $(PAILLIER_LIB) $(GMP_LINK)
-
-RedisHelper:$(COMMON_OBJ)
-	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB) `pkg-config --cflags --libs redis3m`
-
-TProxyService:$(COMMON_OBJ)
-	$(CC) $(FLAGS) -o $@ $@.cpp $(COMMON_OBJ) $(LIB)
+TProxy:$(OBJ)
+	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
 
 
 clean:

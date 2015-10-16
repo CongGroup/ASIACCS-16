@@ -12,6 +12,7 @@
 #define DEBUG_REDIS_HELPER
 
 using namespace std;
+using namespace redis3m;
 
 class RedisHelper
 {
