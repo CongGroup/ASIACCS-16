@@ -72,7 +72,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 
 	redisHelper.Put(Trapdoor, Val);
 
-	if (0 != IndexTrapdoor.length)
+	if (0 != IndexTrapdoor.length())
 	{
 		redisHelper.Put(IndexTrapdoor, IndexVal);
 
