@@ -7,8 +7,11 @@
 #include <iostream>
 #include <stdint.h>
 
-using namespace std;
+#include <redis3m/redis3m.hpp>
 
+#define DEBUG_REDIS_HELPER
+
+using namespace std;
 
 class RedisHelper
 {
@@ -29,6 +32,8 @@ public:
 	void Put(char *pKey, uint32_t uiKeyLen, char *pVal, uint32_t uiValLen);
 
 private:
+
+	connection::ptr_t m_ptrConnection;
 
 
 };
