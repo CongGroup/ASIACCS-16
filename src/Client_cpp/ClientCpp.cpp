@@ -98,7 +98,6 @@ void ClientCpp::Put(string stTable, string stKey, string stCol, char *pVal, uint
 	ThriftAdapt<TProxyServiceClient> *pThriftAdapt = *(m_SimConHash.Query(uiKey));
 	TProxyServiceClient* pClient = pThriftAdapt->GetClient();
 
-
 	//If also insert the Index
 	string strIndexVal;
 	string strIndexTrapdoor;
@@ -163,9 +162,31 @@ void ClientCpp::GetCol(vector<string> &_retVal, string stTable, string stCol, ui
 
 	//Generate 
 	PRF::Sha256(m_szPk4, SHA256_DIGEST_LENGTH, (char*)stTmp.c_str(), stTmp.length(), szIndexTd, SHA256_DIGEST_LENGTH);
-	string strIndexVal;
-	strIndexVal.assign(szIndexTd, SHA256_DIGEST_LENGTH);
+	string strIndexMask;
+	strIndexMask.assign(szIndexTd, SHA256_DIGEST_LENGTH);
 
+	//Get the clients
+	ThriftAdapt<TProxyServiceClient> **parThriftAdapt = m_SimConHash.GetArray();
+	uint32_t uiServerNum = m_SimConHash.GetNodeNum();
+
+	//Send the request to all server and collect the results
+	vector<string> vecRet;
+	vector<string> vecCiphertext;
+	for (uint32_t uiCur = 0; uiCur < uiServerNum; uiCur++)
+	{
+		TProxyServiceClient* pClient = parThriftAdapt[uiCur]->GetClient();
+		pClient->ProxyGetColumn(vecRet, strIndexTrapdoor, strIndexMask, uiNum);
+
+		vecCiphertext.insert(vecCiphertext.begin(), vecRet.begin(), vecRet.end());
+	}
+
+	//AES Decryption
+	string strPlaintext;
+	for (vector<string>::iterator it = vecCiphertext.begin(); it != vecCiphertext.end(); it++)
+	{
+		m_Decrypt(*it, strPlaintext);
+		_retVal.push_back(strPlaintext);
+	}
 
 }
 

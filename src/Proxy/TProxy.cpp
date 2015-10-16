@@ -16,6 +16,9 @@ using boost::shared_ptr;
 
 using namespace  ::proxyserver;
 
+#define SHA256_DIGEST_LENGTH 32
+#define INDEX_STOP_FLAG 1234567890
+
 class TProxyServiceHandler : virtual public TProxyServiceIf {
  public:
   TProxyServiceHandler() {
