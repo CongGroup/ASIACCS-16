@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 	uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
 
 	cout << "Test Get Columns which has 2 items cost time : " << uiTimeDiff << endl;
-	cout << "Two score are: " << *(uint32_t*)vecVal[0].c_str() << *(uint32_t*)vecVal[0].c_str() << endl;
+	cout << "Two score are: " << *(uint32_t*)vecVal[0].c_str() << " " << *(uint32_t*)vecVal[1].c_str() << endl;
 
 
 	cout << "-----------------------------------------------------------------------------" << endl;
