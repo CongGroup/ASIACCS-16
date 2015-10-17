@@ -71,7 +71,7 @@ void ClientCpp::Get(string &_retVal, string stTable, string stKey, string stCol)
 	pClient->ProxyGet(strRet, strTrapdoor);
 
 	//we assume strRet.length == 0 means the key do not exist.
-	if (strRet.length != 0)
+	if (strRet.length() != 0)
 	{
 		//Decrypt the data
 		m_Decrypt(strRet, _retVal);
@@ -232,9 +232,9 @@ void ClientCpp::InitExample()
 void ClientCpp::m_Decrypt(string &strCiphertext, string &strPlaintext)
 {
 	//Decrypt the AES
-	char *pDec = new char[strCiphertext.length];
+	char *pDec = new char[strCiphertext.length()];
 
-	memset(pDec, 0, strCiphertext.length);
+	memset(pDec, 0, strCiphertext.length());
 
 	uint32_t uiSize = AES::CbcDecrypt256(strCiphertext.c_str(), strCiphertext.length(), pDec, m_szPk5);
 
