@@ -1,1 +1,0 @@
-testRedis.o: testRedis.cpp

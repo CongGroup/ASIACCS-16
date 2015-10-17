@@ -126,6 +126,7 @@
     <ClInclude Include="TProxyService.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Benchmark.cpp" />
     <ClCompile Include="ClientCpp.cpp" />
     <ClCompile Include="ClientTest.cpp" />
     <ClCompile Include="ProxyServer_constants.cpp" />
