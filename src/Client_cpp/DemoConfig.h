@@ -5,8 +5,8 @@
 
 #define DEMO_SECURITY_KEY "adfaksdfjklasdjflajsdiofjasodf"
 
-const string kDemoServerIP[] = { "1.2.3.4", "2.3.4.5" };
-const uint16_t kDemoServerPort[] = { 1234, 2345 };
+const string kDemoServerIP[] = { "127.0.0.1", "2.3.4.5" };
+const uint16_t kDemoServerPort[] = { 9090, 2345 };
 
 
 
