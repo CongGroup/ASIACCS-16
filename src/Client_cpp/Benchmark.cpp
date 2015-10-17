@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 	cout << "Begin to basic test ..." << endl;
 	cout << "-----------------------------------------------------------------------------" << endl;
 
-
+	uint32_t uiCnt = 0;
 	while(true)
 	{
 
@@ -71,11 +71,11 @@ int main(int argc, char **argv)
 
 #ifdef DEF_INSERT_INDEX
 
-		client.Put("StudentScoreTable", stKey, "Score", (char*)&stScore.c_str(), stScore.length(), true);
+		client.Put("StudentScoreTable", stKey, "Score", (char*)stScore.c_str(), stScore.length(), true);
 
 #else
 
-		client.Put("StudentScoreTable", stKey, "Score", (char*)&stScore.c_str(), stScore.length(), false);
+		client.Put("StudentScoreTable", stKey, "Score", (char*)stScore.c_str(), stScore.length(), false);
 
 #endif
 
