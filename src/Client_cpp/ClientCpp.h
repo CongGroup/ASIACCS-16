@@ -33,7 +33,7 @@ public:
 	void Open();
 	void Close();
 
-	void InitExample();
+	void InitExample(uint32_t uiServerNum = DEMO_SERVER_NUM);
 
 	void Get(string &_retVal, string stTable, string stKey, string stCol);
 

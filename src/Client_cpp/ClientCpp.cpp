@@ -211,13 +211,13 @@ void ClientCpp::Close()
 	}
 }
 
-void ClientCpp::InitExample()
+void ClientCpp::InitExample(uint32_t uiServerNum)
 {
-	//DEMO_SERVER_NUM
+	//Set the ServerName and Init the Examples
 	const uint32_t uiMax = (uint32_t)-1;
-	uint32_t uiInterval = uiMax / DEMO_SERVER_NUM;
+	uint32_t uiInterval = uiMax / uiServerNum;
 
-	for (uint32_t uiCur = 0; uiCur < DEMO_SERVER_NUM; uiCur++)
+	for (uint32_t uiCur = 0; uiCur < uiServerNum; uiCur++)
 	{
 		ThriftAdapt<TProxyServiceClient> *pThriftAdapt = new ThriftAdapt<TProxyServiceClient>();
 		pThriftAdapt->Init(kDemoServerIP[uiCur], kDemoServerPort[uiCur]);

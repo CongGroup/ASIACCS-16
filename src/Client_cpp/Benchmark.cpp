@@ -13,81 +13,89 @@ using namespace caravel;
 
 int main(int argc, char **argv)
 {
-	if(argc != 5)
+	if (argc != 6)
 	{
-		cout<<"usage : ./TestSystem [DataNodeNum] [A] [B] [C]"<<endl;
-		cout<<"The test will begin at [A] ."<<endl;
-		cout<<"The test will consist [B] seconds"<<endl;
-		cout<<"The Seed is [C] ."<<endl;
+		cout << "usage : ./" << argv[0] << " [DataNodeNum] [A] [B] [C] [D]" << endl;
+		cout << "The test will begin at [A] ." << endl;
+		cout << "The test will consist [B] seconds" << endl;
+		cout << "The Key size is [C] ." << endl;
+		cout << "The Seed is [D] ." << endl;
 		return 0;
 	}
 
-	uint32_t uiBeg, uiTime, uiSeed, uiDataNodeNum;
 
-	sscanf(argv[1], "%u", &uiDataNodeNum);
+	//Get the params from command line
+	uint32_t uiBeg, uiTime, uiSeed, uiServerNum, uiKeyLen;
+	sscanf(argv[1], "%u", &uiServerNum);
 	sscanf(argv[2], "%u", &uiBeg);
 	sscanf(argv[3], "%u", &uiTime);
-	sscanf(argv[4], "%u", &uiSeed);
+	sscanf(argv[4], "%u", &uiKeyLen);
+	sscanf(argv[5], "%u", &uiSeed);
 
-	srand(uiSeed);
-
+	//Compute the params
 	uint32_t uiCurTime;
 	uint32_t uiBegTime = uiBeg;
 	uint32_t uiEndTime = uiBegTime + uiTime;
 
-	char szBuf[1000];
-	memset(szBuf, 0, sizeof(szBuf));
-	string stKey;
-	string stScore;
+	//Init the cache for key
+	string strKey;
+	string strScore;
+	strKey.assign('0', uiKeyLen);
+	//This number will be changed to simulate the random key.
+	//[ {OOOO} {XXXXXXXXXXXXXXXXXXXXXXXXXXXXX} ]  {OOOO} means the number;  {XXXX} means the padding for key
+	uint32_t *pKeyCursorNum;
+	//strKey should not be assign
+	pKeyCursorNum = (uint32_t*)(strKey.c_str());
+	*pKeyCursorNum = 0;
 
+	//Init the client to server
 	ClientCpp client;
 	client.InitKey(DEMO_SECURITY_KEY);
-	client.InitExample();
+	client.InitExample(uiServerNum);
 	client.Open();
 
-	cout << "Begin to basic test ..." << endl;
-	cout << "-----------------------------------------------------------------------------" << endl;
-
 	uint32_t uiCnt = 0;
-	while(true)
+	while (true)
 	{
 
 		uiCurTime = time(NULL);
 
-		if(uiCurTime < uiBegTime)
+		if (uiCurTime < uiBegTime)
 		{
 			continue;
 		}
 
-		if(uiCurTime >= uiEndTime)
+		if (uiCurTime >= uiEndTime)
 		{
 			break;
 		}
 
-		(*(uint32_t*)szBuf)++;
-		stKey.assign(szBuf);
-		(*(uint32_t*)szBuf)++;
-		stScore.assign(szBuf);
+		(*pKeyCursorNum)++;
 
 #ifdef DEF_INSERT_INDEX
 
-		client.Put("StudentScoreTable", stKey, "Score", (char*)stScore.c_str(), stScore.length(), true);
+		client.Put("StudentScoreTable", strKey, "Score", (char*)strScore.c_str(), strScore.length(), true);
 
 #else
 
-		client.Put("StudentScoreTable", stKey, "Score", (char*)stScore.c_str(), stScore.length(), false);
+		client.Put("StudentScoreTable", strKey, "Score", (char*)strScore.c_str(), strScore.length(), false);
 
 #endif
 
-		for(int i = 0; i < 19; i++)
+		for (int i = 0; i < 19; i++)
 		{
 			string stReturnScore;
-			client.Get(stReturnScore, "StudentScoreTable", stKey, "Score");
+			client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
 		}
 
 		uiCnt++;
 	}
 
 	cout << uiCnt << endl;
+
 	return 0;
 }
+
+
+
+

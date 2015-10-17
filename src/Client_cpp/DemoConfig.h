@@ -3,6 +3,8 @@
 
 #define DEMO_SERVER_NUM 1
 
+#define DEF_INSERT_INDEX
+
 #define DEMO_SECURITY_KEY "adfaksdfjklasdjflajsdiofjasodf"
 
 const std::string kDemoServerIP[] = { "127.0.0.1", "2.3.4.5" };
