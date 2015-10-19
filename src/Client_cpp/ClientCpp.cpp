@@ -175,7 +175,7 @@ void ClientCpp::GetCol(vector<string> &_retVal, string stTable, string stCol, ui
 	for (uint32_t uiCur = 0; uiCur < uiServerNum; uiCur++)
 	{
 		TProxyServiceClient* pClient = parThriftAdapt[uiCur]->GetClient();
-		pClient->ProxyGetColumn(vecRet, strIndexTrapdoor, strIndexMask, uiNum);
+		pClient->ProxyGetColumn(vecRet, strIndexTrapdoor, strIndexMask, uiNum / uiServerNum);
 
 		vecCiphertext.insert(vecCiphertext.begin(), vecRet.begin(), vecRet.end());
 	}
