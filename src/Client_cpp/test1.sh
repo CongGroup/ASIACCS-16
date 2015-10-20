@@ -2,7 +2,7 @@
 
 if [ ! $# == 1 ]; then
 
-echo "Usage : ./test2.sh [NodeNum]"
+echo "Usage : ./test1.sh [NodeNum]"
 exit
 
 fi
