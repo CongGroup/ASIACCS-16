@@ -9,7 +9,6 @@
 
 #include <redis3m/redis3m.hpp>
 
-#define DEBUG_REDIS_HELPER
 
 using namespace std;
 using namespace redis3m;
