@@ -123,7 +123,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 
 		string strIndexVal;
 		redisHelper.Get(strIndexTrapdoor, strIndexVal);
-		if (strIndexVal.length == 0)
+		if (strIndexVal.length() == 0)
 		{
 			continue;
 		}
@@ -148,7 +148,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 			//Get the Value by Trapdoor
 			redisHelper.Get(strTrapdoor, strVal);
 
-			if (strVal.length == 0)
+			if (strVal.length() == 0)
 			{
 				continue;
 			}
