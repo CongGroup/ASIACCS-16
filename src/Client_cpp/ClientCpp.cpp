@@ -99,15 +99,15 @@ void ClientCpp::Put(string stTable, string stKey, string stCol, char *pVal, uint
 	TProxyServiceClient* pClient = pThriftAdapt->GetClient();
 
 	//If also insert the Index
-	string strIndexVal;
-	string strIndexTrapdoor;
+	string strIndexVal = "";
+	string strIndexTrapdoor = "";
 
-	if(bIndex)
+	if (bIndex)
 	{
-		
+
 		//Generate the Index Trapdoor
 		stTmp = stTable + stCol;
-		
+
 		const uint32_t kIndexValSize = SHA256_DIGEST_LENGTH + sizeof(uint32_t);
 		char szIndexTd[kIndexValSize];
 		PRF::Sha256(m_szPk3, SHA256_DIGEST_LENGTH, (char*)stTmp.c_str(), stTmp.length(), szIndexTd, SHA256_DIGEST_LENGTH);
@@ -116,7 +116,7 @@ void ClientCpp::Put(string stTable, string stKey, string stCol, char *pVal, uint
 		//Get the Counter
 		uint32_t uiCounter = m_mapCounter[stTmp];
 		m_mapCounter[stTmp] = uiCounter + 1;
-		
+
 		PRF::Sha256((char*)&uiCounter, sizeof(uiCounter), (char*)strIndexTrapdoor.c_str(), strIndexTrapdoor.length(), szIndexTd, SHA256_DIGEST_LENGTH);
 		strIndexTrapdoor.assign(szIndexTd, SHA256_DIGEST_LENGTH);
 
@@ -127,7 +127,7 @@ void ClientCpp::Put(string stTable, string stKey, string stCol, char *pVal, uint
 		PRF::Sha256((char*)&uiCounter, sizeof(uiCounter), (char*)strIndexVal.c_str(), strIndexVal.length(), szIndexTd, SHA256_DIGEST_LENGTH);
 		//padding the last 4 bytes
 		*(uint32_t*)(szIndexTd + SHA256_DIGEST_LENGTH) = 0;
-		
+
 		//for the first 4 bytes flag
 		*(uint32_t*)szIndexTd ^= INDEX_STOP_FLAG;
 		//for the last 32 bytes
@@ -250,9 +250,9 @@ void ClientCpp::m_Encrypt(string &strCiphertext, char *pPlaintext, uint32_t uiPl
 {
 
 	char *pEnc = new char[AES::CbcMaxsize(uiPlaintextLen)];
-	
+
 	memset(pEnc, 0, AES::CbcMaxsize(uiPlaintextLen));
-	
+
 	uint32_t uiEncLen = AES::CbcEncrypt256(pPlaintext, uiPlaintextLen, pEnc, m_szPk5);
 
 	strCiphertext.assign(pEnc, uiEncLen);

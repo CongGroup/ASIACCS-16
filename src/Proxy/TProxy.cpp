@@ -47,7 +47,12 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 	RedisHelper redisHelper;
 	redisHelper.Open();
 
-	redisHelper.Get(Trapdoor, _return);
+	uint32_t uiSize = redisHelper.Get(Trapdoor, _return);
+
+	if(0 == uiSize)
+	{
+		_return = "";
+	}
 
 	redisHelper.Close();
 
@@ -118,6 +123,10 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 
 		string strIndexVal;
 		redisHelper.Get(strIndexTrapdoor, strIndexVal);
+		if (strIndexVal.length == 0)
+		{
+			continue;
+		}
 
 		if (INDEX_STOP_FLAG == *(uint32_t*)(strIndexVal.c_str()) ^ *(uint32_t*)(strIndexMask.c_str()))
 		{
@@ -138,6 +147,11 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 			
 			//Get the Value by Trapdoor
 			redisHelper.Get(strTrapdoor, strVal);
+
+			if (strVal.length == 0)
+			{
+				continue;
+			}
 
 			//Add to return vector
 			_return.push_back(strVal);
