@@ -9,7 +9,6 @@
 
 #include <redis3m/redis3m.hpp>
 
-
 using namespace std;
 using namespace redis3m;
 
