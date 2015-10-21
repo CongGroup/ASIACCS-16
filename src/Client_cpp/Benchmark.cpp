@@ -39,14 +39,17 @@ int main(int argc, char **argv)
 
 	//Init the cache for key
 	string strKey;
-	string strScore;
-	strKey.assign('0', uiKeyLen);
+	strKey.assign(uiKeyLen, '0');
 	//This number will be changed to simulate the random key.
 	//[ {OOOO} {XXXXXXXXXXXXXXXXXXXXXXXXXXXXX} ]  {OOOO} means the number;  {XXXX} means the padding for key
-	uint32_t *pKeyCursorNum;
 	//strKey should not be assign
+	uint32_t *pKeyCursorNum;
 	pKeyCursorNum = (uint32_t*)(strKey.c_str());
 	*pKeyCursorNum = 0;
+
+	//Init strScore	
+	string strScore;
+	strScore.assign(128, 'A');
 
 	//Init the client to server
 	ClientCpp client;
@@ -57,7 +60,6 @@ int main(int argc, char **argv)
 	uint32_t uiCnt = 0;
 	while (true)
 	{
-
 		uiCurTime = time(NULL);
 
 		if (uiCurTime < uiBegTime)
