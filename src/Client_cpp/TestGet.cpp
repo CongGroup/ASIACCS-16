@@ -11,6 +11,9 @@
 using namespace std;
 using namespace caravel;
 
+const int MAXRECORD = 100000 + 100;
+string strInput[MAXRECORD];
+
 int main(int argc, char **argv)
 {
 	if (argc != 6)
@@ -63,22 +66,10 @@ int main(int argc, char **argv)
 	client.Open();
 
 	uint32_t uiCnt = 0;
-	while (true)
+	for (int i = 0; i < 100000; ++i)
 	{
-		uiCurTime = time(NULL);
-
-		if (uiCurTime < uiBegTime)
-		{
-			continue;
-		}
-
-		if (uiCurTime >= uiEndTime)
-		{
-			break;
-		}
-
 		(*pKeyCursorNum)++;
-
+		strInput[i] = strKey;
 #ifdef DEF_INSERT_INDEX
 
 		client.Put("StudentScoreTable", strKey, "Score", (char*)strScore.c_str(), strScore.length(), true);
@@ -88,17 +79,17 @@ int main(int argc, char **argv)
 		client.Put("StudentScoreTable", strKey, "Score", (char*)strScore.c_str(), strScore.length(), false);
 
 #endif
-
-		for (int i = 0; i < 19; i++)
-		{
-			string stReturnScore;
-			client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-		}
-
-		uiCnt++;
 	}
 
-	cout << uiCnt << endl;
+	uint32_t uiBegTime = time(NULL);
+	for (int i = 0; i < 100000; ++i)
+	{
+		string stReturnScore;
+		client.Get(stReturnScore, "StudentScoreTable", strInput[i], "Score");
+	}
+	uint32_t uiDuration = time(NULL) - uiBegTime;
+
+	cout << uiDuration << endl;
 
 	return 0;
 }
