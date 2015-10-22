@@ -35,11 +35,6 @@ int main(int argc, char **argv)
 	sscanf(argv[4], "%u", &uiKeyLen);
 	sscanf(argv[5], "%u", &uiSeed);
 
-	//Compute the params
-	uint32_t uiCurTime;
-	uint32_t uiBegTime = uiBeg;
-	uint32_t uiEndTime = uiBegTime + uiTime;
-
 	//Initialize random seed
 	srand(uiSeed);
 	char charRandom = (char) (rand() % 26 + 'A');
@@ -65,7 +60,6 @@ int main(int argc, char **argv)
 	client.InitExample(uiServerNum);
 	client.Open();
 
-	uint32_t uiCnt = 0;
 	for (int i = 0; i < 100000; ++i)
 	{
 		(*pKeyCursorNum)++;
