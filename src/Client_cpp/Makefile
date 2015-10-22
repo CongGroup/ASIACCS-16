@@ -1,12 +1,12 @@
 CC=g++
-BIN=ClientTest Benchmark
+BIN=ClientTest Benchmark TestGet
 #TestAll
 FLAGS=-Wall -g -fpermissive -std=c++0x
 RM=-rm -f
 SRC=$(wildcard *.cpp)
 #OBJ=$(SRC:*.cpp=*.o)
 OBJ=$(patsubst %.cpp, %.o, $(SRC))
-COMMON_OBJ=$(filter-out Benchmark.o ClientTest.o,$(OBJ))
+COMMON_OBJ=$(filter-out Benchmark.o ClientTest.o TestGet.o,$(OBJ))
 
 #thrift
 THRIFT_LINK=-lthrift
@@ -44,6 +44,9 @@ ClientTest:$(OBJ)
 	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
 
 Benchmark:$(OBJ)
+	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
+
+TestGet:$(OBJ)
 	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
 
 clean:
