@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ ! $# == 1 ]; then
+
+echo "Usage : ./test2.sh [NodeNum]"
+exit
+
+fi
+
+NODENUM=$1
+
+CURTIME=`date +%s`
+CURTIME=$(($CURTIME+2))
+
+DURATION=10
+
+KEYSIZE=16
+
+RANDTIME=`date +%N`
+
+echo $CURTIME
+
+for i in {1..1}
+do
+
+echo $NODENUM $CURTIME $DURATION $KEYSIZE ${RANDTIME}
+
+echo "./Benchmark $NODENUM $CURTIME $DURATION $KEYSIZE ${RANDTIME}"
+./Benchmark $NODENUM $CURTIME $DURATION $KEYSIZE ${RANDTIME}
+
+done
