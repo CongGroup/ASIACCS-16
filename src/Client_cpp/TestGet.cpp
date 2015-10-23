@@ -3,6 +3,7 @@
 #include <string>
 #include <stdint.h>
 #include <vector>
+#include <sys/time.h>
 
 #include "DemoConfig.h"
 #include "ClientCpp.h"
@@ -80,12 +81,17 @@ int main(int argc, char **argv)
 #endif
 	}
 
+
+	struct timeval stop, start;
+	gettimeofday(&start, NULL);
 	uint32_t uiBegTime = time(NULL);
 	for (int i = 0; i < iNum; ++i)
 	{
 		string stReturnScore;
 		client.Get(stReturnScore, "StudentScoreTable", strInput[i], "Score");
 	}
+	gettimeofday(&stop, NULL);
+	printf("took %lu\n", stop.tv_usec - start.tv_usec);
 	uint32_t uiDuration = time(NULL) - uiBegTime;
 
 	cout << uiDuration << endl;
