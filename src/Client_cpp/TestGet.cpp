@@ -40,7 +40,6 @@ int main(int argc, char **argv)
 	//Initialize random seed
 	srand(uiSeed);
 	char charRandom = (char) (rand() % 26 + 'A');
-	charRandom = 'L';
 	cout << charRandom << endl;
 
 	//Init the cache for key
@@ -65,7 +64,7 @@ int main(int argc, char **argv)
 
 	for (int i = 0; i < iNum; ++i)
 	{
-//		(*pKeyCursorNum)++;
+		(*pKeyCursorNum)++;
 		strInput[i] = strKey;
 		cout << "Start to put: " << i << " " << strKey << endl;
 		cout << "StudentScoreTable" << " " <<  strKey << " " <<  "Score" << " " << (char*)strScore.c_str() << " " <<  strScore.length() << endl;
