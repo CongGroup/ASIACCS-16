@@ -95,6 +95,8 @@ int main(int argc, char **argv)
 	client.Close();
 	cout << uiCnt << endl;
 
+	client.Close();
+
 	return 0;
 }
 
