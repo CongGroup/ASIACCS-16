@@ -12,6 +12,7 @@ using namespace std;
 using namespace caravel;
 
 const int MAXRECORD = 100000 + 100;
+const int iNum = 10000;
 string strInput[MAXRECORD];
 
 int main(int argc, char **argv)
@@ -61,7 +62,7 @@ int main(int argc, char **argv)
 	client.InitExample(uiServerNum);
 	client.Open();
 
-	for (int i = 0; i < 100000; ++i)
+	for (int i = 0; i < iNum; ++i)
 	{
 //		(*pKeyCursorNum)++;
 		strInput[i] = strKey;
@@ -80,7 +81,7 @@ int main(int argc, char **argv)
 	}
 
 	uint32_t uiBegTime = time(NULL);
-	for (int i = 0; i < 100000; ++i)
+	for (int i = 0; i < iNum; ++i)
 	{
 		string stReturnScore;
 		client.Get(stReturnScore, "StudentScoreTable", strInput[i], "Score");
