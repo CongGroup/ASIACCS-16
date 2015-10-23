@@ -92,7 +92,7 @@ int main(int argc, char **argv)
 
 		uiCnt++;
 	}
-	client.Close();
+	
 	cout << uiCnt << endl;
 
 	client.Close();
