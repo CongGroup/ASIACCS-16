@@ -7,8 +7,8 @@
 
 #define DEMO_SECURITY_KEY "adfaksdfjklasdjflajsdiofjasodf"
 
-const std::string kDemoServerIP[] = { "127.0.0.1", "2.3.4.5" };
-const uint16_t kDemoServerPort[] = { 6379, 2345 };
+const std::string kDemoServerIP[] = { "10.4.0.5", "10.4.0.6" };
+const uint16_t kDemoServerPort[] = { 9090, 9090 };
 
 
 
