@@ -20,17 +20,44 @@ RedisHelper::~RedisHelper()
 }
 
 
-void RedisHelper::Open()
+void RedisHelper::Open(const std::string& host, const unsigned int port)
 {
-	cout << "Begin Create:" << endl;
-	m_ptrConnection = connection::create();
-	cout << "End Create !!!!!!!" << endl;
+	m_ptrConnection = connection::create(host, port);
 }
 
 void RedisHelper::Close()
 {
 
 }
+
+void RedisHelper::OpenPool(const std::string& host, const unsigned int port)
+{
+	m_ptrPool = simple_pool::create(host, port);
+}
+
+void RedisHelper::ClosePool()
+{
+
+}
+
+
+uint32_t RedisHelper::PoolGet(const string &strKey, string &strVal)
+{
+	m_ptrPool->run_with_connection<void>([&](connection::ptr_t conn)
+	{
+		strVal = conn->run(command("GET")(strKey)).str();
+	});
+
+}
+
+void RedisHelper::PoolPut(const string &strKey, const string &strVal)
+{
+	m_ptrPool->run_with_connection<void>([&](connection::ptr_t conn)
+	{
+		conn->run(command("SET")(strKey)(strVal));
+	});
+}
+
 
 uint32_t RedisHelper::Get(const string &strKey, string &strVal)
 {

@@ -18,8 +18,18 @@ public:
 	RedisHelper();
 	~RedisHelper();
 
+	/*Connection Pool*/
+
+	void OpenPool(const std::string& host = "localhost", const unsigned int port = 6379);
+	void ClosePool();
+
+	uint32_t PoolGet(const string &strKey, string &strVal);
+	void PoolPut(const string &strKey, const string &strVal);
+
+	/*Single Use*/
+
 	//For open a connection to Redis server.
-	void Open();
+	void Open(const std::string& host = "localhost", const unsigned int port = 6379);
 
 	//For close the connection to Redis server.
 	void Close();
@@ -36,7 +46,7 @@ public:
 private:
 
 	connection::ptr_t m_ptrConnection;
-
+	simple_pool::ptr_t m_ptrPool;
 
 };
 

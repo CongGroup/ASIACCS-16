@@ -30,7 +30,12 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
  public:
   TProxyServiceHandler() {
     // Your initialization goes here
+
+	  redisHelper.OpenPool();
+
   }
+
+  RedisHelper redisHelper;
 
   /**
    * ProxyGet API
@@ -44,17 +49,12 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
     printf("ProxyGet\n");
 #endif
 
-	RedisHelper redisHelper;
-	redisHelper.Open();
-
-	uint32_t uiSize = redisHelper.Get(Trapdoor, _return);
+	uint32_t uiSize = redisHelper.PoolGet(Trapdoor, _return);
 
 	if(0 == uiSize)
 	{
 		_return = "";
 	}
-
-	redisHelper.Close();
 
   }
 
@@ -72,17 +72,13 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
     printf("ProxyPut\n");
 #endif
 
-	RedisHelper redisHelper;
-	redisHelper.Open();
-
-	redisHelper.Put(Trapdoor, Val);
+	redisHelper.PoolPut(Trapdoor, Val);
 
 	if (0 != IndexTrapdoor.length())
 	{
-		redisHelper.Put(IndexTrapdoor, IndexVal);
+		redisHelper.PoolPut(IndexTrapdoor, IndexVal);
 
 	}
-	redisHelper.Close();
 
   }
 
@@ -99,10 +95,6 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 #ifdef DEBUG_TPROXY_FLAG
     printf("ProxyGetColumn\n");
 #endif
-
-	//Open a connection to Redis
-	RedisHelper redisHelper;
-	redisHelper.Open();
 
 	//foreach counter = 0 to GetNum
 	const uint32_t kIndexValSize = SHA256_DIGEST_LENGTH + sizeof(uint32_t);
@@ -122,7 +114,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 		strIndexMask.assign(szTmp, SHA256_DIGEST_LENGTH);
 
 		string strIndexVal;
-		redisHelper.Get(strIndexTrapdoor, strIndexVal);
+		redisHelper.PoolGet(strIndexTrapdoor, strIndexVal);
 		if (strIndexVal.length() == 0)
 		{
 			continue;
@@ -146,7 +138,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 			strTrapdoor.assign(pTrapdoor, SHA256_DIGEST_LENGTH);
 			
 			//Get the Value by Trapdoor
-			redisHelper.Get(strTrapdoor, strVal);
+			redisHelper.PoolGet(strTrapdoor, strVal);
 
 			if (strVal.length() == 0)
 			{
@@ -158,14 +150,12 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 		}
 		else
 		{
-			redisHelper.Close();
 			return;
 		}
 
 	}
 
 	//Close the Redis Connection
-	redisHelper.Close();
 
   }
 
