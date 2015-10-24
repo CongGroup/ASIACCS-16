@@ -232,7 +232,7 @@ void ClientCpp::InitExample(uint32_t uiServerNum)
 void ClientCpp::m_Decrypt(string &strCiphertext, string &strPlaintext)
 {
 	//Decrypt the AES
-	char *pDec = new char[strCiphertext.length()];
+	char *pDec = new char[AES::CbcMaxsize(strCiphertext.length())];
 
 	memset(pDec, 0, strCiphertext.length());
 

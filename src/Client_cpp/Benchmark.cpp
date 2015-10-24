@@ -84,7 +84,7 @@ int main(int argc, char **argv)
 
 #endif
 
-		for (int i = 0; i < 19; i++)
+		for (int i = 0; i < 1; i++)
 		{
 			string stReturnScore;
 			client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
