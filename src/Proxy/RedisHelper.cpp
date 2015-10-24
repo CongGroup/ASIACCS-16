@@ -22,7 +22,9 @@ RedisHelper::~RedisHelper()
 
 void RedisHelper::Open()
 {
+	cout << "Begin Create:" << endl;
 	m_ptrConnection = connection::create();
+	cout << "End Create !!!!!!!" << endl;
 }
 
 void RedisHelper::Close()
