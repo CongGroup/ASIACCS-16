@@ -5,7 +5,7 @@ using namespace redis3m;
 
 int main(int argc, char **argv)
 {
-    simple_pool::ptr_t pool = simple_pool::create("yourhost");
+    simple_pool::ptr_t pool = simple_pool::create(10.4.0.7, 6379);
     
     connection::ptr_t c = pool->get();
     c->run(command("SET")("foo")("bar"));
