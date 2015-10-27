@@ -20,19 +20,36 @@ RedisHelper::~RedisHelper()
 }
 
 
-void RedisHelper::Open(const std::string& host, const unsigned int port)
+void RedisHelper::OpenClusterPool(const std::string& host, const unsigned int port)
 {
-	m_ptrConnection = connection::create(host, port);
+    simple_pool::ptr_t ptrClusterPool = connection_pool::create(host, port);
 }
 
-void RedisHelper::Close()
+
+void RedisHelper::CloseClusterPool()
 {
 
 }
+
+
+uint32_t RedisHelper::ClusterPoolGet(const string &strKey, string &strVal)
+{
+
+}
+
+
+void RedisHelper::ClusterPoolPut(const string &strKey, const string &strVal)
+{
+
+}
+
+
+
+
 
 void RedisHelper::OpenPool(const std::string& host, const unsigned int port)
 {
-	m_ptrPool = simple_pool::create(host, port);
+	m_ptrClusterPool = simple_pool::create(host, port);
 }
 
 void RedisHelper::ClosePool()
@@ -58,6 +75,16 @@ void RedisHelper::PoolPut(const string &strKey, const string &strVal)
 	});
 }
 
+
+void RedisHelper::Open(const std::string& host, const unsigned int port)
+{
+    m_ptrConnection = connection::create(host, port);
+}
+
+void RedisHelper::Close()
+{
+
+}
 
 uint32_t RedisHelper::Get(const string &strKey, string &strVal)
 {

@@ -6,6 +6,7 @@
 #include <string.h>
 #include <iostream>
 #include <stdint.h>
+#include <map>
 
 #include <redis3m/redis3m.hpp>
 
@@ -17,6 +18,13 @@ class RedisHelper
 public:
 	RedisHelper();
 	~RedisHelper();
+
+	/*Multi Connection Pool*/
+	void OpenClusterPool(const std::string& host = "localhost", const unsigned int port = 6379);
+	void CloseClusterPool();
+
+	uint32_t ClusterPoolGet(const string &strKey, string &strVal);
+	void ClusterPoolPut(const string &strKey, const string &strVal);
 
 	/*Connection Pool*/
 
@@ -45,8 +53,10 @@ public:
 
 private:
 
-	connection::ptr_t m_ptrConnection;
-	simple_pool::ptr_t m_ptrPool;
+    connection::ptr_t m_ptrConnection;
+    simple_pool::ptr_t m_ptrPool;
+    
+    map<simple_pool::ptr_t> m_mapPtrPool;
 
 };
 
