@@ -13,60 +13,65 @@
 using namespace std;
 using namespace redis3m;
 
-class RedisHelper
-{
-public:
-	RedisHelper();
-	~RedisHelper();
+namespace caravel {
 
-	/*Multi Connection Pool*/
-	void OpenClusterPool(const std::string& host = "localhost", const unsigned int port = 6379);
-	void CloseClusterPool();
+    class RedisHelper
+    {
+    public:
+        RedisHelper();
+        ~RedisHelper();
 
-	uint32_t ClusterPoolGet(const string &strKey, string &strVal);
-	void ClusterPoolPut(const string &strKey, const string &strVal);
+        /*Multi Connection Pool*/
+        void OpenClusterPool(const std::string& host = "localhost", const unsigned int port = 6379);
+        void CloseClusterPool();
 
-	/*Connection Pool*/
+        uint32_t ClusterPoolGet(const string &strKey, string &strVal);
+        void ClusterPoolPut(const string &strKey, const string &strVal);
 
-	void OpenPool(const std::string& host = "localhost", const unsigned int port = 6379);
-	void ClosePool();
+        /*Connection Pool*/
 
-	uint32_t PoolGet(const string &strKey, string &strVal);
-	void PoolPut(const string &strKey, const string &strVal);
+        void OpenPool(const std::string& host = "localhost", const unsigned int port = 6379);
+        void ClosePool();
 
-	/*Single Use*/
+        uint32_t PoolGet(const string &strKey, string &strVal);
+        void PoolPut(const string &strKey, const string &strVal);
 
-	//For open a connection to Redis server.
-	void Open(const std::string& host = "localhost", const unsigned int port = 6379);
+        /*Single Use*/
 
-	//For close the connection to Redis server.
-	void Close();
+        //For open a connection to Redis server.
+        void Open(const std::string& host = "localhost", const unsigned int port = 6379);
 
-	//Get function
+        //For close the connection to Redis server.
+        void Close();
 
-	uint32_t Get(const string &strKey, string &strVal);
+        //Get function
 
-	//Put function
-	void Put(const string &strKey, const string &strVal);
+        uint32_t Get(const string &strKey, string &strVal);
 
-private:
+        //Put function
+        void Put(const string &strKey, const string &strVal);
 
-    //For Single connect
-    map<string, connection::ptr_t> m_mapPtrConnection;
-    connection::ptr_t m_ptrConnection;
+    private:
 
-    //For simple connect pool
-    simple_pool::ptr_t m_ptrPool;
-    
-    //For cluster connect pool
-    map<string, simple_pool::ptr_t> m_mapPtrPool;
-    simple_pool::ptr_t m_ptrClusterPool;
+        //For Single connect
+        map<string, connection::ptr_t> m_mapPtrConnection;
+        connection::ptr_t m_ptrConnection;
 
+        //For simple connect pool
+        simple_pool::ptr_t m_ptrPool;
 
-
-};
+        //For cluster connect pool
+        map<string, simple_pool::ptr_t> m_mapPtrPool;
+        simple_pool::ptr_t m_ptrClusterPool;
 
 
+
+    };
+
+
+}
 
 #endif
+
+
 

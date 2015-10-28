@@ -124,6 +124,7 @@
     <ClInclude Include="ConHash.h" />
     <ClInclude Include="Digest.h" />
     <ClInclude Include="PRF.h" />
+    <ClInclude Include="RedisHelper.h" />
     <ClInclude Include="RSABlindSign.h" />
     <ClInclude Include="SemCtl.h" />
     <ClInclude Include="ShmCtl.h" />
@@ -135,6 +136,7 @@
     <ClCompile Include="BitConvert.cpp" />
     <ClCompile Include="Digest.cpp" />
     <ClCompile Include="PRF.cpp" />
+    <ClCompile Include="RedisHelper.cpp" />
     <ClCompile Include="RSABlindSign.cpp" />
     <ClCompile Include="SemCtl.cpp" />
     <ClCompile Include="ShmCtl.cpp" />

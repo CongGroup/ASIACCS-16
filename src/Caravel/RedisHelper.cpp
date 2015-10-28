@@ -10,63 +10,102 @@
 using namespace redis3m;
 using namespace std;
 
+namespace caravel {
 
-RedisHelper::RedisHelper()
-{
-}
-
-
-RedisHelper::~RedisHelper()
-{
-}
-
-
-void RedisHelper::OpenClusterPool(const std::string& host, const unsigned int port)
-{
-    m_ptrClusterPool = simple_pool::create(host, port);
-}
-
-
-void RedisHelper::CloseClusterPool()
-{
-
-}
-
-
-uint32_t RedisHelper::ClusterPoolGet(const string &strKey, string &strVal)
-{
-    //The first step
-
-    m_ptrClusterPool->run_with_connection<void>([&](connection::ptr_t conn)
+    RedisHelper::RedisHelper()
     {
-        strVal = conn->run(command("GET")(strKey)).str();
-    });
+    }
 
-    if (strVal.compare(0, 6, "MOVED ") == 0)
+
+    RedisHelper::~RedisHelper()
     {
-        //Second step
-        uint32_t uiIPBeg = strVal.find_last_of(' ') + 1;
-        uint32_t uiIPEnd = strVal.find_last_of(':');
-        string strIP = strVal.substr(uiIPBeg, uiIPEnd - uiIPBeg);
-        string strPort = strVal.substr(uiIPEnd + 1, strVal.length() - uiIPEnd);
-        uint32_t uiPort;
-        sscanf(strPort.c_str(), "%u", &uiPort);
+    }
 
-        simple_pool::ptr_t ptrPool;
 
-        //find the simple_pool
-        if (m_mapPtrPool.find(strIP) != m_mapPtrPool.end())
+    void RedisHelper::OpenClusterPool(const std::string& host, const unsigned int port)
+    {
+        m_ptrClusterPool = simple_pool::create(host, port);
+    }
+
+
+    void RedisHelper::CloseClusterPool()
+    {
+
+    }
+
+
+    uint32_t RedisHelper::ClusterPoolGet(const string &strKey, string &strVal)
+    {
+        //The first step
+
+        m_ptrClusterPool->run_with_connection<void>([&](connection::ptr_t conn)
         {
-            //find connect
-            ptrPool = m_mapPtrPool[strIP];
+            strVal = conn->run(command("GET")(strKey)).str();
+        });
+
+        if (strVal.compare(0, 6, "MOVED ") == 0)
+        {
+            //Second step
+            uint32_t uiIPBeg = strVal.find_last_of(' ') + 1;
+            uint32_t uiIPEnd = strVal.find_last_of(':');
+            string strIP = strVal.substr(uiIPBeg, uiIPEnd - uiIPBeg);
+            string strPort = strVal.substr(uiIPEnd + 1, strVal.length() - uiIPEnd);
+            uint32_t uiPort;
+            sscanf(strPort.c_str(), "%u", &uiPort);
+
+            simple_pool::ptr_t ptrPool;
+
+            //find the simple_pool
+            if (m_mapPtrPool.find(strIP) != m_mapPtrPool.end())
+            {
+                //find connect
+                ptrPool = m_mapPtrPool[strIP];
+            }
+            else
+            {
+                ptrPool = simple_pool::create(strIP.c_str(), uiPort);
+                m_mapPtrPool[strIP] = ptrPool;
+            }
+
+            ptrPool->run_with_connection<void>([&](connection::ptr_t conn)
+            {
+                strVal = conn->run(command("GET")(strKey)).str();
+            });
+
+            return strVal.length();
+
         }
         else
         {
-            ptrPool = simple_pool::create(strIP.c_str(), uiPort);
-            m_mapPtrPool[strIP] = ptrPool;
+            return strVal.length();
         }
 
-        ptrPool->run_with_connection<void>([&](connection::ptr_t conn)
+    }
+
+
+    void RedisHelper::ClusterPoolPut(const string &strKey, const string &strVal)
+    {
+        m_ptrClusterPool->run_with_connection<void>([&](connection::ptr_t conn)
+        {
+            conn->run(command("SET")(strKey)(strVal));
+        });
+    }
+
+
+    void RedisHelper::OpenPool(const std::string& host, const unsigned int port)
+    {
+        m_ptrPool = simple_pool::create(host, port);
+    }
+
+    void RedisHelper::ClosePool()
+    {
+
+    }
+
+
+    uint32_t RedisHelper::PoolGet(const string &strKey, string &strVal)
+    {
+        m_ptrPool->run_with_connection<void>([&](connection::ptr_t conn)
         {
             strVal = conn->run(command("GET")(strKey)).str();
         });
@@ -74,117 +113,80 @@ uint32_t RedisHelper::ClusterPoolGet(const string &strKey, string &strVal)
         return strVal.length();
 
     }
-    else
+
+    void RedisHelper::PoolPut(const string &strKey, const string &strVal)
     {
-        return strVal.length();
+        m_ptrPool->run_with_connection<void>([&](connection::ptr_t conn)
+        {
+            conn->run(command("SET")(strKey)(strVal));
+        });
     }
 
-}
 
-
-void RedisHelper::ClusterPoolPut(const string &strKey, const string &strVal)
-{
-    m_ptrClusterPool->run_with_connection<void>([&](connection::ptr_t conn)
+    void RedisHelper::Open(const std::string& host, const unsigned int port)
     {
-        conn->run(command("SET")(strKey)(strVal));
-    });
-}
+        m_ptrConnection = connection::create(host, port);
+    }
 
-
-void RedisHelper::OpenPool(const std::string& host, const unsigned int port)
-{
-    m_ptrPool = simple_pool::create(host, port);
-}
-
-void RedisHelper::ClosePool()
-{
-
-}
-
-
-uint32_t RedisHelper::PoolGet(const string &strKey, string &strVal)
-{
-	m_ptrPool->run_with_connection<void>([&](connection::ptr_t conn)
-	{
-		strVal = conn->run(command("GET")(strKey)).str();
-	});
-
-    return strVal.length();
-
-}
-
-void RedisHelper::PoolPut(const string &strKey, const string &strVal)
-{
-	m_ptrPool->run_with_connection<void>([&](connection::ptr_t conn)
-	{
-		conn->run(command("SET")(strKey)(strVal));
-	});
-}
-
-
-void RedisHelper::Open(const std::string& host, const unsigned int port)
-{
-    m_ptrConnection = connection::create(host, port);
-}
-
-void RedisHelper::Close()
-{
-
-}
-
-uint32_t RedisHelper::Get(const string &strKey, string &strVal)
-{
-
-	reply oReply = m_ptrConnection->run(command("GET") << strKey);
-	strVal = oReply.str();
-
-    if (strVal.compare(0, 6, "MOVED ") == 0)
+    void RedisHelper::Close()
     {
-        //Second step
-        uint32_t uiIPBeg = strVal.find_last_of(' ') + 1;
-        uint32_t uiIPEnd = strVal.find_last_of(':');
-        string strIP = strVal.substr(uiIPBeg, uiIPEnd - uiIPBeg);
-        string strPort = strVal.substr(uiIPEnd + 1, strVal.length() - uiIPEnd);
-        uint32_t uiPort;
-        sscanf(strPort.c_str(), "%u", &uiPort);
 
-        connection::ptr_t ptrConnection;
+    }
 
-        //find the simple_pool
-        if (m_mapPtrConnection.find(strIP) != m_mapPtrConnection.end())
+    uint32_t RedisHelper::Get(const string &strKey, string &strVal)
+    {
+
+        reply oReply = m_ptrConnection->run(command("GET") << strKey);
+        strVal = oReply.str();
+
+        if (strVal.compare(0, 6, "MOVED ") == 0)
         {
-            //find connect
-            ptrConnection = m_mapPtrConnection[strIP];
+            //Second step
+            uint32_t uiIPBeg = strVal.find_last_of(' ') + 1;
+            uint32_t uiIPEnd = strVal.find_last_of(':');
+            string strIP = strVal.substr(uiIPBeg, uiIPEnd - uiIPBeg);
+            string strPort = strVal.substr(uiIPEnd + 1, strVal.length() - uiIPEnd);
+            uint32_t uiPort;
+            sscanf(strPort.c_str(), "%u", &uiPort);
+
+            connection::ptr_t ptrConnection;
+
+            //find the simple_pool
+            if (m_mapPtrConnection.find(strIP) != m_mapPtrConnection.end())
+            {
+                //find connect
+                ptrConnection = m_mapPtrConnection[strIP];
+            }
+            else
+            {
+                ptrConnection = connection::create(strIP.c_str(), uiPort);
+                m_mapPtrConnection[strIP] = ptrConnection;
+            }
+
+            strVal = ptrConnection->run(command("GET") << strKey).str();
+
+            return strVal.length();
+
         }
         else
         {
-            ptrConnection = connection::create(strIP.c_str(), uiPort);
-            m_mapPtrConnection[strIP] = ptrConnection;
+            return strVal.length();
         }
-
-        strVal = ptrConnection->run(command("GET") << strKey).str();
-
-        return strVal.length();
-
     }
-    else
+
+    void RedisHelper::Put(const string &strKey, const string &strVal)
     {
-        return strVal.length();
-    }
-}
 
-void RedisHelper::Put(const string &strKey, const string &strVal)
-{
-
-	m_ptrConnection->run(command("SET") << strKey << strVal);
+        m_ptrConnection->run(command("SET") << strKey << strVal);
 
 #ifdef DEBUG_REDIS_HELPER
 
-	std::cout << strKey << " " << strVal << std::endl;
+        std::cout << strKey << " " << strVal << std::endl;
 
 #endif
 
-	return;
+        return;
+    }
+
+
 }
-
-
