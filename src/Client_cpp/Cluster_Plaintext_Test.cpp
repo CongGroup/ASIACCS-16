@@ -11,6 +11,10 @@
 using namespace std;
 using namespace caravel;
 
+const int MAXRECORD = 1000000 + 100;
+const int iNum = 1000000;
+string strInput[MAXRECORD];
+
 int main(int argc, char **argv)
 {
     RedisHelper redisHelper;
@@ -24,31 +28,45 @@ int main(int argc, char **argv)
     cout << "Begin to basic test ..." << endl;
     cout << "-----------------------------------------------------------------------------" << endl;
 
+    //Init the cache for key
+    string strKey;
+    strKey.assign(uiKeyLen, charRandom);
+    //This number will be changed to simulate the random key.
+    //[ {OOOO} {XXXXXXXXXXXXXXXXXXXXXXXXXXXXX} ]  {OOOO} means the number;  {XXXX} means the padding for key
+    //strKey should not be assign
+    uint32_t *pKeyCursorNum;
+    pKeyCursorNum = (uint32_t*)(strKey.c_str());
+    *pKeyCursorNum = 0;
+
+    //Init strScore 
+    string strScore;
+    strScore.assign(128, 'A');
 
     TimeDiff::DiffTimeInMicroSecond();
 
-    pRedisHelper->Put("xxxx", "adfasdf");
-    pRedisHelper->Put("xdfxxx", "adfasdf");
-    pRedisHelper->Put("xdfxdfxx", "adfasdf");
+    for (int i = 0; i < iNum; ++i)
+    {
+        (*pKeyCursorNum)++;
+        strInput[i] = strKey;
+        pRedisHelper -> Put(strKey, strScore);
+    }
 
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
 
-    cout << "Put 3 items cost time : " << uiTimeDiff << endl;
+    cout << "Put 1,000,000 items cost time : " << uiTimeDiff << endl;
 
     //Test Get operation
     string strVal;
 
     TimeDiff::DiffTimeInMicroSecond();
-
-    pRedisHelper->Get("xxxx", strVal);
-    cout << strVal.c_str() << endl;
-
-    pRedisHelper->Get("foo", strVal);
+    for (int i = 0; i < iNum; ++i)
+    {
+        string stReturnScore;
+        pRedisHelper -> Get(strKey, stReturnScore);
+    }
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
 
-    cout << "Get 1 items cost time : " << uiTimeDiff << endl;
-    cout << "Xiaoming get score : " << strVal.c_str() << endl;
-
+    cout << "Get 1,000,000 items cost time : " << uiTimeDiff << endl;
 
     cout << "-----------------------------------------------------------------------------" << endl;
     cout << "Finish Test" << endl;
