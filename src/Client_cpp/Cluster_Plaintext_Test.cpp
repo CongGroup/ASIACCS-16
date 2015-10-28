@@ -49,6 +49,12 @@ int main(int argc, char **argv)
     cout << "Begin to basic test ..." << endl;
     cout << "-----------------------------------------------------------------------------" << endl;
 
+    //Initialize random seed
+    srand(uiSeed);
+    char charRandom = (char) (rand() % 26 + 'A');
+    // cout << charRandom << endl;
+
+
     //Init the cache for key
     string strKey;
     strKey.assign(uiKeyLen, charRandom);
