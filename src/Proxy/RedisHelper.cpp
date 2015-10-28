@@ -162,7 +162,7 @@ uint32_t RedisHelper::Get(const string &strKey, string &strVal)
             m_mapPtrConnection[strIP] = ptrConnection;
         }
 
-        strVal = m_ptrConnection->run(command("GET") << strKey).str();
+        strVal = ptrConnection->run(command("GET") << strKey).str();
 
         return strVal.length();
 
