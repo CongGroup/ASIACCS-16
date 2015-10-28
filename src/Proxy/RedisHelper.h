@@ -43,21 +43,26 @@ public:
 	void Close();
 
 	//Get function
-	uint32_t Get(char *pKey, uint32_t uiKeyLen, char *pOut, uint32_t uiOutLen);
-	uint32_t Get(char *pKey, uint32_t uiKeyLen, string &strVal);
+
 	uint32_t Get(const string &strKey, string &strVal);
 
 	//Put function
-	void Put(char *pKey, uint32_t uiKeyLen, char *pVal, uint32_t uiValLen);
 	void Put(const string &strKey, const string &strVal);
 
 private:
 
+    //For Single connect
+    map<string, connection::ptr_t> m_mapPtrConnection;
     connection::ptr_t m_ptrConnection;
+
+    //For simple connect pool
     simple_pool::ptr_t m_ptrPool;
     
+    //For cluster connect pool
     map<string, simple_pool::ptr_t> m_mapPtrPool;
     simple_pool::ptr_t m_ptrClusterPool;
+
+
 
 };
 
