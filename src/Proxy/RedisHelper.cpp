@@ -5,6 +5,7 @@
 #include <string.h>
 #include <iostream>
 #include <stdint.h>
+#include <map>
 
 using namespace redis3m;
 using namespace std;
@@ -22,7 +23,7 @@ RedisHelper::~RedisHelper()
 
 void RedisHelper::OpenClusterPool(const std::string& host, const unsigned int port)
 {
-    simple_pool::ptr_t ptrClusterPool = connection_pool::create(host, port);
+    m_ptrClusterPool = simple_pool::create(host, port);
 }
 
 
@@ -34,13 +35,59 @@ void RedisHelper::CloseClusterPool()
 
 uint32_t RedisHelper::ClusterPoolGet(const string &strKey, string &strVal)
 {
+    //The first step
+
+    m_ptrClusterPool->run_with_connection<void>([&](connection::ptr_t conn)
+    {
+        strVal = conn->run(command("GET")(strKey)).str();
+    });
+
+    if (strVal.compare(0, 6, "MOVED ") == 0)
+    {
+        //Second step
+        uint32_t uiIPBeg = strVal.find_last_of(' ');
+        uint32_t uiIPEnd = strVal.find_last_of(':');
+        string strIP = strVal.substr(uiIPBeg, uiIPEnd - uiIPBeg);
+        string strPort = strVal.substr(uiIPEnd + 1, strVal.length() - uiIPEnd);
+        uint32_t uiPort;
+        sscanf(strPort.c_str(), "%u", &uiPort);
+
+        simple_pool::ptr_t ptrPool;
+
+        //find the simple_pool
+        if (m_mapPtrPool.find(strIP) != m_mapPtrPool.end())
+        {
+            //find connect
+            ptrPool = m_mapPtrPool[strIP];
+        }
+        else
+        {
+            ptrPool = simple_pool::create(strIP.c_str(), uiPort);
+            m_mapPtrPool[strIP] = ptrPool;
+        }
+
+        ptrPool->run_with_connection<void>([&](connection::ptr_t conn)
+        {
+            strVal = conn->run(command("GET")(strKey)).str();
+        });
+
+        return strVal.length();
+
+    }
+    else
+    {
+        return strVal.length();
+    }
 
 }
 
 
 void RedisHelper::ClusterPoolPut(const string &strKey, const string &strVal)
 {
-
+    m_ptrClusterPool->run_with_connection<void>([&](connection::ptr_t conn)
+    {
+        conn->run(command("SET")(strKey)(strVal));
+    });
 }
 
 
@@ -49,7 +96,7 @@ void RedisHelper::ClusterPoolPut(const string &strKey, const string &strVal)
 
 void RedisHelper::OpenPool(const std::string& host, const unsigned int port)
 {
-	m_ptrClusterPool = simple_pool::create(host, port);
+    m_ptrPool = simple_pool::create(host, port);
 }
 
 void RedisHelper::ClosePool()
@@ -64,6 +111,8 @@ uint32_t RedisHelper::PoolGet(const string &strKey, string &strVal)
 	{
 		strVal = conn->run(command("GET")(strKey)).str();
 	});
+
+    return strVal.length();
 
 }
 

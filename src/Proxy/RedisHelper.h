@@ -57,6 +57,7 @@ private:
     simple_pool::ptr_t m_ptrPool;
     
     map<simple_pool::ptr_t> m_mapPtrPool;
+    simple_pool::ptr_t m_ptrClusterPool;
 
 };
 
