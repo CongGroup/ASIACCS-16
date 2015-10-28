@@ -17,6 +17,27 @@ string strInput[MAXRECORD];
 
 int main(int argc, char **argv)
 {
+
+    if (argc != 6)
+    {
+        cout << "usage : ./" << argv[0] << " [DataNodeNum] [A] [B] [C] [D]" << endl;
+        cout << "The test will begin at [A] ." << endl;
+        cout << "The test will consist [B] seconds" << endl;
+        cout << "The Key size is [C] ." << endl;
+        cout << "The Seed is [D] ." << endl;
+        return 0;
+    }
+
+
+    //Get the params from command line
+    uint32_t uiBeg, uiTime, uiSeed, uiServerNum, uiKeyLen;
+    sscanf(argv[1], "%u", &uiServerNum);
+    sscanf(argv[2], "%u", &uiBeg);
+    sscanf(argv[3], "%u", &uiTime);
+    sscanf(argv[4], "%u", &uiKeyLen);
+    sscanf(argv[5], "%u", &uiSeed);
+
+
     RedisHelper redisHelper;
     RedisHelper *pRedisHelper = &redisHelper;
 
