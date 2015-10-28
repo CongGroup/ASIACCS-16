@@ -1,12 +1,12 @@
 CC=g++
-BIN=ClientTest Benchmark TestGet
+BIN=ClientTest Benchmark TestGet HaPool SimplePool
 #TestAll
 FLAGS=-Wall -g -fpermissive -std=c++0x
 RM=-rm -f
 SRC=$(wildcard *.cpp)
 #OBJ=$(SRC:*.cpp=*.o)
 OBJ=$(patsubst %.cpp, %.o, $(SRC))
-COMMON_OBJ=$(filter-out Benchmark.o ClientTest.o TestGet.o,$(OBJ))
+COMMON_OBJ=$(filter-out Benchmark.o ClientTest.o TestGet.o HaPool.o SimplePool.o,$(OBJ))
 
 #thrift
 THRIFT_LINK=-lthrift
@@ -47,6 +47,12 @@ Benchmark:$(OBJ)
 	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
 
 TestGet:$(OBJ)
+	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
+
+SimplePool:$(OBJ)
+	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
+
+HaPool:$(OBJ)
 	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
 
 clean:
