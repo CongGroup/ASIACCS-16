@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     RedisHelper *pRedisHelper = &redisHelper;
 
     //Init
-    pRedisHelper->Open("123", 5555);
+    pRedisHelper->Open("10.4.0.7", 6379);
 
     uint32_t uiTimeDiff;
 
@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
 
-    cout << "Put 2 items cost time : " << uiTimeDiff << endl;
+    cout << "Put 3 items cost time : " << uiTimeDiff << endl;
 
     //Test Get operation
     string strVal;
@@ -47,17 +47,7 @@ int main(int argc, char **argv)
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
 
     cout << "Get 1 items cost time : " << uiTimeDiff << endl;
-    cout << "Xiaoming get score : " << *(uint32_t*)strVal.c_str() << endl;
-
-    //Test GetCol operation
-    vector<string> vecVal;
-
-    TimeDiff::DiffTimeInMicroSecond();
-    client.GetCol(vecVal, "Test", "Score", 2);
-    uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
-
-    cout << "Test Get Columns which has 2 items cost time : " << uiTimeDiff << endl;
-    cout << "Two score are: " << *(uint32_t*)vecVal[0].c_str() << " " << *(uint32_t*)vecVal[1].c_str() << endl;
+    cout << "Xiaoming get score : " << strVal.c_str() << endl;
 
 
     cout << "-----------------------------------------------------------------------------" << endl;
