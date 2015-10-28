@@ -126,10 +126,11 @@
     <ClInclude Include="TProxyService.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Benchmark.cpp" />
+    <ClCompile Include="Ciphertext_throughput.cpp" />
     <ClCompile Include="ClientCpp.cpp" />
-    <ClCompile Include="ClientTest.cpp" />
-    <ClCompile Include="Cluster_Plaintext_Test.cpp" />
+    <ClCompile Include="Ciphertext_latency.cpp" />
+    <ClCompile Include="Plaintext_cluster_latency.cpp" />
+    <ClCompile Include="Plaintext_cluster_throughput.cpp" />
     <ClCompile Include="ProxyServer_constants.cpp" />
     <ClCompile Include="ProxyServer_types.cpp" />
     <ClCompile Include="TProxyService.cpp" />

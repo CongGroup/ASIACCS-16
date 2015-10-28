@@ -47,13 +47,16 @@
     <ClCompile Include="TProxyService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ClientTest.cpp">
+    <ClCompile Include="Plaintext_cluster_latency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Benchmark.cpp">
+    <ClCompile Include="Ciphertext_latency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cluster_Plaintext_Test.cpp">
+    <ClCompile Include="Ciphertext_throughput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Plaintext_cluster_throughput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
