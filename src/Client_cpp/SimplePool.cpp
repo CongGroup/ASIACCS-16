@@ -8,11 +8,11 @@ int main(int argc, char **argv)
     simple_pool::ptr_t pool = simple_pool::create("10.4.0.7", 6379);
     
     connection::ptr_t c = pool->get();
-    c->run(command("SET")("foo")("bar"));
+    c->run(command("SET")("foo1")("bar1"));
     pool->put(c);
 
     c = pool->get();
-    std::cout << c->run(command("GET")("foo")).str() << std::endl;
+    std::cout << c->run(command("GET")("foo1")).str() << std::endl;
     pool->put(c);
 
     /* If you have C++11
