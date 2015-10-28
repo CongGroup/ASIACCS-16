@@ -1,12 +1,12 @@
 CC=g++
-BIN=ClientTest Benchmark TestGet HaPool SimplePool Cluster_Plaintext_Test
+BIN=Ciphertext_throughput Ciphertext_latency Plaintext_cluster_latency Plaintext_cluster_throughput TestGet
 #TestAll
 FLAGS=-Wall -g -fpermissive -std=c++0x
 RM=-rm -f
 SRC=$(wildcard *.cpp)
 #OBJ=$(SRC:*.cpp=*.o)
 OBJ=$(patsubst %.cpp, %.o, $(SRC))
-COMMON_OBJ=$(filter-out Benchmark.o ClientTest.o TestGet.o HaPool.o SimplePool.o Cluster_Plaintext_Test.o,$(OBJ))
+COMMON_OBJ=$(filter-out Ciphertext_throughput.o Ciphertext_latency.o Plaintext_cluster_latency.o Plaintext_cluster_throughput.o TestGet.o,$(OBJ))
 
 #thrift
 THRIFT_LINK=-lthrift
@@ -40,23 +40,20 @@ all: $(BIN)
 %.o: %.cpp %.d
 	$(CC) -c $(FLAGS) $(INC) $< -o $@
 
-ClientTest:$(OBJ)
+Ciphertext_throughput:$(OBJ)
 	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
 
-Benchmark:$(OBJ)
+Ciphertext_latency:$(OBJ)
+	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
+
+Plaintext_cluster_latency:$(OBJ)
+	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
+
+Plaintext_cluster_throughput:$(OBJ)
 	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
 
 TestGet:$(OBJ)
 	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
-
-SimplePool:$(OBJ)
-	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
-
-HaPool:$(OBJ)
-	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
-
-Cluster_Plaintext_Test:$(OBJ)
-	$(CC) $(FLAGS) -o $@ $@.o /data/ICDCS16_EXP/src/Proxy/RedisHelper.o $(COMMON_OBJ) $(LIB)
 
 clean:
 	$(RM) *.o
@@ -64,3 +61,5 @@ clean:
 	$(RM) $(BIN)
 
 -include $(SRC:.cpp=.d)
+
+
