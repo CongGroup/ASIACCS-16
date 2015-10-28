@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "DemoConfig.h"
-#include "../Proxy/RedisHelper.h"
+#include "../Caravel/RedisHelper.h"
 #include "../Caravel/TimeDiff.h"
 
 using namespace std;

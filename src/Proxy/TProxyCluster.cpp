@@ -9,7 +9,7 @@
 
 #include <vector>
 
-#include "RedisHelper.h"
+#include "../Caravel/RedisHelper.h"
 #include "../Caravel/PRF.h"
 
 using namespace ::apache::thrift;
