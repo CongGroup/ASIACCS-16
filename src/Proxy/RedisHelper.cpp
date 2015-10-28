@@ -45,7 +45,7 @@ uint32_t RedisHelper::ClusterPoolGet(const string &strKey, string &strVal)
     if (strVal.compare(0, 6, "MOVED ") == 0)
     {
         //Second step
-        uint32_t uiIPBeg = strVal.find_last_of(' ');
+        uint32_t uiIPBeg = strVal.find_last_of(' ') + 1;
         uint32_t uiIPEnd = strVal.find_last_of(':');
         string strIP = strVal.substr(uiIPBeg, uiIPEnd - uiIPBeg);
         string strPort = strVal.substr(uiIPEnd + 1, strVal.length() - uiIPEnd);
@@ -141,7 +141,7 @@ uint32_t RedisHelper::Get(const string &strKey, string &strVal)
     if (strVal.compare(0, 6, "MOVED ") == 0)
     {
         //Second step
-        uint32_t uiIPBeg = strVal.find_last_of(' ');
+        uint32_t uiIPBeg = strVal.find_last_of(' ') + 1;
         uint32_t uiIPEnd = strVal.find_last_of(':');
         string strIP = strVal.substr(uiIPBeg, uiIPEnd - uiIPBeg);
         string strPort = strVal.substr(uiIPEnd + 1, strVal.length() - uiIPEnd);
