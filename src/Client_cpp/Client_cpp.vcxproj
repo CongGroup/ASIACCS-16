@@ -129,6 +129,7 @@
     <ClCompile Include="Benchmark.cpp" />
     <ClCompile Include="ClientCpp.cpp" />
     <ClCompile Include="ClientTest.cpp" />
+    <ClCompile Include="Cluster_Plaintext_Test.cpp" />
     <ClCompile Include="ProxyServer_constants.cpp" />
     <ClCompile Include="ProxyServer_types.cpp" />
     <ClCompile Include="TProxyService.cpp" />
