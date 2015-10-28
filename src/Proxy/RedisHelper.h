@@ -56,7 +56,7 @@ private:
     connection::ptr_t m_ptrConnection;
     simple_pool::ptr_t m_ptrPool;
     
-    map<simple_pool::ptr_t> m_mapPtrPool;
+    map<string, simple_pool::ptr_t> m_mapPtrPool;
     simple_pool::ptr_t m_ptrClusterPool;
 
 };

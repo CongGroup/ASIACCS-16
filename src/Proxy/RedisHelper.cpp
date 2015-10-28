@@ -91,9 +91,6 @@ void RedisHelper::ClusterPoolPut(const string &strKey, const string &strVal)
 }
 
 
-
-
-
 void RedisHelper::OpenPool(const std::string& host, const unsigned int port)
 {
     m_ptrPool = simple_pool::create(host, port);
