@@ -131,6 +131,7 @@
     <ClCompile Include="ProxyServer_types.cpp" />
     <ClCompile Include="RedisHelper.cpp" />
     <ClCompile Include="TProxy.cpp" />
+    <ClCompile Include="TProxyCluster.cpp" />
     <ClCompile Include="TProxyService.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
