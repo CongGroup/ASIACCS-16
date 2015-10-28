@@ -72,7 +72,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
     printf("ProxyPut\n");
 #endif
 
-	redisHelper.PoolPut(Trapdoor, Val);
+	redisHelper.ClusterPoolPut(Trapdoor, Val);
 
 	if (0 != IndexTrapdoor.length())
 	{
