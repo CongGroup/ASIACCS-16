@@ -13,7 +13,7 @@ using namespace caravel;
 
 int main(int argc, char **argv)
 {
-	if (argc != 6)
+	if (argc != 7)
 	{
 		cout << "usage : ./" << argv[0] << " [DataNodeNum] [A] [B] [C] [D] [E]" << endl;
 		cout << "The test will begin at [A] ." << endl;
