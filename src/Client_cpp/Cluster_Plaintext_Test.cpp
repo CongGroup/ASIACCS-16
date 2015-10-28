@@ -47,7 +47,7 @@ int main(int argc, char **argv)
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
 
     cout << "Get 1 items cost time : " << uiTimeDiff << endl;
-    cout << "Xiaoming get score : " << *(uint32_t*)strVal.c_str() << endl;
+    cout << "Xiaoming get score : " << strVal.c_str() << endl;
 
 
     cout << "-----------------------------------------------------------------------------" << endl;

@@ -1,12 +1,12 @@
 CC=g++
-BIN=ClientTest Benchmark TestGet HaPool SimplePool
+BIN=ClientTest Benchmark TestGet HaPool SimplePool Cluster_Plaintext_Test
 #TestAll
 FLAGS=-Wall -g -fpermissive -std=c++0x
 RM=-rm -f
 SRC=$(wildcard *.cpp)
 #OBJ=$(SRC:*.cpp=*.o)
 OBJ=$(patsubst %.cpp, %.o, $(SRC))
-COMMON_OBJ=$(filter-out Benchmark.o ClientTest.o TestGet.o HaPool.o SimplePool.o,$(OBJ))
+COMMON_OBJ=$(filter-out Benchmark.o ClientTest.o TestGet.o HaPool.o SimplePool.o Cluster_Plaintext_Test.o,$(OBJ))
 
 #thrift
 THRIFT_LINK=-lthrift
@@ -54,6 +54,9 @@ SimplePool:$(OBJ)
 
 HaPool:$(OBJ)
 	$(CC) $(FLAGS) -o $@ $@.o $(COMMON_OBJ) $(LIB)
+
+Cluster_Plaintext_Test:$(OBJ)
+	$(CC) $(FLAGS) -o $@ $@.o /data/ICDCS16_EXP/src/Proxy/RedisHelper.o $(COMMON_OBJ) $(LIB)
 
 clean:
 	$(RM) *.o
