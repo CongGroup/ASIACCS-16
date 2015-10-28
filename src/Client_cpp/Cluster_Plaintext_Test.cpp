@@ -41,9 +41,9 @@ int main(int argc, char **argv)
     TimeDiff::DiffTimeInMicroSecond();
 
     pRedisHelper->Get("xxxx", strVal);
-    pRedisHelper->Put("xdfxxx", strVal);
-    pRedisHelper->Put("xdfxdfxx", strVal);
+    cout << strVal.c_str() << endl;
 
+    pRedisHelper->Get("foo", strVal);
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
 
     cout << "Get 1 items cost time : " << uiTimeDiff << endl;
