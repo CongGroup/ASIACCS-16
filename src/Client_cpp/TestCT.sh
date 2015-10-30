@@ -7,14 +7,14 @@ exit
 
 fi
 
-LOOP = 100
+LOOP=1
 
 NODENUM=$1
 
 CURTIME=`date +%s`
 CURTIME=$(($CURTIME+2))
 
-DURATION=100
+DURATION=5
 
 KEYSIZE=16
 
@@ -35,12 +35,7 @@ echo "./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $OPTION ${RAN
 
 done
 
-read -n1 -r -p "Press [SPACE] to continue..." key
-
-if [ "$key" = ' ' ]; then
-
 awk 'BEGIN{total=0}{total+=$1}END{print total}' OutputCT
 
-fi
 
 
