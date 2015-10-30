@@ -57,6 +57,7 @@ int main(int argc, char **argv)
 	client.InitExample(uiServerNum);
 	client.Open();
 
+	uint32_t uiTimeDiff;
 	TimeDiff::DiffTimeInMicroSecond();
 
 	//Test Put operation
