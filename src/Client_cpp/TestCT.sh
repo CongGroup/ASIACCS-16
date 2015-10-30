@@ -7,6 +7,8 @@ exit
 
 fi
 
+LOOP = 100
+
 NODENUM=$1
 
 CURTIME=`date +%s`
@@ -23,12 +25,14 @@ RANDTIME=`date +%N`
 echo $CURTIME
 echo $RANDTIME
 
-for i in {1..1}
+for i in $(seq 1 ${LOOP})
 do
 
 echo $NODENUM $CURTIME $DURATION $KEYSIZE $OPTION ${RANDTIME}
 
 echo "./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $OPTION ${RANDTIME}"
-./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $OPTION ${RANDTIME}
+./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $OPTION ${RANDTIME} >> OutputCT &
 
 done
+
+awk 'BEGIN{total=0}{total+=$1}END{print total}' OutputCT
