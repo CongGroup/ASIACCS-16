@@ -29,9 +29,6 @@
     <ClInclude Include="TProxyService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RedisHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ProxyServer_constants.cpp">
@@ -44,9 +41,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TProxyService.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RedisHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TProxyCluster.cpp">

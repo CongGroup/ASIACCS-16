@@ -50,7 +50,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
     printf("ProxyGet\n");
 #endif
 
-	uint32_t uiSize = redisHelper.PoolGet(Trapdoor, _return);
+	uint32_t uiSize = redisHelper.Get(Trapdoor, _return);
 
 	if(0 == uiSize)
 	{
@@ -73,11 +73,11 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
     printf("ProxyPut\n");
 #endif
 
-	redisHelper.PoolPut(Trapdoor, Val);
+	redisHelper.Put(Trapdoor, Val);
 
 	if (0 != IndexTrapdoor.length())
 	{
-		redisHelper.PoolPut(IndexTrapdoor, IndexVal);
+		redisHelper.Put(IndexTrapdoor, IndexVal);
 
 	}
 
@@ -115,7 +115,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 		strIndexMask.assign(szTmp, SHA256_DIGEST_LENGTH);
 
 		string strIndexVal;
-		redisHelper.PoolGet(strIndexTrapdoor, strIndexVal);
+		redisHelper.Get(strIndexTrapdoor, strIndexVal);
 		if (strIndexVal.length() == 0)
 		{
 			continue;
@@ -139,7 +139,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 			strTrapdoor.assign(pTrapdoor, SHA256_DIGEST_LENGTH);
 			
 			//Get the Value by Trapdoor
-			redisHelper.PoolGet(strTrapdoor, strVal);
+			redisHelper.Get(strTrapdoor, strVal);
 
 			if (strVal.length() == 0)
 			{
