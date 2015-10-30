@@ -22,6 +22,18 @@ OPTION=0
 
 RANDTIME=`date +%N`
 
+get_char()
+{
+        SAVEDSTTY=`stty -g`
+        stty -echo
+        stty raw
+        dd if=/dev/tty bs=1 count=1 2> /dev/null
+        stty -raw
+        stty echo
+        stty $SAVEDSTTY
+}
+
+
 echo $CURTIME
 echo $RANDTIME
 
@@ -34,6 +46,9 @@ echo "./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $OPTION ${RAN
 ./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $OPTION ${RANDTIME} >> OutputCT &
 
 done
+
+echo "Press any key to continue..."
+char=`get_char`
 
 awk 'BEGIN{total=0}{total+=$1}END{print total}' OutputCT
 
