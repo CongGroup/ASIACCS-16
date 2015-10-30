@@ -6,6 +6,7 @@
 #include <thrift/server/TSimpleServer.h>
 #include <thrift/transport/TServerSocket.h>
 #include <thrift/transport/TBufferTransports.h>
+#include <thrift/server/TThreadedServer.h>
 
 #include <vector>
 
@@ -169,7 +170,9 @@ int main(int argc, char **argv) {
   boost::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
   boost::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
 
-  TSimpleServer server(processor, serverTransport, transportFactory, protocolFactory);
+  //TSimpleServer server(processor, serverTransport, transportFactory, protocolFactory);
+  TThreadedServer server(processor, serverTransport, transportFactory, protocolFactory);
+
   server.serve();
   return 0;
 }
