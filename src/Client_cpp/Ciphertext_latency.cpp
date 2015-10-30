@@ -11,6 +11,10 @@
 using namespace std;
 using namespace caravel;
 
+const int MAXRECORD = 1000000 + 100;
+const int iNum = 1000000;
+string strInput[MAXRECORD];
+
 int main(int argc, char **argv)
 {
 	if (argc != 7)
