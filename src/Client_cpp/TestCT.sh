@@ -35,7 +35,12 @@ echo "./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $OPTION ${RAN
 
 done
 
-echo "Press any key to continue."
-char = `get_char`
+read -n1 -r -p "Press [SPACE] to continue..." key
+
+if [ "$key" = ' ' ]; then
 
 awk 'BEGIN{total=0}{total+=$1}END{print total}' OutputCT
+
+fi
+
+
