@@ -135,6 +135,11 @@
     <ClCompile Include="ProxyServer_types.cpp" />
     <ClCompile Include="TProxyService.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
+    <None Include="test1.sh" />
+    <None Include="test2.sh" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
