@@ -94,7 +94,8 @@ void ClientCpp::Put(string stTable, string stKey, string stCol, char *pVal, uint
     m_Encrypt(strSendVal, pVal, uiLen);
 
     //Check the Router to choose a server to send request.
-    uint32_t uiKey = *(uint32_t*)szTd;
+    uint32_t uiKey = *(uint32_t*)szTd ^ *(uint32_t*)(szTd + 4) ^ *(uint32_t*)(szTd + 8) ^ *(uint32_t*)(szTd + 16) ^ *(uint32_t*)(szTd + 20) ^ *(uint32_t*)(szTd + 24) ^ *(uint32_t*)(szTd + 28);
+
     ThriftAdapt<TProxyServiceClient> *pThriftAdapt = *(m_SimConHash.Query(uiKey));
     TProxyServiceClient* pClient = pThriftAdapt->GetClient();
 
@@ -215,7 +216,7 @@ void ClientCpp::InitExample(uint32_t uiServerNum)
 {
     //Set the ServerName and Init the Examples
     const uint32_t uiMax = (uint32_t)-1;
-    uint32_t uiInterval = uiMax / uiServerNum;
+    uint32_t uiInterval = uiMax / uiServerNum - 5;
 
     for (uint32_t uiCur = 0; uiCur < uiServerNum; uiCur++)
     {
