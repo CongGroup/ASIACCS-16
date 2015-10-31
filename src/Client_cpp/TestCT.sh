@@ -7,14 +7,14 @@ exit
 
 fi
 
-LOOP=1
+LOOP=2
 
 NODENUM=$1
 
 CURTIME=`date +%s`
-CURTIME=$(($CURTIME+2))
+CURTIME=$(($CURTIME+10))
 
-DURATION=5
+DURATION=20
 
 KEYSIZE=16
 
@@ -37,13 +37,15 @@ get_char()
 echo $CURTIME
 echo $RANDTIME
 
+rm -f OutputCT
+
 for i in $(seq 1 ${LOOP})
 do
 
 echo $NODENUM $CURTIME $DURATION $KEYSIZE $OPTION ${RANDTIME}
 
 echo "./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $OPTION ${RANDTIME}"
-./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $OPTION ${RANDTIME} >> OutputCT &
+./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE 50 $OPTION ${RANDTIME} >> OutputCT &
 
 done
 
