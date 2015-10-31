@@ -61,7 +61,7 @@ int main(int argc, char **argv)
     for (uint32_t uiCur = 0; uiCur < uiNum; uiCur++)
     {
         (*pKeyCursorNum)++;
-        arStrInput[uiCur].assign(strKey);
+        arStrInput[uiCur].assign(strKey.c_str(), uiKeyLen);
     }
 
     TimeDiff::DiffTimeInMicroSecond();
