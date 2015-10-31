@@ -25,7 +25,7 @@ using namespace  ::proxyserver;
 
 #define SHA256_DIGEST_LENGTH 32
 #define INDEX_STOP_FLAG 1234567890
-#define DEBUG_TPROXY_FLAG
+//#define DEBUG_TPROXY_FLAG
 
 class TProxyServiceHandler : virtual public TProxyServiceIf {
  public:
@@ -33,7 +33,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
     // Your initialization goes here
 
       cout << "TProxyServiceHandler Begin Init" << endl;
-	  redisHelper.Open();
+	  redisHelper.OpenPool();
       cout << "TProxyServiceHandler End Init" << endl;
 
   }
@@ -52,7 +52,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
     printf("ProxyGet\n");
 #endif
 
-	uint32_t uiSize = redisHelper.Get(Trapdoor, _return);
+	uint32_t uiSize = redisHelper.PoolGet(Trapdoor, _return);
 
 	if(0 == uiSize)
 	{
@@ -75,11 +75,11 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
     printf("ProxyPut\n");
 #endif
 
-	redisHelper.Put(Trapdoor, Val);
+	redisHelper.PoolPut(Trapdoor, Val);
 
 	if (0 != IndexTrapdoor.length())
 	{
-		redisHelper.Put(IndexTrapdoor, IndexVal);
+		redisHelper.PoolPut(IndexTrapdoor, IndexVal);
 
 	}
 
@@ -117,7 +117,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 		strIndexMask.assign(szTmp, SHA256_DIGEST_LENGTH);
 
 		string strIndexVal;
-		redisHelper.Get(strIndexTrapdoor, strIndexVal);
+        redisHelper.PoolGet(strIndexTrapdoor, strIndexVal);
 		if (strIndexVal.length() == 0)
 		{
 			continue;
@@ -141,7 +141,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 			strTrapdoor.assign(pTrapdoor, SHA256_DIGEST_LENGTH);
 			
 			//Get the Value by Trapdoor
-			redisHelper.Get(strTrapdoor, strVal);
+			redisHelper.PoolGet(strTrapdoor, strVal);
 
 			if (strVal.length() == 0)
 			{
