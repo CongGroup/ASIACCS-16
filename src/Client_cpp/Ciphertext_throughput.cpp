@@ -61,8 +61,6 @@ int main(int argc, char **argv)
 	client.InitExample(uiServerNum);
 	client.Open();
 
-	cout <<"adf"<<endl;
-
 	uint32_t uiCnt = 0;
 	while (true)
 	{
