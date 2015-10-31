@@ -32,7 +32,9 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
   TProxyServiceHandler() {
     // Your initialization goes here
 
+      cout << "TProxyServiceHandler Begin Init" << endl;
 	  redisHelper.Open();
+      cout << "TProxyServiceHandler End Init" << endl;
 
   }
 

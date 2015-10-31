@@ -125,7 +125,9 @@ namespace caravel {
 
     void RedisHelper::Open(const std::string& host, const unsigned int port)
     {
+        cout << "Begin Open" << endl;
         m_ptrConnection = connection::create(host, port);
+        cout << "End Open" << endl;
     }
 
     void RedisHelper::Close()
