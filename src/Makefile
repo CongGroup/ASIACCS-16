@@ -12,5 +12,5 @@ client:
 	cd Client_cpp && ./Client_cpp
 
 proxy:
-	cd Proxy && ./Proxy
+	cd Proxy && ./TProxy
 
