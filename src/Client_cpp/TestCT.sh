@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! $# == 4 ]; then
+if [ ! $# == 5 ]; then
 
 echo "Usage : ./TestCT.sh [NodeNum] [LOOP] [OPTION] [TIME] [SEEDS]"
 exit
