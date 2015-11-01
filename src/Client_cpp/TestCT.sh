@@ -1,27 +1,24 @@
 #!/bin/bash
 
-if [ ! $# == 1 ]; then
+if [ ! $# == 4 ]; then
 
-echo "Usage : ./TestCT.sh [NodeNum]"
+echo "Usage : ./TestCT.sh [NodeNum] [LOOP] [OPTION] [TIME] [SEEDS]"
 exit
 
 fi
 
-LOOP=2
 
 NODENUM=$1
+LOOP=$2
+OPTION=$3
+CURTIME=$4
+SEEDS=$5
 
-CURTIME=`date +%s`
-CURTIME=$(($CURTIME+10))
-
-DURATION=20
-
+DURATION=30
 KEYSIZE=10
 VALSIZE=1024
 
-OPTION=0
-
-RANDTIME=`date +%N`
+RANDTIME=`date +%N`+SEEDS
 
 
 get_char()
@@ -35,19 +32,15 @@ get_char()
         stty $SAVEDSTTY
 }
 
-
-echo $CURTIME
-echo $RANDTIME
-
 rm -f OutputCT
 
 for i in $(seq 1 ${LOOP})
 do
 
-echo $NODENUM $CURTIME $DURATION $KEYSIZE $VALSIZE $OPTION ${RANDTIME}
+echo $NODENUM $CURTIME $DURATION $KEYSIZE $VALSIZE $OPTION ${RANDTIME}$i
 
-echo "./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $VALSIZE $OPTION ${RANDTIME}"
-./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $VALSIZE $OPTION ${RANDTIME} >> OutputCT &
+echo "./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $VALSIZE $OPTION ${RANDTIME}$i"
+./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $VALSIZE $OPTION ${RANDTIME}$i >> OutputCT &
 
 done
 
