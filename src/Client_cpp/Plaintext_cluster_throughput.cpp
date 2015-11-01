@@ -122,8 +122,6 @@ int main(int argc, char **argv)
 
     cout << uiCnt << endl;
 
-    client.Close();
-
     return 0;
 }
 
