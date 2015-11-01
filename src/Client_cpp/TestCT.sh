@@ -18,7 +18,7 @@ DURATION=30
 KEYSIZE=10
 VALSIZE=1024
 
-RANDTIME=`date +%N`+$SEEDS
+RANDTIME=`date +%N`$SEEDS
 
 
 get_char()
