@@ -1,7 +1,7 @@
 CC=g++
 BIN=TProxy TProxyCluster
 #TestAll
-FLAGS=-Wall -g -fpermissive -std=c++0x
+FLAGS=-Wall -g -fpermissive -std=c++0x -O3
 RM=-rm -f
 SRC=$(wildcard *.cpp)
 #OBJ=$(SRC:*.cpp=*.o)

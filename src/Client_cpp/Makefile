@@ -1,7 +1,7 @@
 CC=g++
 BIN=Ciphertext_throughput Ciphertext_latency Plaintext_cluster_latency Plaintext_cluster_throughput TestGet
 #TestAll
-FLAGS=-Wall -g -fpermissive -std=c++0x
+FLAGS=-Wall -g -fpermissive -std=c++0x -O3
 RM=-rm -f
 SRC=$(wildcard *.cpp)
 #OBJ=$(SRC:*.cpp=*.o)
