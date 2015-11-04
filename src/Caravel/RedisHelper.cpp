@@ -10,6 +10,8 @@
 using namespace redis3m;
 using namespace std;
 
+#define DEF_REP_TIMES 100000
+
 namespace caravel {
 
     RedisHelper::RedisHelper()
@@ -41,7 +43,7 @@ namespace caravel {
         m_ptrClusterPool->run_with_connection<void>([&](connection::ptr_t conn)
         {
             strVal = conn->run(command("GET")(strKey)).str();
-        });
+        }, DEF_REP_TIMES);
 
         if (strVal.compare(0, 6, "MOVED ") == 0)
         {
@@ -70,7 +72,7 @@ namespace caravel {
             ptrPool->run_with_connection<void>([&](connection::ptr_t conn)
             {
                 strVal = conn->run(command("GET")(strKey)).str();
-            });
+            }, DEF_REP_TIMES);
 
             return strVal.length();
 
@@ -88,7 +90,7 @@ namespace caravel {
         m_ptrClusterPool->run_with_connection<void>([&](connection::ptr_t conn)
         {
             conn->run(command("SET")(strKey)(strVal));
-        });
+        }, DEF_REP_TIMES);
     }
 
 
@@ -108,7 +110,7 @@ namespace caravel {
         m_ptrPool->run_with_connection<void>([&](connection::ptr_t conn)
         {
             strVal = conn->run(command("GET")(strKey)).str();
-        });
+        }, DEF_REP_TIMES);
 
         return strVal.length();
 
@@ -119,7 +121,7 @@ namespace caravel {
         m_ptrPool->run_with_connection<void>([&](connection::ptr_t conn)
         {
             conn->run(command("SET")(strKey)(strVal));
-        });
+        }, DEF_REP_TIMES);
     }
 
 
