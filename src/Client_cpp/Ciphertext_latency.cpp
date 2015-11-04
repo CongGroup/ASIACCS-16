@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 	uint32_t uiServerNum, uiKeyLen, uiValLen, uiOption, uiNum;
 	sscanf(argv[1], "%u", &uiServerNum);
 	sscanf(argv[2], "%u", &uiKeyLen);
-    sscanf(argv[2], "%u", &uiValLen);
+    sscanf(argv[3], "%u", &uiValLen);
     sscanf(argv[4], "%u", &uiNum);
 
 	//Init the cache for key
