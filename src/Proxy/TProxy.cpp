@@ -183,11 +183,21 @@ int main(int argc, char **argv) {
   boost::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
   boost::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
 
+  const int workerCount = 500;
+
+  boost::shared_ptr<ThreadManager> threadManager = ThreadManager::newSimpleThreadManager(workerCount);
+  boost::shared_ptr<PosixThreadFactory> threadFactory = boost::shared_ptr<PosixThreadFactory>(new PosixThreadFactory());
+  threadManager->threadFactory(threadFactory);
+
+  threadManager->start();
+
+  TThreadPoolServer server(processor, serverTransport, transportFactory, protocolFactory, threadManager);
+
   //TSimpleServer server(processor, serverTransport, transportFactory, protocolFactory);
-  TThreadedServer server(processor, serverTransport, transportFactory, protocolFactory);
+  // TThreadedServer server(processor, serverTransport, transportFactory, protocolFactory);
 
   server.serve();
-  
+   
   */
 
   boost::shared_ptr<TProxyServiceHandler> handler(new TProxyServiceHandler());
