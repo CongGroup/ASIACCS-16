@@ -8,6 +8,12 @@
 #include <thrift/server/TThreadedServer.h>
 #include <thrift/transport/TBufferTransports.h>
 
+#include <thrift/concurrency/ThreadManager.h>
+#include <thrift/concurrency/PosixThreadFactory.h>
+#include <thrift/server/TThreadPoolServer.h>
+#include <thrift/transport/TTransportUtils.h>
+
+
 #include <vector>
 
 #include "../Caravel/RedisHelper.h"
@@ -165,7 +171,12 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 };
 
 int main(int argc, char **argv) {
+
+
+
   int port = 9090;
+  
+  /*
   boost::shared_ptr<TProxyServiceHandler> handler(new TProxyServiceHandler());
   boost::shared_ptr<TProcessor> processor(new TProxyServiceProcessor(handler));
   boost::shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
@@ -176,6 +187,28 @@ int main(int argc, char **argv) {
   TThreadedServer server(processor, serverTransport, transportFactory, protocolFactory);
 
   server.serve();
+  
+  */
+
+  boost::shared_ptr<TProxyServiceHandler> handler(new TProxyServiceHandler());
+  boost::shared_ptr<TProcessor> processor(new TProxyServiceProcessor(handler));
+  boost::shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
+  boost::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
+  boost::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+
+
+  const int workerCount = 500;
+
+  boost::shared_ptr<ThreadManager> threadManager = ThreadManager::newSimpleThreadManager(workerCount);
+  boost::shared_ptr<PosixThreadFactory> threadFactory = boost::shared_ptr<PosixThreadFactory>(new PosixThreadFactory());
+  threadManager->threadFactory(threadFactory);
+
+  threadManager->start();
+
+  TThreadPoolServer server(processor, serverTransport, transportFactory, protocolFactory, threadManager);
+  
+  server.serve();
+
   return 0;
 }
 
