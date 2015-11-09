@@ -10,7 +10,7 @@
 using namespace redis3m;
 using namespace std;
 
-#define DEF_REP_TIMES 100000000
+#define DEF_REP_TIMES 10
 
 namespace caravel {
 

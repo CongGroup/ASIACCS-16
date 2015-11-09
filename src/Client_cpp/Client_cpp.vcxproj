@@ -139,6 +139,7 @@
     <None Include="Makefile" />
     <None Include="test1.sh" />
     <None Include="test2.sh" />
+    <None Include="TestCT.sh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
