@@ -83,7 +83,7 @@ int main(int argc, char **argv)
 
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
 
-    cout << ((double) uiTimeDiff) / uiNum / 1000  << "\t";
+    cout << ((double) uiTimeDiff) / 1000  << "\t";
     // cout << "Putting " <<  uiNum << " items cost time: " << uiTimeDiff << endl;
 
     //Test Get operation
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
     }
 
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
-    cout << ((double) uiTimeDiff) / uiNum / 1000 << "\t";
+    cout << ((double) uiTimeDiff) / 1000 << "\t";
     // cout << "Getting " <<  uiNum << " items cost time: " << uiTimeDiff << endl; 
 
 
