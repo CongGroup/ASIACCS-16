@@ -107,7 +107,7 @@ int main(int argc, char **argv)
 
     TimeDiff::DiffTimeInMicroSecond();
 
-    client.GetCol(vecResult, "StudentScoreTable", "Score", 1000);
+    client.GetCol(vecResult, "StudentScoreTable", "Score", uiNum);
 
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
 
