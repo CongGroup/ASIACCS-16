@@ -33,6 +33,8 @@ public:
 	void Open();
 	void Close();
 
+	void Init(string arIP[], uint16_t arPort[], uint32_t uiServerNum);
+
 	void InitExample(uint32_t uiServerNum = DEMO_SERVER_NUM);
 
 	void Get(string &_retVal, string stTable, string stKey, string stCol);

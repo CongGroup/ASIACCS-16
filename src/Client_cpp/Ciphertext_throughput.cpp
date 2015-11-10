@@ -99,25 +99,29 @@ int main(int argc, char **argv)
         }
         else if(3 == uiOption)
         {
-			//Write Heavy
+
+			//Read Heavy
+
+#ifdef DEF_INSERT_INDEX
+			client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), true);
+#else
+			client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), false);
+#endif
+
 			for (int i = 0; i < 19; i++)
 			{
-#ifdef DEF_INSERT_INDEX
-				client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), true);
-#else
-				client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), false);
-#endif
+				string stReturnScore;
+				client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
 			}
 
 			uiCnt += 19;
 
-			string stReturnScore;
-			client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
 
         }
 		else if (4 == uiOption)
 		{
-			//Half Write - Read
+			//Half Write Heavy
+
 #ifdef DEF_INSERT_INDEX
 			client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), true);
 #else

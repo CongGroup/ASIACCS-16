@@ -116,21 +116,24 @@ int main(int argc, char **argv)
 		}
 		else if (3 == uiOption)
 		{
-			//Write Heavy
+			//Read Heavy
+
+			pRedisHelper->Put("StudentScoreTable|Score|" + strKey, strVal);
+			
 			for (int i = 0; i < 19; i++)
 			{
-				pRedisHelper->Put("StudentScoreTable|Score|" + strKey, strVal);
+				string stReturnScore;
+				pRedisHelper->Get("StudentScoreTable|Score|" + strKey, stReturnScore);
 			}
 
 			uiCnt += 19;
 
-			string stReturnScore;
-			pRedisHelper->Get("StudentScoreTable|Score|" + strKey, stReturnScore);
+			
 
 		}
 		else if (4 == uiOption)
 		{
-			//Half Write - Read
+			//Half Write Heavy
 
 			pRedisHelper->Put("StudentScoreTable|Score|" + strKey, strVal);
 
