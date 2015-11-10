@@ -3,7 +3,7 @@
 
 #define DEMO_SERVER_NUM 1
 
-#define DEF_INSERT_INDEX
+//#define DEF_INSERT_INDEX
 
 #define DEMO_SECURITY_KEY "adfaksdfjklasdjflajsdiofjasodf"
 
