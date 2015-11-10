@@ -128,7 +128,7 @@ int main(int argc, char **argv)
 			pRedisHelper->Get("StudentScoreTable|Score|" + strKey, stReturnScore);
 
 		}
-		else if (3 == uiOption)
+		else if (4 == uiOption)
 		{
 			//Half Write - Read
 

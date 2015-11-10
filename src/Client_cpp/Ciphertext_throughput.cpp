@@ -115,7 +115,7 @@ int main(int argc, char **argv)
 			client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
 
         }
-		else if (3 == uiOption)
+		else if (4 == uiOption)
 		{
 			//Half Write - Read
 #ifdef DEF_INSERT_INDEX
