@@ -29,7 +29,7 @@ int main(int argc, char **argv)
     }
 
     //Get the params from command line
-    uint32_t uiServerNum, uiKeyLen, uiValLen, uiOption, uiNum;
+    uint32_t uiServerNum, uiKeyLen, uiValLen, uiOption, uiNum, uiSeed;
     sscanf(argv[1], "%u", &uiServerNum);
     sscanf(argv[2], "%u", &uiKeyLen);
     sscanf(argv[3], "%u", &uiValLen);
