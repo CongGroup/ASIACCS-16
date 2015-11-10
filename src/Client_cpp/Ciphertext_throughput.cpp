@@ -108,34 +108,13 @@ int main(int argc, char **argv)
 			client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), false);
 #endif
 
-			// for (int i = 0; i < 19; i++)
-			// {
-			// 	uiCnt++;
-			// 	string stReturnScore;
-			// 	client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			// }
-			string stReturnScore;
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			
-
+			for (int i = 0; i < 19; i++)
+			{
+				uiCnt++;
+				string stReturnScore;
+				(*pKeyCursorNum)++;
+				client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			}
 
         }
 		else if (4 == uiOption)
