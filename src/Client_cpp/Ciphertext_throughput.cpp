@@ -110,11 +110,12 @@ int main(int argc, char **argv)
 
 			for (int i = 0; i < 19; i++)
 			{
+				uiCnt++;
 				string stReturnScore;
 				client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
 			}
 
-			uiCnt += 19;
+			
 
 
         }
