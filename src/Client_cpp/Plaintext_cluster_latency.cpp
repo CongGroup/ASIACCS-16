@@ -68,7 +68,7 @@ int main(int argc, char **argv)
     {
         (*pKeyCursorNum)++;
         strInput[i] = strKey;
-        pRedisHelper -> Put(strKey, strScore);
+        pRedisHelper -> Put(strKey, strVal);
     }
 
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
