@@ -12,53 +12,33 @@ using namespace std;
 using namespace caravel;
 
 const int MAXRECORD = 1000000 + 100;
-const int iNum = 1000000;
+const int iNum = 10000;
 string strInput[MAXRECORD];
 
 int main(int argc, char **argv)
 {
 
-    if (argc != 7)
+    if (argc != 5)
     {
-        cout << "usage : ./" << argv[0] << " [DataNodeNum] [A] [B] [C] [D] [E]" << endl;
-        cout << "The test will begin at [A] ." << endl;
-        cout << "The test will consist [B] seconds" << endl;
-        cout << "The Key size is [C] ." << endl;
-        cout << "0 for put. 1 for get. 2 for getCol" << endl;
+        cout << "usage : ./" << argv[0] << " [DataNodeNum] [KeyLen] [ValLen] [Times]" << endl;
+        cout << "The Key size is [X] ." << endl;
+        cout << "The Value size is [X] ." << endl;
+        cout << "The num of times = [X]" << endl;
         cout << "The Seed is [E] ." << endl;
         return 0;
     }
 
     //Get the params from command line
-    uint32_t uiBeg, uiTime, uiSeed, uiServerNum, uiKeyLen, uiOption;
+    uint32_t uiServerNum, uiKeyLen, uiValLen, uiOption, uiNum;
     sscanf(argv[1], "%u", &uiServerNum);
-    sscanf(argv[2], "%u", &uiBeg);
-    sscanf(argv[3], "%u", &uiTime);
-    sscanf(argv[4], "%u", &uiKeyLen);
-    sscanf(argv[5], "%u", &uiOption);
-    sscanf(argv[6], "%u", &uiSeed);
-
-
-    RedisHelper redisHelper;
-    RedisHelper *pRedisHelper = &redisHelper;
-
-    //Init
-    pRedisHelper->Open("10.4.0.7", 6379);
-
-    uint32_t uiTimeDiff;
-
-    cout << "Begin to basic test ..." << endl;
-    cout << "-----------------------------------------------------------------------------" << endl;
-
-    //Initialize random seed
-    srand(uiSeed);
-    char charRandom = (char) (rand() % 26 + 'A');
-    // cout << charRandom << endl;
-
+    sscanf(argv[2], "%u", &uiKeyLen);
+    sscanf(argv[3], "%u", &uiValLen);
+    sscanf(argv[4], "%u", &uiNum);
+    sscanf(argv[5], "%u", &uiSeed);
 
     //Init the cache for key
     string strKey;
-    strKey.assign(uiKeyLen, charRandom);
+    strKey.assign(uiKeyLen, '0');
     //This number will be changed to simulate the random key.
     //[ {OOOO} {XXXXXXXXXXXXXXXXXXXXXXXXXXXXX} ]  {OOOO} means the number;  {XXXX} means the padding for key
     //strKey should not be assign
@@ -66,12 +46,24 @@ int main(int argc, char **argv)
     pKeyCursorNum = (uint32_t*)(strKey.c_str());
     *pKeyCursorNum = 0;
 
-    //Init strScore 
-    string strScore;
-    strScore.assign(128, 'A');
+    //Init strVal   
+    string strVal;
+    strVal.assign(uiValLen, 'A');
+
+
+    RedisHelper redisHelper;
+    RedisHelper *pRedisHelper = &redisHelper;
+
+    //Init
+    pRedisHelper->Open("10.4.0.5", 6379);
+
+    uint32_t uiTimeDiff;
+
+    //Initialize random seed
+    srand(uiSeed);
+    char charRandom = (char) (rand() % 26 + 'A');
 
     TimeDiff::DiffTimeInMicroSecond();
-
     for (int i = 0; i < iNum; ++i)
     {
         (*pKeyCursorNum)++;
@@ -80,21 +72,16 @@ int main(int argc, char **argv)
     }
 
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
-
-    cout << "Put 1,000,000 items cost time : " << uiTimeDiff << endl;
-
-    //Test Get operation
-    string strVal;
+    cout << ((double) uiTimeDiff) / uiNum / 1000  << " ";
 
     TimeDiff::DiffTimeInMicroSecond();
     for (int i = 0; i < iNum; ++i)
     {
         string stReturnScore;
-        pRedisHelper -> Get(strKey, stReturnScore);
+        pRedisHelper -> Get(strInput[i], stReturnScore);
     }
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
-
-    cout << "Get 1,000,000 items cost time : " << uiTimeDiff << endl;
+    cout << ((double) uiTimeDiff) / uiNum / 1000  << " ";
 
     cout << "-----------------------------------------------------------------------------" << endl;
     cout << "Finish Test" << endl;
