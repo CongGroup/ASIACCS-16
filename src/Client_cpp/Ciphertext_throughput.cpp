@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 		cout << "The test will consist [B] seconds" << endl;
 		cout << "The Key size is [C] ." << endl;
         cout << "The Value Size is [Size]" << endl;
-        cout << "0 for put. 1 for get. 2 for getCol" << endl;
+        cout << "0 for put. 1 for get. 2 for getCol. 3 for write heavy. 4 for half write-read" << endl;
 		cout << "The Seed is [E] ." << endl;
 		return 0;
 	}
@@ -97,12 +97,46 @@ int main(int argc, char **argv)
         {
             //GetCol
         }
-        else
+        else if(3 == uiOption)
         {
-            cout << "ERROR" << endl;
-            return 0;
-        }
+			//Write Heavy
+			for (int i = 0; i < 19; i++)
+			{
+#ifdef DEF_INSERT_INDEX
+				client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), true);
+#else
+				client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), false);
+#endif
+			}
 
+			uiCnt += 19;
+
+			string stReturnScore;
+			client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+
+        }
+		else if (3 == uiOption)
+		{
+			//Half Write - Read
+#ifdef DEF_INSERT_INDEX
+			client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), true);
+#else
+			client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), false);
+#endif
+
+			uiCnt++;
+
+			string stReturnScore;
+			client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+
+			
+
+		}
+		else
+		{
+			cout << "Error Operation !" << endl;
+			return 0;
+		}
 
 		uiCnt++;
 	}

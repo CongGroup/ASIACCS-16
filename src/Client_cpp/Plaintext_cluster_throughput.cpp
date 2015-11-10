@@ -110,6 +110,36 @@ int main(int argc, char **argv)
             string stReturnScore;
             pRedisHelper->Get("StudentScoreTable|Score|" + strKey, stReturnScore);
         }
+		else if (2 == uiOption)
+		{
+			//GetCol
+		}
+		else if (3 == uiOption)
+		{
+			//Write Heavy
+			for (int i = 0; i < 19; i++)
+			{
+				pRedisHelper->Put("StudentScoreTable|Score|" + strKey, strVal);
+			}
+
+			uiCnt += 19;
+
+			string stReturnScore;
+			pRedisHelper->Get("StudentScoreTable|Score|" + strKey, stReturnScore);
+
+		}
+		else if (3 == uiOption)
+		{
+			//Half Write - Read
+
+			pRedisHelper->Put("StudentScoreTable|Score|" + strKey, strVal);
+
+			uiCnt++;
+
+			string stReturnScore;
+			pRedisHelper->Get("StudentScoreTable|Score|" + strKey, stReturnScore);
+
+		}
         else
         {
             cout << "ERROR" << endl;
