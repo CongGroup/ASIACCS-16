@@ -1,27 +1,25 @@
 #!/bin/bash
 
-if [ ! $# == 1 ]; then
+if [ ! $# == 5 ]; then
 
-echo "Usage : ./TestCT.sh [NodeNum]"
+echo "Usage : ./TestPT.sh [NodeNum] [LOOP] [OPTION] [TIME] [SEEDS]"
 exit
 
 fi
 
-LOOP=1
 
 NODENUM=$1
+LOOP=$2
+OPTION=$3
+CURTIME=$4
+SEEDS=$5
 
-CURTIME=`date +%s`
-CURTIME=$(($CURTIME+10))
-
-DURATION=20
-
+DURATION=30
 KEYSIZE=10
 VALSIZE=10
 
-OPTION=0
-
 RANDTIME=`date +%N`
+RANDTIME=${RANDTIME:0:5}$SEEDS
 
 
 get_char()
@@ -34,10 +32,6 @@ get_char()
         stty echo
         stty $SAVEDSTTY
 }
-
-
-echo $CURTIME
-echo $RANDTIME
 
 rm -f OutputPT
 

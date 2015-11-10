@@ -68,7 +68,7 @@ int main(int argc, char **argv)
     {
         RedisHelper *pRedisHelper = new RedisHelper[uiServerNum];
 
-        pRedisHelper->Open(kDemoServerIP[uiCur], kDemoServerPort[uiCur]);
+        pRedisHelper->Open(kDemoServerIP[uiCur], kRedisPort[uiCur]);
 
         //Add a node to SimConHash
         simConHash.InsertNode(uiInterval * (uiCur + 1), pRedisHelper);
