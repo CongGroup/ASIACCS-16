@@ -39,22 +39,22 @@ get_char()
 echo $CURTIME
 echo $RANDTIME
 
-rm -f OutputCT
+rm -f OutputPT
 
 for i in $(seq 1 ${LOOP})
 do
 
 echo $NODENUM $CURTIME $DURATION $KEYSIZE $VALSIZE $OPTION ${RANDTIME}
 
-echo "./Ciphertext_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $VALSIZE $OPTION ${RANDTIME}"
-./Plaintext_cluster_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $VALSIZE $OPTION ${RANDTIME} >> OutputCT &
+echo "./Plaintext_cluster_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $VALSIZE $OPTION ${RANDTIME}"
+./Plaintext_cluster_throughput $NODENUM $CURTIME $DURATION $KEYSIZE $VALSIZE $OPTION ${RANDTIME} >> OutputPT &
 
 done
 
 echo "Press any key to continue..."
 char=`get_char`
 
-awk 'BEGIN{total=0}{total+=$1}END{print total}' OutputCT
+awk 'BEGIN{total=0}{total+=$1}END{print total}' OutputPT
 
 
 
