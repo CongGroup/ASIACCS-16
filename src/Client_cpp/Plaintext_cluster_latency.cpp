@@ -18,7 +18,7 @@ string strInput[MAXRECORD];
 int main(int argc, char **argv)
 {
 
-    if (argc != 5)
+    if (argc != 6)
     {
         cout << "usage : ./" << argv[0] << " [DataNodeNum] [KeyLen] [ValLen] [Times]" << endl;
         cout << "The Key size is [X] ." << endl;
