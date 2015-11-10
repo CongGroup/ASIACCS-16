@@ -81,7 +81,7 @@ int main(int argc, char **argv)
         pRedisHelper -> Get(strInput[i], stReturnScore);
     }
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
-    cout << ((double) uiTimeDiff) / uiNum / 1000  << " ";
+    cout << ((double) uiTimeDiff) / uiNum / 1000  << "\n";
 
     cout << "-----------------------------------------------------------------------------" << endl;
     cout << "Finish Test" << endl;
