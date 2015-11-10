@@ -114,25 +114,26 @@ int main(int argc, char **argv)
 			// 	string stReturnScore;
 			// 	client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
 			// }
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-			uiCnt++; string stReturnScore; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			string stReturnScore;
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+			uiCnt++; client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
 			
 
 
