@@ -102,16 +102,18 @@ int main(int argc, char **argv)
 
 
     //Test GetCol Operation
-
     vector<string> vecResult;
 
     TimeDiff::DiffTimeInMicroSecond();
 
-    client.GetCol(vecResult, "StudentScoreTable", "Score", uiNum);
+    for (int i = 0; i < 10; ++i)
+    {
+        client.GetCol(vecResult, "StudentScoreTable", "Score", uiNum);
+    }
 
     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
 
-    cout << ((double) uiTimeDiff) / 1000  << endl;
+    cout << ((double) uiTimeDiff) / 1000 / 10  << endl;
     // cout << "Pull 1000 items from GetCol cost time: " << uiTimeDiff << endl;
 
     cout << "-----------------------------------------------------------------------------" << endl;
