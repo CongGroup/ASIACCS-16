@@ -64,40 +64,40 @@ int main(int argc, char **argv)
         arStrInput[uiCur].assign(strKey.c_str(), uiKeyLen);
     }
 
-    TimeDiff::DiffTimeInMicroSecond();
+//     TimeDiff::DiffTimeInMicroSecond();
 
-    //Test Put operation
-    for (uint32_t uiCur = 0; uiCur < uiNum; uiCur++)
-    {
+//     //Test Put operation
+//     for (uint32_t uiCur = 0; uiCur < uiNum; uiCur++)
+//     {
         
-#ifdef DEF_INSERT_INDEX
+// #ifdef DEF_INSERT_INDEX
 
-        client.Put("StudentScoreTable", arStrInput[uiCur], "Score", (char*)strVal.c_str(), strVal.length(), true);
+//         client.Put("StudentScoreTable", arStrInput[uiCur], "Score", (char*)strVal.c_str(), strVal.length(), true);
 
-#else
+// #else
 
-        client.Put("StudentScoreTable", arStrInput[uiCur], "Score", (char*)strVal.c_str(), strVal.length(), false);
+//         client.Put("StudentScoreTable", arStrInput[uiCur], "Score", (char*)strVal.c_str(), strVal.length(), false);
 
-#endif
-    }
+// #endif
+//     }
 
-    uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
+//     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
 
-    cout << ((double) uiTimeDiff) / 1000  << "\t";
-    // cout << "Putting " <<  uiNum << " items cost time: " << uiTimeDiff << endl;
+//     cout << ((double) uiTimeDiff) / 1000  << "\t";
+//     // cout << "Putting " <<  uiNum << " items cost time: " << uiTimeDiff << endl;
 
-    //Test Get operation
+//     //Test Get operation
 
-    TimeDiff::DiffTimeInMicroSecond();
+//     TimeDiff::DiffTimeInMicroSecond();
 
-    for (uint32_t uiCur = 0; uiCur < uiNum; uiCur++)
-    {
-        string stReturnScore;
-        client.Get(stReturnScore, "StudentScoreTable", arStrInput[uiCur], "Score");
-    }
+//     for (uint32_t uiCur = 0; uiCur < uiNum; uiCur++)
+//     {
+//         string stReturnScore;
+//         client.Get(stReturnScore, "StudentScoreTable", arStrInput[uiCur], "Score");
+//     }
 
-    uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
-    cout << ((double) uiTimeDiff) / 1000 << "\t";
+//     uiTimeDiff = TimeDiff::DiffTimeInMicroSecond();
+//     cout << ((double) uiTimeDiff) / 1000 << "\t";
     // cout << "Getting " <<  uiNum << " items cost time: " << uiTimeDiff << endl; 
 
 
