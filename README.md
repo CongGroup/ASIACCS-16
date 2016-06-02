@@ -1,7 +1,6 @@
-# ICDCS16_EXP
-Experiment for ICDCS16
+# AsiaCCS_EXP BlindDB
+Experiment for AsiaCCS
 
 ---
-This project is the experiment of our ICDCS16 paper.
-The detail will be exposed after we submit the paper.
-asdfasdf
+This project is the experiment of our AsiaCCS paper.
+The detail will be exposed after the acception of our paper.
