@@ -49,9 +49,9 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 
   /**
    * ProxyGet API
-   * @return Value as Binary
+   * @return Encrypted value in binary
    * 
-   * @param Trapdoor
+   * @param Trapdoor, i.e., pseudo-random label
    */
   void ProxyGet(std::string& _return, const std::string& Trapdoor) {
 
@@ -69,12 +69,12 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
   }
 
   /**
-   * ProxyPut API
+   * ProxyPut API: put and index the value
    * 
    * @param Trapdoor
-   * @param Val
+   * @param Encrypted value
    * @param IndexTrapdoor
-   * @param IndexVal
+   * @param IndexVal, i.e., encrypted pseudo-random label
    */
   void ProxyPut(const std::string& Trapdoor, const std::string& Val, const std::string& IndexTrapdoor, const std::string& IndexVal) {
 
@@ -86,6 +86,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 
 	if (0 != IndexTrapdoor.length())
 	{
+		//index the data value
 		redisHelper.PoolPut(IndexTrapdoor, IndexVal);
 
 	}
@@ -94,7 +95,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 
   /**
    * ProxyGetColumn
-   * @return a binary list of Column value
+   * @return a list of encrypted values for a given column attribute
    * 
    * @param IndexTrapdoor
    * @param IndexMask
@@ -115,11 +116,11 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 	string strVal;
 	for (uint32_t uiCounter = 0; uiCounter < GetNum; uiCounter++)
 	{
-		//Generate the Index Trapdoor (including counter)
+		//Generate the Index Trapdoor per data value with counter
 		PRF::Sha256((char*)&uiCounter, sizeof(uiCounter), (char*)IndexTrapdoor.c_str(), IndexTrapdoor.length(), szTmp, SHA256_DIGEST_LENGTH);
 		strIndexTrapdoor.assign(szTmp, SHA256_DIGEST_LENGTH);
 
-		//Generate the Index Mask (including counter)
+		//Generate the Index Mask per data value with counter
 		PRF::Sha256((char*)&uiCounter, sizeof(uiCounter), (char*)IndexMask.c_str(), IndexMask.length(), szTmp, SHA256_DIGEST_LENGTH);
 		strIndexMask.assign(szTmp, SHA256_DIGEST_LENGTH);
 
@@ -137,7 +138,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 			*(uint32_t*)(szTmp + SHA256_DIGEST_LENGTH) = 0;
 
 			//strIndexVal = [{Mask}{0000}] ^ [{FLAG}{Trapdoor}]
-			//foreach byte do XOR and get Trapdoor
+			//foreach byte do XOR (decrypt the index entry) and get Trapdoor for the data value
 			char *pTrapdoor = szTmp + sizeof(uint32_t);
 			const char *pIndexVal = strIndexVal.c_str() + sizeof(uint32_t);
 			for (uint32_t uiCur = 0; uiCur < SHA256_DIGEST_LENGTH; uiCur++)
@@ -147,7 +148,7 @@ class TProxyServiceHandler : virtual public TProxyServiceIf {
 
 			strTrapdoor.assign(pTrapdoor, SHA256_DIGEST_LENGTH);
 			
-			//Get the Value by Trapdoor
+			//Get the encrypted value by Trapdoor
 			redisHelper.PoolGet(strTrapdoor, strVal);
 
 			if (strVal.length() == 0)
