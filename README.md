@@ -112,23 +112,21 @@ redis3m (a C++ Redis client) installation:
 
   * TestPT.sh
 	
-	
 	Scripts that generate plaintext workloads
 
 
 	```
 	Usage : /BlindDB/src/Client/TestPT.sh [NodeNum] [LOOP] [OPTION] [TIME] [SEEDS]
 
-	- [NodeNum]: the number of servers.
-	- [LOOP]: the number of process to deal with the task.
-	- [OPTION]: 0 means put, 1 means get, 2 means get heary, 3 means half get half put.
-	- [TIME]: The time in second type, the operation will consist during this setting.
-	- [SEEDS]: A seed to generate random data.
+	- [NodeNum]: the number of nodes.
+	- [LOOP]: the number of clients.
+	- [OPTION]: "0" put only workload, "1" get only workload, "2" get heavy workload, "3" put heavy workload.
+	- [TIME]: time duration for the workload.
+	- [SEEDS]: random seed.
 	```
 
 
   * TestCT.sh
-	
 	
 	Scripts that generate ciphertext workloads
 
@@ -136,16 +134,15 @@ redis3m (a C++ Redis client) installation:
 	```
 	Usage : /BlindDB/src/Client/TestCT.sh [NodeNum] [LOOP] [OPTION] [TIME] [SEEDS]
 
-	- [NodeNum]: the number of servers.
-	- [LOOP]: the number of process to deal with the task.
-	- [OPTION]: 0 means put, 1 means get, 2 means get heary, 3 means half get half put.
-	- [TIME]: The time in second type, the operation will consist during this setting.
-	- [SEEDS]: A seed to generate random data.
+	- [NodeNum]: the number of nodes.
+	- [LOOP]: the number of clients.
+	- [OPTION]: "0" put only workload, "1" get only workload, "2" get heavy workload, "3" put heavy workload.
+	- [TIME]: time duration for the workload.
+	- [SEEDS]:  random seed.
 	```
 
 
   * Ciphertext Latency
-
 
 	Test the latency of each security operation
 
@@ -153,15 +150,14 @@ redis3m (a C++ Redis client) installation:
 	```
 	Usage : /BlindDB/src/Client/Ciphertext_latency [DataNodeNum] [KeyLen] [ValLen] [Times]
 
-	- [DataNodeNum]: the number of servers.
+	- [DataNodeNum]: the number of nodes.
 	- [KeyLen]: the length of key in bytes.
 	- [ValLen]: the length of value in bytes.
-	- [Times]: The operation will run setting times.
+	- [Times]: times of operations.
 	```
 
 
   * Plaintext Cluster Latency
-
 
 	Test the latency of Cluster
 
@@ -169,10 +165,10 @@ redis3m (a C++ Redis client) installation:
 	```
 	Usage : /BlindDB/src/Client/Plaintext_cluster_latency [DataNodeNum] [KeyLen] [ValLen] [Times]
 
-	- [DataNodeNum]: the number of servers.
+	- [DataNodeNum]: the number of nodes.
 	- [KeyLen]: the length of key in bytes.
 	- [ValLen]: the length of value in bytes.
-	- [Times]: The operation will run setting times.
+	- [Times]: times of operations.
 	```
 
 # MAINTAINER
