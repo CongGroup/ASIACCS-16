@@ -14,9 +14,13 @@
 
 BlindDB is an encrypted, distributed, and searchable key-value store. It achieves strong protection on data privacy while preserving prominent features of plaintext NoSQL key-value stores. BlindDB is built on a secure data partition algorithm that distributes encrypted data evenly across a cluster of nodes. It also supports multiple data models in a privacy-preserving way. Currently, two basic operations PUT/GET are implemented. To enable secure queries for encrypted secondary attributes of data, BlindDB provides searchable symmetric encryption based encrypted secondary indexes which consider security, efficiency, and data locality simultaneously. In this prototype, Redis is used as the underlying key-value store, and the column oriented data model is supported for a proof of concept.
 
+# PUBLICATION
+
+Xingliang Yuan, Xinyu Wang, Cong Wang, Chen Qian, and Jianxiong Lin, "Building an Encrypted, Distributed, and Searchable Key-value Store", In the 11th ACM Asia Conference on Computer and Communications Security (AISACCS'16).
+
 # REQUIREMENTS
 
-BlindDB is built on Ubuntu 14.04 LTS with gcc version 4.8.4.
+Recommended environment: Ubuntu 14.04 LTS with gcc version 4.8.4.
 
 This software requires the following libraries:
 
@@ -28,7 +32,7 @@ This software requires the following libraries:
 
 # INSTALLATION
 
-For linux user, we recommend to fast initialize the experiment server by the following:
+Environment setup:
 
 ```shell
  * apt-get update
@@ -36,7 +40,7 @@ For linux user, we recommend to fast initialize the experiment server by the fol
  * apt-get install libmsgpack-dev libboost-thread-dev libboost-date-time-dev libboost-test-dev libboost-filesystem-dev libboost-system-dev libhiredis-dev cmake build-essential libboost-regex-dev
 ```
 
-After the initialization, we need to install all required dependencies. First of all, install Thrift by the following:
+Thrift installation:
  
 ```shell
  * wget http://apache.communilink.net/thrift/0.9.3/thrift-0.9.3.tar.gz
@@ -46,7 +50,7 @@ After the initialization, we need to install all required dependencies. First of
  * make install
 ```
 
-Then, install Redis by the following:
+Redis installation:
 
 ```shell
  * wget http://download.redis.io/releases/redis-3.2.0.tar.gz
@@ -57,7 +61,7 @@ Then, install Redis by the following:
  * make install
  ```
 
-Lastly, install redis3m by the following:
+redis3m (a C++ Redis client) installation:
 
 ```shell
  * git clone https://github.com/luca3m/redis3m
@@ -77,7 +81,7 @@ Lastly, install redis3m by the following:
 	- redis-server &
 	```
 
- * Configure the Environment
+ * Configure the environment
 	Add the libraries paths to $LD_LIBRARY_PATH.
 
 	```shell
@@ -86,7 +90,7 @@ Lastly, install redis3m by the following:
 
 # MAKE
 
- After all the above done, let us compile BlindDB by the following:
+ Compile BlindDB:
 
 ```shell
  * git clone https://github.com/CongGroup/BlindDB
@@ -120,11 +124,7 @@ Lastly, install redis3m by the following:
 
  * Current maintainer
 
-	- Chuan QIN, the Chinese University of Hong Kong, chintran27@gmail.com
-
- * Original maintainer
-
-	- Mingqiang Li, Lenovo Hong Kong, mingqianglicn@gmail.com
+	- Xinyu Wang, City University of Hong Kong, xy.w@my.cityu.edu.hk
 
 
 
