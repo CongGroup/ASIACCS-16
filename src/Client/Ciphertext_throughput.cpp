@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 	pKeyCursorNum = (uint32_t*)(strKey.c_str());
 	*pKeyCursorNum = 0;
 
-	//Init strVal	
+	//Init strVal
 	string strVal;
 	strVal.assign(uiValLen, 'A');
 

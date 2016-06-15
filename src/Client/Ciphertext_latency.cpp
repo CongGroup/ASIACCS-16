@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 	client.InitExample(uiServerNum);
 	client.Open();
 
-	//For remember the time
+	//Timer
 	uint32_t uiTimeDiff;
 
 	//init array for store keys
