@@ -15,7 +15,7 @@
 
 /src/Client/Ciphertext_latency.cpp: for secure put/get latency and query latency evaluation.
 
-/src/Client/Ciphertext_latency.cpp: for secure put/get throughput evaluation.
+/src/Client/Ciphertext_throughput.cpp: for secure put/get throughput evaluation.
 
 /src/Client/TestPT.sh: scripts that generate plaintext workloads.
 
