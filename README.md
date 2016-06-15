@@ -54,7 +54,7 @@ Redis installation:
 
 ```shell
  * wget http://download.redis.io/releases/redis-3.2.0.tar.gz
- * tar zxvf thrift-0.9.3.tar.gz
+ * tar zxvf redis-3.2.0.tar.gz
  * cd thrift-0.9.3
  * ./configure
  * make
