@@ -73,5 +73,8 @@
     <None Include="TestCT.sh">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="TestPT.sh">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

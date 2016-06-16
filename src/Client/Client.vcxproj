@@ -141,6 +141,7 @@
     <None Include="test1.sh" />
     <None Include="test2.sh" />
     <None Include="TestCT.sh" />
+    <None Include="TestPT.sh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

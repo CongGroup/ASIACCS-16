@@ -110,15 +110,17 @@ redis3m (a C++ Redis client) installation:
 
 # EXAMPLE
 
- * After successful make
+ * Redis Benchmark Test
 
-	usage: ./CLIENT [filename] [userID] [action] [secutiyType]
+	* TestPT.sh
+	Scripts that generate plaintext workloads
+	Usage : /BlindDB/src/Client/TestPT.sh [NodeNum] [LOOP] [OPTION] [TIME] [SEEDS]
 
-	- [filename]: full path of the file;
-	- [userID]: user ID of current client;
-	- [action]: [-u] upload; [-d] download;
-	- [securityType]: [HIGH] AES-256 & SHA-256; [LOW] AES-128 & SHA-1
-
+	- [NodeNum]: the number of servers that you want to have the test.
+	- [LOOP]: the number of process to deal with the task.
+	- [OPTION]: 0 means put, 1 means get, 2 means get heary, 3 means half get half put.
+	- [TIME]: The time in second type, the operation will consist during this setting.
+	- [SEEDS]: A seed to generate random data.
 
  * To upload a file "test", assuming from user "0" using AES-256 & SHA-256
 
