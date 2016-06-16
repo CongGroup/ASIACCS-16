@@ -23,18 +23,43 @@ This software requires the following libraries:
  * OpenSSL (https://www.openssl.org/source/openssl-1.0.2a.tar.gz)
  * Thrift (http://www.apache.org/dyn/closer.cgi?path=/thrift/0.9.3/thrift-0.9.3.tar.gz)
  * boost C++ library (http://sourceforge.net/projects/boost/files/boost/1.58.0/boost_1_58_0.tar.gz)
- * LevelDB (http://download.redis.io/releases/redis-3.2.0.tar.gz)
+ * Redis (http://download.redis.io/releases/redis-3.2.0.tar.gz)
+ * Redis3m (https://github.com/luca3m/redis3m)
 
 # INSTALLATION
 
 For linux user, we recommend to fast initialize the experiment server by the following:
 
- * sudo apt-get update
- * sudo apt-get install gcc g++ libssl-dev libgmp-dev make cmake libboost-dev libboost-test-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libevent-dev automake libtool flex bison pkg-config libglib2.0-dev
+ * apt-get update
+ * apt-get install gcc g++ libssl-dev libgmp-dev make cmake libboost-dev libboost-test-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libevent-dev automake libtool flex bison pkg-config libglib2.0-dev git
+ * apt-get install libmsgpack-dev libboost-thread-dev libboost-date-time-dev libboost-test-dev libboost-filesystem-dev libboost-system-dev libhiredis-dev cmake build-essential libboost-regex-dev
 
 After the initialization, we need to install all required dependencies. First of all, install Thrift by the following:
  
- * 
+ * wget http://apache.communilink.net/thrift/0.9.3/thrift-0.9.3.tar.gz
+ * tar zxvf 
+ * cd 
+ * make
+ * make install
+
+Then, install Redis by the following:
+
+ * wget http://download.redis.io/releases/redis-3.2.0.tar.gz
+ * tar zxvf thrift-0.9.3.tar.gz
+ * cd thrift-0.9.3
+ * ./configure
+ * make
+ * make install
+
+Then, install redis3m by the following:
+
+ * git clone https://github.com/luca3m/redis3m
+ * cd redis3m
+ * cmake .
+ * make
+ * make install
+
+
 
 # CONFIGURATION
 
