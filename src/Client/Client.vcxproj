@@ -134,6 +134,7 @@
     <ClCompile Include="Plaintext_cluster_throughput.cpp" />
     <ClCompile Include="ProxyServer_constants.cpp" />
     <ClCompile Include="ProxyServer_types.cpp" />
+    <ClCompile Include="TestGet.cpp" />
     <ClCompile Include="TProxyService.cpp" />
   </ItemGroup>
   <ItemGroup>

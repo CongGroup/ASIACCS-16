@@ -78,14 +78,14 @@ redis3m (a C++ Redis client) installation:
 	Start the redis server listening on port 6379.
 
 	```shell
-	- redis-server &
+	* redis-server &
 	```
 
  * Configure the environment
 	Add the libraries paths to $LD_LIBRARY_PATH.
 
 	```shell
-	- export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+	* export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 	```
  * Configure IPs and Ports
 	Input IP and PORT of each machine to an configuration file by replace the following codes in /BlindDB/src/Client/DemoConfig.h
@@ -114,25 +114,52 @@ redis3m (a C++ Redis client) installation:
 
 	* TestPT.sh
 	Scripts that generate plaintext workloads
+
+	```
 	Usage : /BlindDB/src/Client/TestPT.sh [NodeNum] [LOOP] [OPTION] [TIME] [SEEDS]
 
-	- [NodeNum]: the number of servers that you want to have the test.
+	- [NodeNum]: the number of servers.
 	- [LOOP]: the number of process to deal with the task.
 	- [OPTION]: 0 means put, 1 means get, 2 means get heary, 3 means half get half put.
 	- [TIME]: The time in second type, the operation will consist during this setting.
 	- [SEEDS]: A seed to generate random data.
+	```
 
+	* TestCT.sh
+	Scripts that generate ciphertext workloads
 
+	```
+	Usage : /BlindDB/src/Client/TestCT.sh [NodeNum] [LOOP] [OPTION] [TIME] [SEEDS]
 
- * To upload a file "test", assuming from user "0" using AES-256 & SHA-256
+	- [NodeNum]: the number of servers.
+	- [LOOP]: the number of process to deal with the task.
+	- [OPTION]: 0 means put, 1 means get, 2 means get heary, 3 means half get half put.
+	- [TIME]: The time in second type, the operation will consist during this setting.
+	- [SEEDS]: A seed to generate random data.
+	```
 
-	./CLIENT test 0 -u HIGH
+	* Ciphertext Latency
+	Test the latency of each security operation
 
- * To download a file "test", assuming from user "1" using AES-128 & SHA-1
+	```
+	Usage : /BlindDB/src/Client/Ciphertext_latency [DataNodeNum] [KeyLen] [ValLen] [Times]
 
-	./CLIENT test 1 -d LOW
+	- [DataNodeNum]: the number of servers.
+	- [KeyLen]: the length of key in bytes.
+	- [ValLen]: the length of value in bytes.
+	- [Times]: The operation will run setting times.
+	```
 
+	* Plaintext Cluster Latency
+	Test the latency of Cluster
+	```
+	Usage : /BlindDB/src/Client/Plaintext_cluster_latency [DataNodeNum] [KeyLen] [ValLen] [Times]
 
+	- [DataNodeNum]: the number of servers.
+	- [KeyLen]: the length of key in bytes.
+	- [ValLen]: the length of value in bytes.
+	- [Times]: The operation will run setting times.
+	```
 
 # MAINTAINER
 
