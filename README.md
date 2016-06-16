@@ -122,6 +122,8 @@ redis3m (a C++ Redis client) installation:
 	- [TIME]: The time in second type, the operation will consist during this setting.
 	- [SEEDS]: A seed to generate random data.
 
+
+
  * To upload a file "test", assuming from user "0" using AES-256 & SHA-256
 
 	./CLIENT test 0 -u HIGH
