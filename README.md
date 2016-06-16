@@ -88,7 +88,7 @@ redis3m (a C++ Redis client) installation:
 	* export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 	```
  * Configure IPs and Ports
-	Input IP and PORT of each machine to an configuration file by replace the following codes in /BlindDB/src/Client/DemoConfig.h
+	Input IP and PORT of each machine to an configuration file in /BlindDB/src/Client/DemoConfig.h
 
 	```cpp
 	#define DEMO_SECURITY_KEY "adfaksdfjklasdjflajsdiofjasodf"
@@ -144,7 +144,7 @@ redis3m (a C++ Redis client) installation:
 
   * Ciphertext Latency
 
-	Test the latency of each security operation
+	Test the latency of secure PUT/GET operations
 
 
 	```
@@ -159,7 +159,7 @@ redis3m (a C++ Redis client) installation:
 
   * Plaintext Cluster Latency
 
-	Test the latency of Cluster
+	Test the latency of PUT/GET operations 
 
 
 	```
