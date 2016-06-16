@@ -44,12 +44,14 @@ After the initialization, we need to install all required dependencies. First of
 
 Then, install Redis by the following:
 
+```shell
  * wget http://download.redis.io/releases/redis-3.2.0.tar.gz
  * tar zxvf thrift-0.9.3.tar.gz
  * cd thrift-0.9.3
  * ./configure
  * make
  * make install
+ ```
 
 Lastly, install redis3m by the following:
 
