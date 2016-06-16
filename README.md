@@ -110,10 +110,11 @@ redis3m (a C++ Redis client) installation:
 
 # EXAMPLE
 
- * Redis Benchmark Test
-
-	* TestPT.sh
+  * TestPT.sh
+	
+	
 	Scripts that generate plaintext workloads
+
 
 	```
 	Usage : /BlindDB/src/Client/TestPT.sh [NodeNum] [LOOP] [OPTION] [TIME] [SEEDS]
@@ -125,8 +126,12 @@ redis3m (a C++ Redis client) installation:
 	- [SEEDS]: A seed to generate random data.
 	```
 
-	* TestCT.sh
+
+  * TestCT.sh
+	
+	
 	Scripts that generate ciphertext workloads
+
 
 	```
 	Usage : /BlindDB/src/Client/TestCT.sh [NodeNum] [LOOP] [OPTION] [TIME] [SEEDS]
@@ -138,8 +143,12 @@ redis3m (a C++ Redis client) installation:
 	- [SEEDS]: A seed to generate random data.
 	```
 
-	* Ciphertext Latency
+
+  * Ciphertext Latency
+
+
 	Test the latency of each security operation
+
 
 	```
 	Usage : /BlindDB/src/Client/Ciphertext_latency [DataNodeNum] [KeyLen] [ValLen] [Times]
@@ -150,8 +159,13 @@ redis3m (a C++ Redis client) installation:
 	- [Times]: The operation will run setting times.
 	```
 
-	* Plaintext Cluster Latency
+
+  * Plaintext Cluster Latency
+
+
 	Test the latency of Cluster
+
+
 	```
 	Usage : /BlindDB/src/Client/Plaintext_cluster_latency [DataNodeNum] [KeyLen] [ValLen] [Times]
 
