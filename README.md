@@ -30,21 +30,25 @@ This software requires the following libraries:
 
 For linux user, we recommend to fast initialize the experiment server by the following:
 
+```
  * apt-get update
  * apt-get install gcc g++ libssl-dev libgmp-dev make cmake libboost-dev libboost-test-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libevent-dev automake libtool flex bison pkg-config libglib2.0-dev git
  * apt-get install libmsgpack-dev libboost-thread-dev libboost-date-time-dev libboost-test-dev libboost-filesystem-dev libboost-system-dev libhiredis-dev cmake build-essential libboost-regex-dev
+```
 
 After the initialization, we need to install all required dependencies. First of all, install Thrift by the following:
  
+```
  * wget http://apache.communilink.net/thrift/0.9.3/thrift-0.9.3.tar.gz
  * tar zxvf 
  * cd 
  * make
  * make install
+```
 
 Then, install Redis by the following:
 
-```shell
+```
  * wget http://download.redis.io/releases/redis-3.2.0.tar.gz
  * tar zxvf thrift-0.9.3.tar.gz
  * cd thrift-0.9.3
@@ -55,32 +59,40 @@ Then, install Redis by the following:
 
 Lastly, install redis3m by the following:
 
+```
  * git clone https://github.com/luca3m/redis3m
  * cd redis3m
  * cmake .
  * make
  * make install
+```
 
 # CONFIGURATION
 
 
  * Configure the Redis
 	Start the redis server listening on port 6379.
-	
+
+	```
 	- redis-server &
+	```
 
  * Configure the Environment
 	Add the libraries paths to $LD_LIBRARY_PATH.
 
+	```
 	- export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+	```
 
 # MAKE
 
  After all the above done, let us compile BlindDB by the following:
 
+```
  * git clone https://github.com/CongGroup/BlindDB
  * cd BlindDB/src
  * make
+```
 
 # EXAMPLE
 
