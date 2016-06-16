@@ -19,8 +19,8 @@ int main(int argc, char **argv)
 		cout << "The test will begin at [A] ." << endl;
 		cout << "The test will consist [B] seconds" << endl;
 		cout << "The Key size is [C] ." << endl;
-        cout << "The Value Size is [Size]" << endl;
-        cout << "0 for put. 1 for get. 2 for getCol. 3 for write heavy. 4 for half write-read" << endl;
+		cout << "The Value Size is [Size]" << endl;
+		cout << "0 for put. 1 for get. 2 for getCol. 3 for write heavy. 4 for half write-read" << endl;
 		cout << "The Seed is [E] ." << endl;
 		return 0;
 	}
@@ -32,8 +32,8 @@ int main(int argc, char **argv)
 	sscanf(argv[2], "%u", &uiBeg);
 	sscanf(argv[3], "%u", &uiTime);
 	sscanf(argv[4], "%u", &uiKeyLen);
-    sscanf(argv[5], "%u", &uiValLen);
-    sscanf(argv[6], "%u", &uiOption);
+	sscanf(argv[5], "%u", &uiValLen);
+	sscanf(argv[6], "%u", &uiOption);
 	sscanf(argv[7], "%u", &uiSeed);
 
 	//Compute the params
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 	string strKey;
 	strKey.assign(uiKeyLen, '0');
 	//This number will be changed to simulate the random key.
-	//[ {OOOO} {XXXXXXXXXXXXXXXXXXXXXXXXXXXXX} ]  {OOOO} means the number;  {XXXX} means the padding for key
+	//[ {OOOO} {XXXXXXXXXXXXXXXXXXXXXXXXXXXXX} ]  {OOOO} for the number;  {XXXX} for the padding
 	//strKey should not be assign
 	uint32_t *pKeyCursorNum;
 	pKeyCursorNum = (uint32_t*)(strKey.c_str());
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 
 	//Init strVal	
 	string strVal;
-    strVal.assign(uiValLen, 'A');
+	strVal.assign(uiValLen, 'A');
 
 	//Init the client to server
 	ClientCpp client;
@@ -78,27 +78,27 @@ int main(int argc, char **argv)
 
 		(*pKeyCursorNum)++;
 
-        //Put
-        if (0 == uiOption)
-        {
+		//Put
+		if (0 == uiOption)
+		{
 #ifdef DEF_INSERT_INDEX
-            client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), true);
+			client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), true);
 #else
-            client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), false);
+			client.Put("StudentScoreTable", strKey, "Score", (char*)strVal.c_str(), strVal.length(), false);
 #endif
-        }
-        //Get
-        else if (1 == uiOption)
-        {
-            string stReturnScore;
-            client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
-        }
-        else if (2 == uiOption)
-        {
-            //GetCol
-        }
-        else if(3 == uiOption)
-        {
+		}
+		//Get
+		else if (1 == uiOption)
+		{
+			string stReturnScore;
+			client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
+		}
+		else if (2 == uiOption)
+		{
+			//GetCol
+		}
+		else if(3 == uiOption)
+		{
 
 			//Read Heavy
 
@@ -116,7 +116,7 @@ int main(int argc, char **argv)
 				client.Get(stReturnScore, "StudentScoreTable", strKey, "Score");
 			}
 
-        }
+		}
 		else if (4 == uiOption)
 		{
 			//Half Write Heavy

@@ -40,7 +40,7 @@ int main(int argc, char **argv)
     string strKey;
     strKey.assign(uiKeyLen, '0');
     //This number will be changed to simulate the random key.
-    //[ {OOOO} {XXXXXXXXXXXXXXXXXXXXXXXXXXXXX} ]  {OOOO} means the number;  {XXXX} means the padding for key
+    //[ {OOOO} {XXXXXXXXXXXXXXXXXXXXXXXXXXXXX} ]  {OOOO} for the number;  {XXXX} for the padding
     //strKey should not be assign
     uint32_t *pKeyCursorNum;
     pKeyCursorNum = (uint32_t*)(strKey.c_str());

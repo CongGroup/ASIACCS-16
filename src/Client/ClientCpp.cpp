@@ -70,7 +70,7 @@ void ClientCpp::Get(string &_retVal, string stTable, string stKey, string stCol)
     string strRet;
     pClient->ProxyGet(strRet, strTrapdoor);
 
-    //we assume strRet.length == 0 means the key do not exist.
+    //If strRet.length == 0 then the key does not exist.
     if (strRet.length() != 0)
     {
         //Decrypt the data
@@ -89,11 +89,11 @@ void ClientCpp::Put(string stTable, string stKey, string stCol, char *pVal, uint
     string strTrapdoor;
     strTrapdoor.assign(szTd, SHA256_DIGEST_LENGTH);
 
-    //AES the data
+    //Encrypt the data using AES
     string strSendVal;
     m_Encrypt(strSendVal, pVal, uiLen);
 
-    //Check the Router to choose a server to send request.
+    //Check the Dispatcher to choose a server to send request.
     uint32_t uiKey = *(uint32_t*)szTd ^ *(uint32_t*)(szTd + 4) ^ *(uint32_t*)(szTd + 8) ^ *(uint32_t*)(szTd + 16) ^ *(uint32_t*)(szTd + 20) ^ *(uint32_t*)(szTd + 24) ^ *(uint32_t*)(szTd + 28);
 
     ThriftAdapt<TProxyServiceClient> *pThriftAdapt = *(m_SimConHash.Query(uiKey));
@@ -170,7 +170,7 @@ void ClientCpp::GetCol(vector<string> &_retVal, string stTable, string stCol, ui
     ThriftAdapt<TProxyServiceClient> **parThriftAdapt = m_SimConHash.GetArray();
     uint32_t uiServerNum = m_SimConHash.GetNodeNum();
 
-    //Send the request to all server and collect the results
+    //Send the request to all servers and collect the results
     vector<string> vecRet;
     vector<string> vecCiphertext;
     for (uint32_t uiCur = 0; uiCur < uiServerNum; uiCur++)
@@ -249,7 +249,7 @@ void ClientCpp::InitExample(uint32_t uiServerNum)
 
 void ClientCpp::m_Decrypt(string &strCiphertext, string &strPlaintext)
 {
-    //Decrypt the AES
+    //AES Decryption
     char *pDec = new char[AES::CbcMaxsize(strCiphertext.length())];
 
     memset(pDec, 0, strCiphertext.length());
@@ -266,6 +266,7 @@ void ClientCpp::m_Decrypt(string &strCiphertext, string &strPlaintext)
 
 void ClientCpp::m_Encrypt(string &strCiphertext, char *pPlaintext, uint32_t uiPlaintextLen)
 {
+    //AES Encryption
 
     char *pEnc = new char[AES::CbcMaxsize(uiPlaintextLen)];
 
