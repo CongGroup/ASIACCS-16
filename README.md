@@ -12,7 +12,7 @@
 
 # INTRODUCTION
 
-BlindDB is an encrypted, distributed, and searchable key-value store. It achieves strong protection on data privacy while preserving prominent features of plaintext NoSQL key-value stores. BlindDB is built on a secure data partition algorithm that distributes encrypted data evenly across a cluster of nodes. It also supports multiple data models in a privacy-preserving way. Currently, two basic APIs PUT/GET are implemented. To enable secure queries for encrypted secondary attributes of data, BlindDB provides searchable symmetric encryption based encrypted secondary indexes which consider security, efficiency, and data locality simultaneously. In this prototype, Redis is used as the underlying key-value store, and the column oriented data model is supported for a proof of concept.
+BlindDB is an encrypted, distributed, and searchable key-value store. It achieves strong protection on data privacy while preserving prominent features of plaintext NoSQL key-value stores. BlindDB is built on a secure data partition algorithm that distributes encrypted data evenly across a cluster of nodes. It also supports multiple data models in a privacy-preserving way. Currently, two basic operations PUT/GET are implemented. To enable secure queries for encrypted secondary attributes of data, BlindDB provides searchable symmetric encryption based encrypted secondary indexes which consider security, efficiency, and data locality simultaneously. In this prototype, Redis is used as the underlying key-value store, and the column oriented data model is supported for a proof of concept.
 
 # REQUIREMENTS
 
@@ -51,7 +51,7 @@ Then, install Redis by the following:
  * make
  * make install
 
-Then, install redis3m by the following:
+Lastly, install redis3m by the following:
 
  * git clone https://github.com/luca3m/redis3m
  * cd redis3m
@@ -59,57 +59,26 @@ Then, install redis3m by the following:
  * make
  * make install
 
-
-
 # CONFIGURATION
 
 
- * Configure the server (CDStore requires at least 4 storage server)
-
-	- Make sure there are three directories under /server/meta
-	- "DedupDB" for levelDB logs
-	- "RecipeFiles" for temp recipe files
-	- "ShareContainers" for share local cache
-	- Start a server by "./SERVER [port]"
-
- * Configure the client
-
-	- In the configure file /client/config, specify the storage nodes line by line with [IP]:[port]
-
-	Example: you have run 4 servers with "./SERVER [port]" on machines:
-		- 192.168.0.30 with port 11030
-		- 192.168.0.31 with port 11031
-		- 192.168.0.32 with port 11032
-		- 192.168.0.33 with port 11033
-		
-		you need to specify the ip and port in config with following format: 
-
-			192.168.0.30:11030
-			192.168.0.31:11031
-			192.168.0.32:11032
-			192.168.0.33:11033
-
-		(the actual order doesn't matter)
+ * Configure the Redis
+	Start the redis server listening on port 6379.
 	
-	- (Optional) In the configure class of client, /client/util/conf.hh
+	- redis-server &
 
-		- set chunk and secure parameters following the comments
-		- set the number of storage nodes according to your running servers
+ * Configure the Environment
+	Add the libraries paths to $LD_LIBRARY_PATH.
+
+	- export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
 # MAKE
 
+ After all the above done, let us compile BlindDB by the following:
 
-	To make a client, on the client machine:
-
-	 * Go to /client/lib/, type "make" to make gf_complete
-	 * Back to /client/, type "make" to get the executable CLIENT program
-
-	To make a server, on each storage node:
-
-	 * Go to /server/lib/leveldb/, type "make" to make levelDB
-	 * Back to /server/, type "make" to get the executable SERVER program
-
-
+ * git clone https://github.com/CongGroup/BlindDB
+ * cd BlindDB/src
+ * make
 
 # EXAMPLE
 
