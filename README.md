@@ -176,6 +176,7 @@ redis3m (a C++ Redis client) installation:
 
 	- Xinyu Wang, City University of Hong Kong, xy.w@my.cityu.edu.hk
 	- Xingliang Yuan, City University of Hong Kong, xl.y@my.cityu.edu.hk
+	- Cong Wang, City University of Hong Kong, congwang@cityu.edu.hk
 	
  * Prior team member
  	
